@@ -1,29 +1,36 @@
 package org.sebasi.mep.edenborn.mind.internal;
 
-public class Neuron {
+public abstract class Neuron {
+
+    private final long neuronId;
     private final NeuronAddress neuronAddress;
     private final NeuronCluster neuronCluster;
-
-    private final long cellId;
+    private final NeuronType neuronType;
 
     public Neuron(
             NeuronCluster neuronCluster,
-            long cellId) {
+            long neuronId,
+            NeuronType neuronType) {
         this.neuronCluster = neuronCluster;
-        this.cellId = cellId;
+        this.neuronId = neuronId;
+        this.neuronType = neuronType;
         this.neuronAddress = new NeuronAddress(
                 neuronCluster.getNeuronGroup().getNeuronRegion().getRegionId(),
                 neuronCluster.getNeuronGroup().getGroupId(),
                 neuronCluster.getClusterId(),
-                cellId);
+                neuronId);
     }
 
-    public long getCellId() {
-        return cellId;
+    public long getNeuronId() {
+        return neuronId;
     }
 
     public NeuronCluster getNeuronCluster() {
         return neuronCluster;
+    }
+
+    public NeuronType getNeuronType() {
+        return neuronType;
     }
 
     public NeuronAddress getNeuronAddress() {
@@ -33,7 +40,9 @@ public class Neuron {
     @Override
     public String toString() {
         return "Neuron{" +
-                "neuronAddress=" + neuronAddress +
+                "neuronId=" + neuronId +
+                ", neuronAddress=" + neuronAddress +
+                ", neuronType=" + neuronType +
                 '}';
     }
 }
