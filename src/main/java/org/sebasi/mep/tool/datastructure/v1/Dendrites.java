@@ -6,11 +6,17 @@ public abstract class Dendrites {
     protected static final int NUM_DENDRITE_INPUTS = 65536;
 
     protected byte[] inputPortInfo;
+    protected int numConnectedPorts;
 
-    int numConnectedPorts = 0;
+    Helper helper;
 
-    public Dendrites() {
+    public Dendrites(Helper helper) {
+        this.helper = helper;
         initializePortInfo();
+    }
+
+    public boolean isPortAttached(int port) {
+        return doPortInfoBitsIndicateItIsConnected(getPortInfoBits(port));
     }
 
     // If the accumulator firing threshold is reached or exceeded, the neuron fires, sending a signal

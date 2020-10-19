@@ -12,13 +12,15 @@ public class NeuronWithoutMemory extends Neuron {
     // yields the same strength input.
     int defaultInputSignalStrength;
 
-    public NeuronWithoutMemory() {
-        this(null);
+    public NeuronWithoutMemory(Helper helper) {
+        this(helper, null);
     }
 
-    public NeuronWithoutMemory(String label) {
-        super(label);
-        dendrites = new DendritesWithoutMemory();
+    public NeuronWithoutMemory(
+            Helper helper,
+            String label) {
+        super(helper, label);
+        dendrites = new DendritesWithoutMemory(helper);
         dendritesWithoutMemory = (DendritesWithoutMemory) dendrites;
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }

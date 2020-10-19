@@ -13,7 +13,7 @@ public class DendritesWithMemoryTest {
 
     @Test
     public void testInfoBits() {
-        DendritesWithMemory den = new DendritesWithMemory();
+        DendritesWithMemory den = new DendritesWithMemory(new Helper());
         assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.

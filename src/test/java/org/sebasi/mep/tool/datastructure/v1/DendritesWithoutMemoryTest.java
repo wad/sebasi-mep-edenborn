@@ -13,13 +13,14 @@ import static org.junit.Assert.assertTrue;
 public class DendritesWithoutMemoryTest {
 
     @Test
-    public void testIt() {
+    public void testNumBytesToHoldPortInfo() {
+        // Eight ports fit into a single byte, so this is 1/8 of the number of ports.
         assertEquals(8192, DendritesWithoutMemory.NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO);
     }
 
     @Test
     public void testInfoBits() {
-        DendritesWithoutMemory den = new DendritesWithoutMemory();
+        DendritesWithoutMemory den = new DendritesWithoutMemory(new Helper());
         assertEquals(0, den.computeFiringThreshold());
         assertFalse(den.doPortInfoBitsIndicateItIsConnected((byte) 0));
         assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 1));
@@ -35,8 +36,10 @@ public class DendritesWithoutMemoryTest {
         den.inputPortInfo[7] = 0x40; // ports 56 - 63, 57 is high
         den.inputPortInfo[8] = (byte)0x80; // ports 64 - 71, 64 is high
 
+        // only these ports are connected.
         Set<Integer> highPorts = new HashSet<>(Arrays.asList(15, 22, 29, 36, 43, 50, 57, 64));
 
+        // verify that everything is working
         for (int port = 0; port < 100; port++) {
             if (highPorts.contains(port)) {
                 assertEquals("PORT=" + port + " should have been high.", 1, den.getPortInfoBits(port));
@@ -44,6 +47,11 @@ public class DendritesWithoutMemoryTest {
                 assertEquals("PORT=" + port + " should have been low.", 0, den.getPortInfoBits(port));
             }
         }
+    }
+
+    @Test
+    public void testAttachDetachPorts() {
+        DendritesWithoutMemory den = new DendritesWithoutMemory(new Helper());
 
         den.attachPort(1000);
         den.attachPort(1001);

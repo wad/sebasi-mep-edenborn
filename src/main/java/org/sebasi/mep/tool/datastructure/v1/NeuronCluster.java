@@ -10,12 +10,14 @@ public class NeuronCluster extends Cluster {
     List<Neuron> neurons = null;
     Map<String, Neuron> neuronsByLabel;
 
-    public NeuronCluster() {
-        this(null);
+    public NeuronCluster(Helper helper) {
+        this(helper, null);
     }
 
-    public NeuronCluster(String label) {
-        super(label);
+    public NeuronCluster(
+            Helper helper,
+            String label) {
+        super(helper, label);
     }
 
     private List<Neuron> getNeurons() {

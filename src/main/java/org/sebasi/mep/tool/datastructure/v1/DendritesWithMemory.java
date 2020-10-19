@@ -34,6 +34,10 @@ public class DendritesWithMemory extends Dendrites {
     static final int PORT_STRENGTH_DEFAULT_VALUE = 2;
     static final int PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL = 0x8;
 
+    public DendritesWithMemory(Helper helper) {
+        super(helper);
+    }
+
     @Override
     public long computeFiringThreshold() {
         // Just a starting formula. There are probably better ones.
@@ -50,37 +54,53 @@ public class DendritesWithMemory extends Dendrites {
     public void attachPort(
             int port,
             int strength) {
-        int index = convertPortToBitInfoIndex(port);
-        int infoBitsForBoth = inputPortInfo[index];
 
-        int infoBitsForOne = convertStrengthToInfoBits(strength);
-
-        boolean isPortIndexEven = (port & 1) == 0;
-        if (isPortIndexEven) {
-            inputPortInfo[index] = (byte) (infoBitsForBoth | (infoBitsForOne << 4));
-        } else {
-            inputPortInfo[index] = (byte) (infoBitsForBoth | infoBitsForOne);
+        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+            if (isPortAttached(port)) {
+                throw new RuntimeException("Attempted to connect, but already connected.");
+            }
         }
+
+        int bitInfoIndex = convertPortToBitInfoIndex(port);
+        int infoBitsForBoth = inputPortInfo[bitInfoIndex];
+        int newInfoBitsForOne = convertStrengthToInfoBits(strength);
+        if (isPortEven(port)) {
+            inputPortInfo[bitInfoIndex] = (byte) (infoBitsForBoth | (newInfoBitsForOne << 4));
+        } else {
+            inputPortInfo[bitInfoIndex] = (byte) (infoBitsForBoth | newInfoBitsForOne);
+        }
+        numConnectedPorts++;
     }
 
     @Override
     public void detachPort(int port) {
-        int index = port >>> 1;
-        int infoBitsForBoth = inputPortInfo[index];
-        inputPortInfo[index] = (byte) (infoBitsForBoth & getMaskForSetting(port));
+
+        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+            if (!isPortAttached(port)) {
+                throw new RuntimeException("Attempted to disconnect, but not connected.");
+            }
+        }
+
+        int bitInfoIndex = convertPortToBitInfoIndex(port);
+        int infoBitsForBoth = inputPortInfo[bitInfoIndex];
+
+        // Set either left leftmost 4 bits to 0000, or the rightmost 4 bits to 0000, leaving the other side alone.
+        inputPortInfo[bitInfoIndex] = (byte) (infoBitsForBoth & getMaskForSetting(port));
+
+        numConnectedPorts--;
     }
 
     @Override
     protected void initializePortInfo() {
         // initialized to zeroes, which means none of the ports are connected.
         inputPortInfo = new byte[NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO];
+        numConnectedPorts = 0;
     }
 
     @Override
     int getPortInfoBits(int port) {
-        int infoBits = inputPortInfo[port >>> 1];
-        boolean isPortIndexEven = (port & 1) == 0;
-        if (isPortIndexEven) {
+        int infoBits = inputPortInfo[convertPortToBitInfoIndex(port)];
+        if (isPortEven(port)) {
             return (infoBits & 0xF0) >>> 4;
         } else {
             return infoBits & 0x0F;
@@ -113,12 +133,11 @@ public class DendritesWithMemory extends Dendrites {
         return port >>> 1;
     }
 
+    boolean isPortEven(int port) {
+        return (port & 1) == 0;
+    }
+
     int getMaskForSetting(int port) {
-        boolean isPortIndexEven = (port & 1) == 0;
-        if (isPortIndexEven) {
-            return 0x0F;
-        } else {
-            return 0xF0;
-        }
+        return isPortEven(port) ? 0x0F : 0xF0;
     }
 }

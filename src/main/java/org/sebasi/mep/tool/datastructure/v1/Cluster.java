@@ -7,15 +7,19 @@ import java.util.Map;
 
 public class Cluster {
 
+    Helper helper;
     String label;
     List<Cluster> clusters = null;
     Map<String, Cluster> clustersByLabel = null;
 
-    public Cluster() {
-        this(null);
+    public Cluster(Helper helper) {
+        this(helper, null);
     }
 
-    public Cluster(String label) {
+    public Cluster(
+            Helper helper,
+            String label) {
+        this.helper = helper;
         this.label = label;
     }
 

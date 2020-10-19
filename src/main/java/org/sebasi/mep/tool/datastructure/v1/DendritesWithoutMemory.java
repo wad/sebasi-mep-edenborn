@@ -5,8 +5,8 @@ public class DendritesWithoutMemory extends Dendrites {
     // One bit per port, so divide the number of ports by 8.
     static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >>> 3;
 
-    public DendritesWithoutMemory() {
-        super();
+    public DendritesWithoutMemory(Helper helper) {
+        super(helper);
     }
 
     @Override
@@ -17,23 +17,38 @@ public class DendritesWithoutMemory extends Dendrites {
 
     @Override
     public void attachPort(int port) {
+        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+            if (isPortAttached(port)) {
+                throw new RuntimeException("Attempted to attach port, but it's already attached.");
+            }
+        }
+
         int infoBitIndex = convertPortNumberToInfoBitIndex(port);
         byte infoBits = inputPortInfo[infoBitIndex];
         inputPortInfo[infoBitIndex] = (byte) (infoBits | getMaskForSetting(port));
+        numConnectedPorts++;
     }
 
     @Override
     public void detachPort(int port) {
+        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+            if (!isPortAttached(port)) {
+                throw new RuntimeException("Attempted to detach port, but it's not attached.");
+            }
+        }
+
         int bitInfoIndex = convertPortNumberToInfoBitIndex(port);
         byte infoBits = inputPortInfo[bitInfoIndex];
         byte zeroMask = (byte) (~getMaskForSetting(port));
         inputPortInfo[bitInfoIndex] = (byte) (infoBits & zeroMask);
+        numConnectedPorts--;
     }
 
     @Override
     protected void initializePortInfo() {
         // initialized to zeroes, which means none of the ports are connected.
         inputPortInfo = new byte[NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO];
+        numConnectedPorts = 0;
     }
 
     // just returns one bit

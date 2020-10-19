@@ -10,13 +10,18 @@ public abstract class Neuron {
 
     protected Dendrites dendrites;
 
+    Helper helper;
+
     Axon axon;
 
-    public Neuron() {
-        this(null);
+    public Neuron(Helper helper) {
+        this(helper, null);
     }
 
-    public Neuron(String label) {
+    public Neuron(
+            Helper helper,
+            String label) {
+        this.helper = helper;
         this.label = label;
         axon = new Axon();
         resetAccumulator();

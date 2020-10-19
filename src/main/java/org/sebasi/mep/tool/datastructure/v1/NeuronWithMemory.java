@@ -4,13 +4,15 @@ public class NeuronWithMemory extends Neuron {
 
     DendritesWithMemory dendritesWithMemory;
 
-    public NeuronWithMemory() {
-        this(null);
+    public NeuronWithMemory(Helper helper) {
+        this(helper, null);
     }
 
-    public NeuronWithMemory(String label) {
-        super(label);
-        dendrites = new DendritesWithMemory();
+    public NeuronWithMemory(
+            Helper helper,
+            String label) {
+        super(helper, label);
+        dendrites = new DendritesWithMemory(helper);
         dendritesWithMemory = (DendritesWithMemory) dendrites;
     }
 
