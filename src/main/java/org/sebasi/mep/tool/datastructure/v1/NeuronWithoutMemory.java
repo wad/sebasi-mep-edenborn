@@ -1,5 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+
 // The dendrites (and their synapses) in this type of neuron don't have strengths, which
 // means that they can't "learn".
 public class NeuronWithoutMemory extends Neuron {
@@ -20,7 +22,7 @@ public class NeuronWithoutMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-        dendrites = new Dendrites16kWithoutMemory(helper);
+        dendrites = new Dendrites16kWithoutMemory(this);
         dendrites16kWithoutMemory = (Dendrites16kWithoutMemory) dendrites;
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }

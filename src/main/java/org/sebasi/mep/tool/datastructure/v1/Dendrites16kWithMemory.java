@@ -3,6 +3,8 @@ package org.sebasi.mep.tool.datastructure.v1;
 // todo: Strengthen synapses when they receive input (might depend on a probability)
 // todo: Reduce strength of synapse when they don't receive input (definitely depending on a probability)
 
+import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
+
 public class Dendrites16kWithMemory extends Dendrites {
 
     static final int NUM_DENDRITE_INPUTS = 65536;
@@ -33,8 +35,8 @@ public class Dendrites16kWithMemory extends Dendrites {
     static final int PORT_STRENGTH_DEFAULT_VALUE = 2;
     static final int PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL = 0x8;
 
-    public Dendrites16kWithMemory(Helper helper) {
-        super(helper);
+    public Dendrites16kWithMemory(Neuron neuron) {
+        super(neuron);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class Dendrites16kWithMemory extends Dendrites {
             int port,
             int strength) {
 
-        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+        if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
             if (isPortAttached(port)) {
                 throw new RuntimeException("Attempted to connect, but already connected.");
             }
@@ -74,9 +76,11 @@ public class Dendrites16kWithMemory extends Dendrites {
     @Override
     public void detachPort(int port) {
 
-        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+        if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
             if (!isPortAttached(port)) {
-                throw new RuntimeException("Attempted to disconnect, but not connected.");
+                throw new NeuronConnectionException(
+                        "Attempted to disconnect, but not connected.",
+                        neuron.getLabel());
             }
         }
 
@@ -121,8 +125,13 @@ public class Dendrites16kWithMemory extends Dendrites {
 
     int lookupPortStrength(int port) {
         int infoBits = getPortInfoBits(port);
-        if (!doPortInfoBitsIndicateItIsConnected(infoBits)) {
-            throw new RuntimeException("Bug: port not connected.");
+
+        if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
+            if (!doPortInfoBitsIndicateItIsConnected(infoBits)) {
+                throw new NeuronConnectionException(
+                        "Bug: port not connected.",
+                        neuron.getLabel());
+            }
         }
 
         return convertInfoBitsToStrength(infoBits);

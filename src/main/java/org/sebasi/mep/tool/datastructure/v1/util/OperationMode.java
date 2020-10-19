@@ -1,4 +1,4 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.util;
 
 public enum OperationMode {
 

@@ -1,6 +1,9 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-public abstract class Neuron {
+import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
+
+public abstract class Neuron extends HelperHolder {
 
     // An optional name for this neuron, so it can be looked-up later.
     String label;
@@ -9,8 +12,6 @@ public abstract class Neuron {
     protected long accumulator;
 
     protected Dendrites dendrites;
-
-    Helper helper;
 
     Axon axon;
 
@@ -21,7 +22,7 @@ public abstract class Neuron {
     public Neuron(
             Helper helper,
             String label) {
-        this.helper = helper;
+        super(helper);
         this.label = label;
         axon = new Axon();
         resetAccumulator();

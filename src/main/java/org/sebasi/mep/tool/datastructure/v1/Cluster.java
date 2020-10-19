@@ -1,13 +1,15 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Cluster {
+public class Cluster extends HelperHolder {
 
-    Helper helper;
     String label;
     List<Cluster> clusters = null;
     Map<String, Cluster> clustersByLabel = null;
@@ -19,7 +21,7 @@ public class Cluster {
     public Cluster(
             Helper helper,
             String label) {
-        this.helper = helper;
+        super(helper);
         this.label = label;
     }
 

@@ -1,5 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+
 public class NeuronWithMemory extends Neuron {
 
     Dendrites16kWithMemory dendrites16kWithMemory;
@@ -12,7 +14,7 @@ public class NeuronWithMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-        dendrites = new Dendrites16kWithMemory(helper);
+        dendrites = new Dendrites16kWithMemory(this);
         dendrites16kWithMemory = (Dendrites16kWithMemory) dendrites;
     }
 

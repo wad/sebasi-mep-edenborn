@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
+import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class Dendrites16kWithoutMemoryTest {
 
     @Test
     public void testInfoBitsDirectly() {
-        Dendrites16kWithoutMemory den = new Dendrites16kWithoutMemory(new Helper());
+        Dendrites16kWithoutMemory den = new Dendrites16kWithoutMemory(new NeuronWithoutMemory(new Helper()));
         assertEquals(0, den.computeFiringThreshold());
         assertFalse(den.doPortInfoBitsIndicateItIsConnected((byte) 0));
         assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 1));
@@ -55,7 +56,7 @@ public class Dendrites16kWithoutMemoryTest {
 
     @Test
     public void testAttachDetachPorts() {
-        Dendrites16kWithoutMemory den = new Dendrites16kWithoutMemory(new Helper());
+        Dendrites16kWithoutMemory den = new Dendrites16kWithoutMemory(new NeuronWithoutMemory(new Helper()));
         assertEquals(0, den.getNumConnectedPorts());
 
         den.attachPort(1000);

@@ -1,14 +1,16 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
+
 public abstract class Dendrites {
 
     protected byte[] inputPortInfo;
     protected int numConnectedPorts;
 
-    Helper helper;
+    protected Neuron neuron;
 
-    public Dendrites(Helper helper) {
-        this.helper = helper;
+    public Dendrites(Neuron neuron) {
+        this.neuron = neuron;
         initializePortInfo();
     }
 

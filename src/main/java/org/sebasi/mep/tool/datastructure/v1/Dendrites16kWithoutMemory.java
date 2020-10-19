@@ -1,5 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
+
 public class Dendrites16kWithoutMemory extends Dendrites {
 
     static final int NUM_DENDRITE_INPUTS = 65536;
@@ -7,8 +9,8 @@ public class Dendrites16kWithoutMemory extends Dendrites {
     // One bit per port, so divide the number of ports by 8.
     static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >>> 3;
 
-    public Dendrites16kWithoutMemory(Helper helper) {
-        super(helper);
+    public Dendrites16kWithoutMemory(Neuron neuron) {
+        super(neuron);
     }
 
     @Override
@@ -19,9 +21,11 @@ public class Dendrites16kWithoutMemory extends Dendrites {
 
     @Override
     public void attachPort(int port) {
-        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+        if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
             if (isPortAttached(port)) {
-                throw new RuntimeException("Attempted to attach port, but it's already attached.");
+                throw new NeuronConnectionException(
+                        "Attempted to attach port, but it's already attached.",
+                        neuron.getLabel());
             }
         }
 
@@ -33,9 +37,11 @@ public class Dendrites16kWithoutMemory extends Dendrites {
 
     @Override
     public void detachPort(int port) {
-        if (helper.getOperationMode().shouldValidateDendriteAttachments()) {
+        if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
             if (!isPortAttached(port)) {
-                throw new RuntimeException("Attempted to detach port, but it's not attached.");
+                throw new NeuronConnectionException(
+                        "Attempted to detach port, but it's not attached.",
+                        neuron.getLabel());
             }
         }
 

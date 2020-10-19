@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
+import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +17,7 @@ public class Dendrites16kWithMemoryTest {
 
     @Test
     public void testInfoBitsDirectly() {
-        Dendrites16kWithMemory den = new Dendrites16kWithMemory(new Helper());
+        Dendrites16kWithMemory den = new Dendrites16kWithMemory(new NeuronWithMemory(new Helper()));
         assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.
@@ -37,7 +38,7 @@ public class Dendrites16kWithMemoryTest {
 
     @Test
     public void testAttachDetachPorts() {
-        Dendrites16kWithMemory den = new Dendrites16kWithMemory(new Helper());
+        Dendrites16kWithMemory den = new Dendrites16kWithMemory(new NeuronWithMemory(new Helper()));
         assertEquals(0, den.getNumConnectedPorts());
 
         den.attachPort(1000, -7);
