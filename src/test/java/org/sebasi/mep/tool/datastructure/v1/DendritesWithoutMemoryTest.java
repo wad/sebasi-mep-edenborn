@@ -14,7 +14,7 @@ public class DendritesWithoutMemoryTest {
 
     @Test
     public void testIt() {
-        assertEquals(4096, DendritesWithoutMemory.NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO);
+        assertEquals(8192, DendritesWithoutMemory.NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO);
     }
 
     @Test
@@ -39,25 +39,25 @@ public class DendritesWithoutMemoryTest {
 
         for (int port = 0; port < 100; port++) {
             if (highPorts.contains(port)) {
-                assertEquals("PORT=" + port + " should have been high.", (byte) 1, den.getPortInfoBits(port));
+                assertEquals("PORT=" + port + " should have been high.", 1, den.getPortInfoBits(port));
             } else {
-                assertEquals("PORT=" + port + " should have been low.", (byte) 0, den.getPortInfoBits(port));
+                assertEquals("PORT=" + port + " should have been low.", 0, den.getPortInfoBits(port));
             }
         }
 
         den.attachPort(1000);
         den.attachPort(1001);
         den.attachPort(1002);
-        assertEquals((byte) 0, den.getPortInfoBits(999));
-        assertEquals((byte) 1, den.getPortInfoBits(1000));
-        assertEquals((byte) 1, den.getPortInfoBits(1001));
-        assertEquals((byte) 1, den.getPortInfoBits(1002));
-        assertEquals((byte) 0, den.getPortInfoBits(1003));
+        assertEquals(0, den.getPortInfoBits(999));
+        assertEquals(1, den.getPortInfoBits(1000));
+        assertEquals(1, den.getPortInfoBits(1001));
+        assertEquals(1, den.getPortInfoBits(1002));
+        assertEquals(0, den.getPortInfoBits(1003));
         den.detachPort(1001);
-        assertEquals((byte) 0, den.getPortInfoBits(999));
-        assertEquals((byte) 1, den.getPortInfoBits(1000));
-        assertEquals((byte) 0, den.getPortInfoBits(1001));
-        assertEquals((byte) 1, den.getPortInfoBits(1002));
-        assertEquals((byte) 0, den.getPortInfoBits(1003));
+        assertEquals(0, den.getPortInfoBits(999));
+        assertEquals(1, den.getPortInfoBits(1000));
+        assertEquals(0, den.getPortInfoBits(1001));
+        assertEquals(1, den.getPortInfoBits(1002));
+        assertEquals(0, den.getPortInfoBits(1003));
     }
 }

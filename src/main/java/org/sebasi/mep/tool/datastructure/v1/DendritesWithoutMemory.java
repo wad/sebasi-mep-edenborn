@@ -3,7 +3,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 public class DendritesWithoutMemory extends Dendrites {
 
     // One bit per port, so divide the number of ports by 8.
-    static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >> 3;
+    static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >>> 3;
 
     public DendritesWithoutMemory() {
         super();
@@ -38,14 +38,14 @@ public class DendritesWithoutMemory extends Dendrites {
 
     // just returns one bit
     @Override
-    byte getPortInfoBits(int port) {
+    int getPortInfoBits(int port) {
         byte infoBits = inputPortInfo[convertPortNumberToInfoBitIndex(port)];
         // 0 --> 1000 0000 --> (>> 7)
         // 1 --> 0100 0000 --> (>> 6)
         // 6 --> 0000 0010 --> (>> 1)
         // 7 --> 0000 0001 --> (>> 0)
         int numTimesToShift = 7 - (port & 0x7);
-        return (byte) ((infoBits >> numTimesToShift) & (byte) 0x1);
+        return ((infoBits >>> numTimesToShift) & 0x1);
     }
 
     int convertPortNumberToInfoBitIndex(int port) {
@@ -53,12 +53,12 @@ public class DendritesWithoutMemory extends Dendrites {
         return port >> 3;
     }
 
-    byte getMaskForSetting(int port) {
+    int getMaskForSetting(int port) {
         int numTimesToShift = 7 - (port & 0x7);
         // port 0 --> (<< 7)
         // port 1 --> (<< 6)
         // port 6 --> (<< 1)
         // port 7 --> (<< 0)
-        return (byte) (1 << numTimesToShift);
+        return 1 << numTimesToShift;
     }
 }

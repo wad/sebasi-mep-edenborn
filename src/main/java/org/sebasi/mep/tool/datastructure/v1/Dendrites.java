@@ -23,9 +23,9 @@ public abstract class Dendrites {
 
     protected abstract void initializePortInfo();
 
-    abstract byte getPortInfoBits(int port);
+    abstract int getPortInfoBits(int port);
 
-    boolean doPortInfoBitsIndicateItIsConnected(byte infoBits) {
+    boolean doPortInfoBitsIndicateItIsConnected(int infoBits) {
         return infoBits != 0x0;
     }
 }

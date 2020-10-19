@@ -9,7 +9,7 @@ public class DendritesWithMemory extends Dendrites {
     static final int NUM_DENDRITE_INPUTS = 65536;
 
     // 4 bits per port, so we need half as many bytes as ports to hold the strength bits
-    static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >> 1;
+    static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >>> 1;
 
     // Memory is achieved through a neuron persisting how sensitive its input ports are.
     // Four bits indicate the port's strength, which is between -7 through +7.
@@ -51,9 +51,9 @@ public class DendritesWithMemory extends Dendrites {
             int port,
             int strength) {
         int index = convertPortToBitInfoIndex(port);
-        byte infoBitsForBoth = inputPortInfo[index];
+        int infoBitsForBoth = inputPortInfo[index];
 
-        byte infoBitsForOne = convertStrengthToInfoBits(strength);
+        int infoBitsForOne = convertStrengthToInfoBits(strength);
 
         boolean isPortIndexEven = (port & 1) == 0;
         if (isPortIndexEven) {
@@ -65,8 +65,8 @@ public class DendritesWithMemory extends Dendrites {
 
     @Override
     public void detachPort(int port) {
-        int index = port >> 1;
-        byte infoBitsForBoth = inputPortInfo[index];
+        int index = port >>> 1;
+        int infoBitsForBoth = inputPortInfo[index];
         inputPortInfo[index] = (byte) (infoBitsForBoth & getMaskForSetting(port));
     }
 
@@ -77,31 +77,31 @@ public class DendritesWithMemory extends Dendrites {
     }
 
     @Override
-    byte getPortInfoBits(int port) {
-        byte infoBits = inputPortInfo[port >> 1];
+    int getPortInfoBits(int port) {
+        int infoBits = inputPortInfo[port >>> 1];
         boolean isPortIndexEven = (port & 1) == 0;
         if (isPortIndexEven) {
-            return (byte) (infoBits >> 4);
+            return (infoBits & 0xF0) >>> 4;
         } else {
-            return (byte) (infoBits & 0x0F);
+            return infoBits & 0x0F;
         }
     }
 
-    int convertInfoBitsToStrength(byte infoBits) {
+    int convertInfoBitsToStrength(int infoBits) {
         return infoBits - PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL;
     }
 
-    byte convertStrengthToInfoBits(int strength) {
+    int convertStrengthToInfoBits(int strength) {
         if (strength > 7) {
             strength = 7;
         } else if (strength < -7) {
             strength = -7;
         }
-        return (byte) (strength + PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL);
+        return strength + PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL;
     }
 
     int lookupPortStrength(int port) {
-        byte infoBits = getPortInfoBits(port);
+        int infoBits = getPortInfoBits(port);
         if (!doPortInfoBitsIndicateItIsConnected(infoBits)) {
             throw new RuntimeException("Bug: port not connected.");
         }
@@ -110,15 +110,15 @@ public class DendritesWithMemory extends Dendrites {
     }
 
     int convertPortToBitInfoIndex(int port) {
-        return port >> 1;
+        return port >>> 1;
     }
 
-    byte getMaskForSetting(int port) {
+    int getMaskForSetting(int port) {
         boolean isPortIndexEven = (port & 1) == 0;
         if (isPortIndexEven) {
             return 0x0F;
         } else {
-            return (byte) 0xF0;
+            return 0xF0;
         }
     }
 }

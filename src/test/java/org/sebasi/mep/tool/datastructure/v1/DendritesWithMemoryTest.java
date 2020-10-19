@@ -17,18 +17,18 @@ public class DendritesWithMemoryTest {
         assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.
-        assertFalse(den.doPortInfoBitsIndicateItIsConnected((byte) 0x0));
-        assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 0x1));
-        assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 0x2));
-        assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 0x7));
-        assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 0x8));
-        assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 0x9));
-        assertTrue(den.doPortInfoBitsIndicateItIsConnected((byte) 0xF));
+        assertFalse(den.doPortInfoBitsIndicateItIsConnected(0x0));
+        assertTrue(den.doPortInfoBitsIndicateItIsConnected(0x1));
+        assertTrue(den.doPortInfoBitsIndicateItIsConnected(0x2));
+        assertTrue(den.doPortInfoBitsIndicateItIsConnected(0x7));
+        assertTrue(den.doPortInfoBitsIndicateItIsConnected(0x8));
+        assertTrue(den.doPortInfoBitsIndicateItIsConnected(0x9));
+        assertTrue(den.doPortInfoBitsIndicateItIsConnected(0xF));
 
-        assertEquals((byte) 0x0, den.getPortInfoBits(0));
+        assertEquals(0x0, den.getPortInfoBits(0));
         den.attachPort(0, 7);
-        assertEquals((byte) 0xF, (byte)den.getPortInfoBits(0));
+        assertEquals(0xF, den.getPortInfoBits(0));
         den.detachPort(0);
-        assertEquals((byte) 0x0, den.getPortInfoBits(0));
+        assertEquals(0x0, den.getPortInfoBits(0));
     }
 }
