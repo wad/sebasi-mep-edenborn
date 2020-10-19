@@ -27,7 +27,7 @@ public class DendritesWithMemoryTest {
 
         assertEquals((byte) 0x0, den.getPortInfoBits(0));
         den.attachPort(0, 7);
-        assertEquals((byte) 0xF, den.getPortInfoBits(0));
+        assertEquals((byte) 0xF, (byte)den.getPortInfoBits(0));
         den.detachPort(0);
         assertEquals((byte) 0x0, den.getPortInfoBits(0));
     }

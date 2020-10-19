@@ -12,5 +12,4 @@ public class NeuronTest {
         assertEquals("a", neuron.getLabel());
 
     }
-
 }

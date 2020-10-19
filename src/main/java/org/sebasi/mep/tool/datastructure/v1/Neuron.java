@@ -26,12 +26,6 @@ public abstract class Neuron {
         return label;
     }
 
-    abstract public void receiveInput(int port);
-
-    void resetAccumulator() {
-        accumulator = 0L;
-    }
-
     // return true if it fired
     public boolean fireIfReady() {
         if (accumulator < dendrites.computeFiringThreshold()) {
@@ -49,5 +43,16 @@ public abstract class Neuron {
 
     public void detachPort(int port) {
         dendrites.detachPort(port);
+    }
+
+    abstract public void receiveInput(int port);
+
+    protected boolean isPortConnected(int port) {
+        return dendrites.doPortInfoBitsIndicateItIsConnected(
+                dendrites.getPortInfoBits(port));
+    }
+
+    void resetAccumulator() {
+        accumulator = 0L;
     }
 }

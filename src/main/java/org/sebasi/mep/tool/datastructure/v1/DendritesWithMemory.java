@@ -1,5 +1,8 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+// todo: Strengthen synapses when they receive input (might depend on a probability)
+// todo: Reduce strength of synapse when they don't receive input (definitely depending on a probability)
+
 public class DendritesWithMemory extends Dendrites {
 
     // 16 bits
@@ -32,58 +35,16 @@ public class DendritesWithMemory extends Dendrites {
     static final int PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL = 0x8;
 
     @Override
-    protected void initializePortInfo() {
-        // initialized to zeroes, which means none of the ports are connected.
-        inputPortInfo = new byte[NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO];
-    }
-
-    @Override
     public long computeFiringThreshold() {
+        // Just a starting formula. There are probably better ones.
         return numConnectedPorts * PORT_STRENGTH_DEFAULT_VALUE;
     }
 
     @Override
-    byte getPortInfoBits(int port) {
-        byte infoBits = inputPortInfo[port >> 1];
-        boolean isPortIndexEven = (port & 1) == 0;
-        if (isPortIndexEven) {
-            return (byte) (infoBits >> 4);
-        } else {
-            return (byte) (infoBits & 0x0F);
-        }
-    }
-
-    @Override
-    boolean doPortInfoBitsIndicateItIsConnected(byte infoBits) {
-        // this considers only the four bits.
-        return infoBits != 0;
-    }
-
-    int convertInfoBitsToStrength(byte infoBits) {
-        return infoBits - PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL;
-    }
-
-    private byte convertStrengthToInfoBits(int strength) {
-        if (strength > 7) {
-            strength = 7;
-        } else if (strength < -7) {
-            strength = -7;
-        }
-        return (byte) (strength + PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL);
-    }
-
-    int lookupPortStrength(int port) {
-        byte infoBits = getPortInfoBits(port);
-        if (!doPortInfoBitsIndicateItIsConnected(infoBits)) {
-            throw new RuntimeException("Bug: port not connected.");
-        }
-
-        return convertInfoBitsToStrength(infoBits);
-    }
-
-    @Override
     public void attachPort(int port) {
-        attachPort(port, PORT_STRENGTH_DEFAULT_VALUE);
+        attachPort(
+                port,
+                PORT_STRENGTH_DEFAULT_VALUE);
     }
 
     public void attachPort(
@@ -102,6 +63,52 @@ public class DendritesWithMemory extends Dendrites {
         }
     }
 
+    @Override
+    public void detachPort(int port) {
+        int index = port >> 1;
+        byte infoBitsForBoth = inputPortInfo[index];
+        inputPortInfo[index] = (byte) (infoBitsForBoth & getMaskForSetting(port));
+    }
+
+    @Override
+    protected void initializePortInfo() {
+        // initialized to zeroes, which means none of the ports are connected.
+        inputPortInfo = new byte[NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO];
+    }
+
+    @Override
+    byte getPortInfoBits(int port) {
+        byte infoBits = inputPortInfo[port >> 1];
+        boolean isPortIndexEven = (port & 1) == 0;
+        if (isPortIndexEven) {
+            return (byte) (infoBits >> 4);
+        } else {
+            return (byte) (infoBits & 0x0F);
+        }
+    }
+
+    int convertInfoBitsToStrength(byte infoBits) {
+        return infoBits - PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL;
+    }
+
+    byte convertStrengthToInfoBits(int strength) {
+        if (strength > 7) {
+            strength = 7;
+        } else if (strength < -7) {
+            strength = -7;
+        }
+        return (byte) (strength + PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL);
+    }
+
+    int lookupPortStrength(int port) {
+        byte infoBits = getPortInfoBits(port);
+        if (!doPortInfoBitsIndicateItIsConnected(infoBits)) {
+            throw new RuntimeException("Bug: port not connected.");
+        }
+
+        return convertInfoBitsToStrength(infoBits);
+    }
+
     int convertPortToBitInfoIndex(int port) {
         return port >> 1;
     }
@@ -113,12 +120,5 @@ public class DendritesWithMemory extends Dendrites {
         } else {
             return (byte) 0xF0;
         }
-    }
-
-    @Override
-    public void detachPort(int port) {
-        int index = port >> 1;
-        byte infoBitsForBoth = inputPortInfo[index];
-        inputPortInfo[index] = (byte) (infoBitsForBoth & getMaskForSetting(port));
     }
 }

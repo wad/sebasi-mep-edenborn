@@ -10,7 +10,8 @@ public class NeuronWithMemory extends Neuron {
 
     public NeuronWithMemory(String label) {
         super(label);
-        dendritesWithMemory = new DendritesWithMemory();
+        dendrites = new DendritesWithMemory();
+        dendritesWithMemory = (DendritesWithMemory) dendrites;
     }
 
     @Override
@@ -18,19 +19,9 @@ public class NeuronWithMemory extends Neuron {
         this.accumulator += dendritesWithMemory.lookupPortStrength(port);
     }
 
-    @Override
-    public void attachPort(int port) {
-        dendritesWithMemory.attachPort(port);
-    }
-
     public void attachPort(
             int port,
             int strength) {
         dendritesWithMemory.attachPort(port, strength);
-    }
-
-    @Override
-    public void detachPort(int port) {
-        dendritesWithMemory.detachPort(port);
     }
 }

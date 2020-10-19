@@ -131,7 +131,13 @@ Neuron has:
     Firing threshold
     Array of output neuron addresses, with port numbers
 
+---------------
 
+NOTE:
+
+When a synapse with memory receives input, there is a chance that it will strengthen.
+
+----------------------
 
 
 
