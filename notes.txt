@@ -1,0 +1,157 @@
+Overall design:
+
+Who knows what characteristics of neurons and their connections will be necessary to hold an actual thinking, living mind? The overriding goals of this project therefore need to be:
+1. Flexibility - we can make whatever shapes turn out to work
+2. Efficiency - We need to be able to squeeze a LOT of neurons into memory
+3. Performance - The faster it runs, the faster we can learn whether it can be taught or not.
+
+Paradigms:
+
+A. Performance
+
+Top performance is easier attained when the data is structured in harmony with how the underlying hardware works. Manipulating a bunch of strings and unnecessarily frequent dynamic allocation of memory on the heap are a waste of processing cycles. Use more C-style paradigms for good performance, bytes and buffers, when possible. Bitwise manipulations are fast.
+
+B. Flexibility and efficiency
+
+Language choice: Java
+
+Flexibility means we need a high-level language. Lots of AI work currently uses Python, as it's seen as more accessible to science-based research types of people. Java has been the domain of software professionals, however. Java applications have gone through decades of performance tuning. It's not quite as accessible as Python, but the performance makes up for it. C++ is also a candidate language, but its platform dependency introduces barriers to flexibility, and the JVM is useful. C#, while arguably a slightly better language than Java, requires non-free MicroSoft products, and so it's out. Also, Eric is good at Java.
+
+Data structure: Flexible
+
+How many nested levels of groupings of neurons do we allow in the hierarchy? Let's set a max of 16. Find a fast way (bitwise tweaking) to make lookups fast. NeuronAddress will be a big deal.
+
+Interface: Interactive
+
+A command-line type interface seems good. Can run a script from a file, to create a brain, hook up inputs and outputs, save and load state, and run control the operation. Let's use EMCL (Emulated Mind Container Language). You use it to define groups of neurons, their attributes, and how they connect. An EMCL script can be written and fed into the EMC system, which will follow those commands, and construct some kind of artificial brain in software, according to the structure you specified.
+
+C. Maintainability
+
+Use good programming techniques ("Clean Code") to keep this project alive and a pleasure to work with.
+
+------------------
+
+EMCL commands (initial draft)
+
+General format:
+ACTION TARGET PARAM1=VALUE1 PARAM2=VALUE2 ... PARAMn=VALUEn;
+
+Example script:
+
+# A brain object holds some overall parameters for the entire structure.
+# It can contain multiple clusterCluster objects.
+# Specify neuronGroupLevels. 1 means each top-level cluster can only hold neuronCluster objects, not other clusterCluster objects.
+# Names can optionally be contained in "", so they can use whitespace.
+create brain name=nemo neuronGroupLevels=1;
+
+# This way, we don't need to specify which brain newly created structures are assigned to, and how many neurons are in neuronCluster objects.
+set default brain=nemo numNeurons=3
+
+# Create two neuron clusters, each with 3 neurons (indexed 0,1,2 in each cluster) each, and put them into a clusterCluster.
+create neuronCluster name=nc1.1
+create neuronCluster name=nc1.2
+create clusterCluster name=cc1
+assign holder=cc1 members=nc1.1,nc1.2
+
+# Create two neuron clusters, each with 3 neurons (indexed 0,1,2 in each cluster) each, and put them into a clusterCluster.
+create neuronCluster name=nc2.1
+create neuronCluster name=nc2.2
+create clusterCluster name=cc2
+assign holder=cc2 members=nc2.1,nc2.2
+
+# Create a sensory input
+
+# Create a muscle output
+
+# Hook up some neurons from the sensory input to clusterCluster cc1
+
+# Hook up some neurons from cc1 to cc2
+
+# Hook up some neurons from cc2 to the muscle output
+
+
+-----------------------
+
+RAM will be significantly too small for any sort of interesting mind container.
+Hard drives have a lot more volume, but would be too slow. Try a giant SSD. What format to persist the neural states??
+
+-------------------
+
+The most numerous data element will be a connection between neurons. That needs to take zero bytes to store, or as close to zero as possible.
+
+---------------
+
+https://celltypes.brain-map.org/data
+
+Tentative gleaning: Pretty-much every sort of shape of neuron, and pattern of connecting them, probably exists in nature. Which ones are useful for the MEP? Who knows. Keep it a little flexible.
+
+Looks like most neurons have a large number of axon branches, and a large number of dendrite branches.
+
+It is widely accepted that the synapse plays a role in the formation of memory. As neurotransmitters activate receptors across the synaptic cleft, the connection between the two neurons is strengthened when both neurons are active at the same time, as a result of the receptor's signaling mechanisms. The strength of two connected neural pathways is thought to result in the storage of information, resulting in memory.
+Question: How does the "strength" of a synapse impact the transmission of a signal from one neuron to another?
+
+The hippocampus helps to solidify the pattern of connections that form a memory, but the memory itself depends on the solidity of the connections between individual brain cells, according to research from McGill and from New York University.
+
+Your ability to recall the color of your childhood home depends on long-lasting changes in your brain. Forming a new memory requires rerouting nerve fibers and altering synapses, the tiny gaps across which neurons relay chemical messages. The ability of synapses to change, or remodel, themselves is called synaptic plasticity. Encoding a new long-term memory involves persistent changes in the number and shape of synapses, as well as the number of chemical messages sent and molecular docking stations, or receptors, available to receive the messages.
+
+https://www.brainfacts.org/thinking-sensing-and-behaving/learning-and-memory/2018/storing-memories-in-your-synapses-101118
+
+LTP = Long Term Potentiation
+LTD = Long Term Depression
+
+In general, LTP involves an increase in the number of glutamate receptors on the postsynaptic neuron.
+
+Two opposing but equal processes are key for synaptic plasticity: long-term potentiation (LTP) and long-term depression (LTD). LTP is a long-lasting increase in synaptic strength, which occurs in many brain regions but especially in the hippocampus.
+
+LTD, conversely, decreases a synapse’s effectiveness. Without LTD, you wouldn’t be able to learn anything new or form new memories because synapses would reach a maximum level of strength, after which they’d no longer be plastic.
+
+Gleaning: Synapses have a strength level. Forming memories increases strength.
+
+Increasing the number of receptors on the postsynaptic cell strengthens a synapse by allowing more electrically conductive ions to enter.
+
+Gleaning: Stronger synapses are just more sensitive -- they amplify the signal, maybe?
+
+
+
+--------------------
+
+Data structure:
+
+Example setup:
+
+A neuron has 65536 input ports (dendrites), each with an address (number from 0 to 65536). Each input port has a strength factor expressed in 4 bits, contributing between -7 to +8 to the neuron's accumulator.
+
+NUM_INPUT_PORT_BITS = 16;
+NUM_INPUT_PORTS = 65536;
+
+
+Neuron has:
+    Array of input port strengths
+    Accumulator
+    Firing threshold
+    Array of output neuron addresses, with port numbers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
