@@ -3,9 +3,8 @@ package org.sebasi.mep.tool.datastructure.v1;
 // todo: Strengthen synapses when they receive input (might depend on a probability)
 // todo: Reduce strength of synapse when they don't receive input (definitely depending on a probability)
 
-public class DendritesWithMemory extends Dendrites {
+public class Dendrites16kWithMemory extends Dendrites {
 
-    // 16 bits
     static final int NUM_DENDRITE_INPUTS = 65536;
 
     // 4 bits per port, so we need half as many bytes as ports to hold the strength bits
@@ -34,7 +33,7 @@ public class DendritesWithMemory extends Dendrites {
     static final int PORT_STRENGTH_DEFAULT_VALUE = 2;
     static final int PORT_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL = 0x8;
 
-    public DendritesWithMemory(Helper helper) {
+    public Dendrites16kWithMemory(Helper helper) {
         super(helper);
     }
 

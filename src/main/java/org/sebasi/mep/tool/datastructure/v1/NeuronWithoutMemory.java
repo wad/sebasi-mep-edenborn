@@ -6,7 +6,7 @@ public class NeuronWithoutMemory extends Neuron {
 
     static final int DEFAULT_INPUT_SIGNAL_STRENGTH = 1;
 
-    DendritesWithoutMemory dendritesWithoutMemory;
+    Dendrites16kWithoutMemory dendrites16kWithoutMemory;
 
     // On this neuron, if any input gets triggered, the accumulator accumulates this value. Every dendritic synapse
     // yields the same strength input.
@@ -20,8 +20,8 @@ public class NeuronWithoutMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-        dendrites = new DendritesWithoutMemory(helper);
-        dendritesWithoutMemory = (DendritesWithoutMemory) dendrites;
+        dendrites = new Dendrites16kWithoutMemory(helper);
+        dendrites16kWithoutMemory = (Dendrites16kWithoutMemory) dendrites;
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }
 

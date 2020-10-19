@@ -1,11 +1,13 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-public class DendritesWithoutMemory extends Dendrites {
+public class Dendrites16kWithoutMemory extends Dendrites {
+
+    static final int NUM_DENDRITE_INPUTS = 65536;
 
     // One bit per port, so divide the number of ports by 8.
     static final int NUM_BYTES_NEEDED_TO_TO_HOLD_PORT_INFO = NUM_DENDRITE_INPUTS >>> 3;
 
-    public DendritesWithoutMemory(Helper helper) {
+    public Dendrites16kWithoutMemory(Helper helper) {
         super(helper);
     }
 

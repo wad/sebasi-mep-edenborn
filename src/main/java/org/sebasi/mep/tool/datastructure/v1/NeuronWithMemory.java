@@ -2,7 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public class NeuronWithMemory extends Neuron {
 
-    DendritesWithMemory dendritesWithMemory;
+    Dendrites16kWithMemory dendrites16kWithMemory;
 
     public NeuronWithMemory(Helper helper) {
         this(helper, null);
@@ -12,18 +12,18 @@ public class NeuronWithMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-        dendrites = new DendritesWithMemory(helper);
-        dendritesWithMemory = (DendritesWithMemory) dendrites;
+        dendrites = new Dendrites16kWithMemory(helper);
+        dendrites16kWithMemory = (Dendrites16kWithMemory) dendrites;
     }
 
     @Override
     public void receiveInput(int port) {
-        this.accumulator += dendritesWithMemory.lookupPortStrength(port);
+        this.accumulator += dendrites16kWithMemory.lookupPortStrength(port);
     }
 
     public void attachPort(
             int port,
             int strength) {
-        dendritesWithMemory.attachPort(port, strength);
+        dendrites16kWithMemory.attachPort(port, strength);
     }
 }

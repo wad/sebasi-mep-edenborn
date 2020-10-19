@@ -2,9 +2,6 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public abstract class Dendrites {
 
-    // 16 bits
-    protected static final int NUM_DENDRITE_INPUTS = 65536;
-
     protected byte[] inputPortInfo;
     protected int numConnectedPorts;
 
@@ -17,6 +14,10 @@ public abstract class Dendrites {
 
     public boolean isPortAttached(int port) {
         return doPortInfoBitsIndicateItIsConnected(getPortInfoBits(port));
+    }
+
+    public int getNumConnectedPorts() {
+        return numConnectedPorts;
     }
 
     // If the accumulator firing threshold is reached or exceeded, the neuron fires, sending a signal
