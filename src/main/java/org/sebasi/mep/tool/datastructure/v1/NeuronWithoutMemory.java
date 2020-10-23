@@ -28,17 +28,7 @@ public class NeuronWithoutMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-
-        switch(dendriticTreeSize) {
-            case TwoE4:
-                dendriticTree = new DendriticTreeWithoutMemory2E4(this);
-                break;
-            case TwoE16:
-                dendriticTree = new DendriticTreeWithoutMemory2E16(this);
-                break;
-        }
-
-        dendriticTreeWithoutMemory = (DendriticTreeWithoutMemory) dendriticTree;
+        dendriticTreeWithoutMemory = new DendriticTreeWithoutMemoryType2(dendriticTreeSize, this);
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }
 
@@ -51,8 +41,13 @@ public class NeuronWithoutMemory extends Neuron {
     }
 
     @Override
+    protected DendriticTree getDendriticTree() {
+        return this.dendriticTreeWithoutMemory;
+    }
+
+    @Override
     public void receiveInput(int synapticIndex) {
-        dendriticTree.validateConnection(true, synapticIndex);
+        getDendriticTree().validateConnection(true, synapticIndex);
         this.accumulator += defaultInputSignalStrength;
     }
 }

@@ -7,9 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DendriticTreeWithoutMemoryTest {
 
@@ -18,7 +16,7 @@ public class DendriticTreeWithoutMemoryTest {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithoutMemory den = neuron.dendriticTreeWithoutMemory;
+        DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();
         assertEquals(0, den.computeFiringThreshold());
         assertFalse(den.doSynapticStateBitsIndicateConnected((byte) 0));
         assertTrue(den.doSynapticStateBitsIndicateConnected((byte) 1));
@@ -32,7 +30,7 @@ public class DendriticTreeWithoutMemoryTest {
         den.synapticStates[5] = 0x10; // synapses 40 - 47, 43 is high
         den.synapticStates[6] = 0x20; // synapses 48 - 55, 50 is high
         den.synapticStates[7] = 0x40; // synapses 56 - 63, 57 is high
-        den.synapticStates[8] = (byte)0x80; // ports 64 - 71, 64 is high
+        den.synapticStates[8] = (byte) 0x80; // ports 64 - 71, 64 is high
 
         // only these synapses are connected.
         Set<Integer> synapticIndexesThatAreConnected = new HashSet<>(Arrays.asList(15, 22, 29, 36, 43, 50, 57, 64));
@@ -54,7 +52,7 @@ public class DendriticTreeWithoutMemoryTest {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithoutMemory den = neuron.dendriticTreeWithoutMemory;
+        DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000);

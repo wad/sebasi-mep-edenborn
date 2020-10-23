@@ -20,17 +20,12 @@ public class NeuronWithMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
+        dendriticTreeWithMemory = new DendriticTreeWithMemoryType1(dendriticTreeSize, this);
+    }
 
-        switch (dendriticTreeSize) {
-            case TwoE4:
-                dendriticTree = new DendriticTreeWithMemory2E4(this);
-                break;
-            case TwoE16:
-                dendriticTree = new DendriticTreeWithMemory2E16(this);
-                break;
-        }
-
-        dendriticTreeWithMemory = (DendriticTreeWithMemory) dendriticTree;
+    @Override
+    protected DendriticTree getDendriticTree() {
+        return this.dendriticTreeWithMemory;
     }
 
     @Override

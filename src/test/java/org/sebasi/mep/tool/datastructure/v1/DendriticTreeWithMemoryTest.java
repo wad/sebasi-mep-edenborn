@@ -12,7 +12,7 @@ public class DendriticTreeWithMemoryTest {
         NeuronWithMemory neuron = new NeuronWithMemory(
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithMemory den = neuron.dendriticTreeWithMemory;
+        DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();
         assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.
@@ -36,7 +36,7 @@ public class DendriticTreeWithMemoryTest {
         NeuronWithMemory neuron = new NeuronWithMemory(
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithMemory den = neuron.dendriticTreeWithMemory;
+        DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000, -7);

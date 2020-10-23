@@ -11,8 +11,6 @@ public abstract class Neuron extends HelperHolder {
     // as dendrites receive inputs, their strengths are added to this value.
     protected long accumulator;
 
-    protected DendriticTree dendriticTree;
-
     Axon axon;
 
     public Neuron(Helper helper) {
@@ -32,9 +30,11 @@ public abstract class Neuron extends HelperHolder {
         return label;
     }
 
+    protected abstract DendriticTree getDendriticTree();
+
     // return true if it fired
     public boolean fireIfReady() {
-        if (accumulator < dendriticTree.computeFiringThreshold()) {
+        if (accumulator < getDendriticTree().computeFiringThreshold()) {
             return false;
         }
 
@@ -44,18 +44,18 @@ public abstract class Neuron extends HelperHolder {
     }
 
     public void attachSynapse(int synapticIndex) {
-        dendriticTree.attachSynapse(synapticIndex);
+        getDendriticTree().attachSynapse(synapticIndex);
     }
 
     public void detachSynapse(int synapticIndex) {
-        dendriticTree.detachSynapse(synapticIndex);
+        getDendriticTree().detachSynapse(synapticIndex);
     }
 
     abstract public void receiveInput(int synapticIndex);
 
     protected boolean isSynapseConnected(int synapticIndex) {
-        return dendriticTree.doSynapticStateBitsIndicateConnected(
-                dendriticTree.getSynapticStateBits(synapticIndex));
+        return getDendriticTree().doSynapticStateBitsIndicateConnected(
+                getDendriticTree().getSynapticStateBits(synapticIndex));
     }
 
     void resetAccumulator() {

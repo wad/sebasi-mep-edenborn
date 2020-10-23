@@ -1,15 +1,18 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-public class DendriticTreeWithoutMemory2E4 extends DendriticTreeWithoutMemory {
+// Q: What is this "Type2" about?
+// A: Nothing yet, there will eventually be multiple types of neurons, most likely,
+// this is just a placeholder for one of the eventual types.
+public class DendriticTreeWithoutMemoryType2 extends DendriticTreeWithoutMemory {
 
-    static final DendriticTreeSize DENDRITIC_TREE_SIZE = DendriticTreeSize.TwoE4;
-
-    public DendriticTreeWithoutMemory2E4(Neuron neuron) {
+    public DendriticTreeWithoutMemoryType2(
+            DendriticTreeSize dendriticTreeSize,
+            Neuron neuron) {
         super(
-                DENDRITIC_TREE_SIZE,
+                dendriticTreeSize,
 
                 // One bit per synapse, so divide the number of synapses by 8.
-                DENDRITIC_TREE_SIZE.getNumSynapses() >>> 3,
+                dendriticTreeSize.getNumSynapses() >>> 3,
 
                 neuron);
     }
