@@ -15,19 +15,25 @@ public class NeuronWithoutMemory extends NeuronWithDendriticTree {
     int defaultInputSignalStrength;
 
     public NeuronWithoutMemory(
+            FiringComputer firingComputer,
             DendriticTreeSize dendriticTreeSize,
             Helper helper) {
         this(
+                firingComputer,
                 dendriticTreeSize,
                 helper,
                 null);
     }
 
     public NeuronWithoutMemory(
+            FiringComputer firingComputer,
             DendriticTreeSize dendriticTreeSize,
             Helper helper,
             String label) {
-        super(helper, label);
+        super(
+                firingComputer,
+                helper,
+                label);
         dendriticTreeWithoutMemory = new DendriticTreeWithoutMemoryType2(dendriticTreeSize, this);
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }

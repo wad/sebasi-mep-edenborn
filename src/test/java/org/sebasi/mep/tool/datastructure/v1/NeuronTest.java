@@ -9,7 +9,11 @@ public class NeuronTest {
 
     @Test
     public void testLabel() {
-        Neuron neuron = new NeuronWithoutMemory(DendriticTreeSize.TwoE4, new Helper(), "a");
+        Neuron neuron = new NeuronWithoutMemory(
+                FiringComputer.FireAlways,
+                DendriticTreeSize.TwoE4,
+                new Helper(),
+                "a");
         assertEquals("a", neuron.getLabel());
     }
 }

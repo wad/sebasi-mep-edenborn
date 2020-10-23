@@ -10,10 +10,10 @@ public class DendriticTreeWithMemoryTest {
     @Test
     public void testInfoBitsDirectly() {
         NeuronWithMemory neuron = new NeuronWithMemory(
+                FiringComputer.FireAlways,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();
-        assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.
         assertFalse(den.doSynapticStateBitsIndicateConnected(0x0));
@@ -34,6 +34,7 @@ public class DendriticTreeWithMemoryTest {
     @Test
     public void testAttachDetachSynapses() {
         NeuronWithMemory neuron = new NeuronWithMemory(
+                FiringComputer.FireAlways,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();

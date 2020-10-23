@@ -14,10 +14,10 @@ public class DendriticTreeWithoutMemoryTest {
     @Test
     public void testSynapticStateBitsDirectly() {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                FiringComputer.FireAlways,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();
-        assertEquals(0, den.computeFiringThreshold());
         assertFalse(den.doSynapticStateBitsIndicateConnected((byte) 0));
         assertTrue(den.doSynapticStateBitsIndicateConnected((byte) 1));
 
@@ -50,6 +50,7 @@ public class DendriticTreeWithoutMemoryTest {
     @Test
     public void testAttachAndDetachSynapses() {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                FiringComputer.FireAlways,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();

@@ -4,35 +4,40 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 public abstract class NeuronWithDendriticTree extends Neuron {
 
-    protected long accumulator;
-
-    public NeuronWithDendriticTree(Helper helper) {
-        this(helper, null);
+    public NeuronWithDendriticTree(
+            FiringComputer firingComputer,
+            Helper helper) {
+        this(
+                firingComputer,
+                helper,
+                null);
     }
 
     public NeuronWithDendriticTree(
+            FiringComputer firingComputer,
             Helper helper,
             String label) {
-        super(helper, label);
-        resetAccumulator();
+        super(
+                firingComputer,
+                helper,
+                label);
     }
 
     protected abstract DendriticTree getDendriticTree();
 
     @Override
-    protected void initializeAxon() {
-        axon = new AxonForConnectingToNeurons();
+    protected int getMaxNumSynapticConnections() {
+        return getDendriticTree().dendriticTreeSize.getNumSynapses();
     }
 
     @Override
-    public boolean fireIfReady() {
-        if (accumulator < getDendriticTree().computeFiringThreshold()) {
-            return false;
-        }
+    protected int getNumSynapticConnections() {
+        return getDendriticTree().getNumConnectedSynapses();
+    }
 
-        axon.fire();
-        resetAccumulator();
-        return true;
+    @Override
+    protected void initializeAxon() {
+        axon = new AxonForConnectingToNeurons();
     }
 
     public void attachSynapse(int synapticIndex) {
@@ -50,7 +55,10 @@ public abstract class NeuronWithDendriticTree extends Neuron {
                 getDendriticTree().getSynapticStateBits(synapticIndex));
     }
 
-    void resetAccumulator() {
-        accumulator = 0L;
+    @Override
+    public void createOutgoingAxonConnection(
+            NeuronWithDendriticTree destinationNeuron,
+            int synapticIndex) {
+        ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
     }
 }

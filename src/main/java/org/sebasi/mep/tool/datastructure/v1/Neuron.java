@@ -5,20 +5,28 @@ import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
 
 public abstract class Neuron extends HelperHolder {
 
-    // An optional name for this neuron, so it can be looked-up later in clusters.
     String label;
-
     Axon axon;
+    long accumulator;
+    FiringComputer firingComputer;
 
-    public Neuron(Helper helper) {
-        this(helper, null);
+    public Neuron(
+            FiringComputer firingComputer,
+            Helper helper) {
+        this(
+                firingComputer,
+                helper,
+                null);
     }
 
     public Neuron(
+            FiringComputer firingComputer,
             Helper helper,
             String label) {
         super(helper);
+        this.firingComputer = firingComputer;
         this.label = label;
+        resetAccumulator();
         initializeAxon();
     }
 
@@ -28,6 +36,26 @@ public abstract class Neuron extends HelperHolder {
 
     protected abstract void initializeAxon();
 
-    // return true if it fired
-    public abstract boolean fireIfReady();
+    void resetAccumulator() {
+        accumulator = 0L;
+    }
+
+    protected abstract int getMaxNumSynapticConnections();
+
+    protected abstract int getNumSynapticConnections();
+
+    public void fireIfReady() {
+        if (FiringComputer.shouldFire(
+                firingComputer,
+                accumulator,
+                getMaxNumSynapticConnections(),
+                getNumSynapticConnections())) {
+            axon.fire();
+            resetAccumulator();
+        }
+    }
+
+    public abstract void createOutgoingAxonConnection(
+            NeuronWithDendriticTree destinationNeuron,
+            int synapticIndex);
 }

@@ -7,19 +7,25 @@ public class NeuronWithMemory extends NeuronWithDendriticTree {
     DendriticTreeWithMemory dendriticTreeWithMemory;
 
     public NeuronWithMemory(
+            FiringComputer firingComputer,
             DendriticTreeSize dendriticTreeSize,
             Helper helper) {
         this(
+                firingComputer,
                 dendriticTreeSize,
                 helper,
                 null);
     }
 
     public NeuronWithMemory(
+            FiringComputer firingComputer,
             DendriticTreeSize dendriticTreeSize,
             Helper helper,
             String label) {
-        super(helper, label);
+        super(
+                firingComputer,
+                helper,
+                label);
         dendriticTreeWithMemory = new DendriticTreeWithMemoryType1(dendriticTreeSize, this);
     }
 
