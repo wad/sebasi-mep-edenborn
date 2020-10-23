@@ -10,19 +10,34 @@ public class NeuronWithoutMemory extends Neuron {
 
     DendriticTreeWithoutMemory dendriticTreeWithoutMemory;
 
-    // On this neuron, if any input gets triggered, the accumulator accumulates this value. Every dendritic synapse
-    // yields the same strength input.
+    // On this neuron, if any input gets triggered, the accumulator accumulates this value.
+    // Every dendritic synapse yields the same strength input.
     int defaultInputSignalStrength;
 
-    public NeuronWithoutMemory(Helper helper) {
-        this(helper, null);
+    public NeuronWithoutMemory(
+            DendriticTreeSize dendriticTreeSize,
+            Helper helper) {
+        this(
+                dendriticTreeSize,
+                helper,
+                null);
     }
 
     public NeuronWithoutMemory(
+            DendriticTreeSize dendriticTreeSize,
             Helper helper,
             String label) {
         super(helper, label);
-        dendriticTree = new DendriticTreeWithoutMemory2E16(this);
+
+        switch(dendriticTreeSize) {
+            case TwoE4:
+                dendriticTree = new DendriticTreeWithoutMemory2E4(this);
+                break;
+            case TwoE16:
+                dendriticTree = new DendriticTreeWithoutMemory2E16(this);
+                break;
+        }
+
         dendriticTreeWithoutMemory = (DendriticTreeWithoutMemory) dendriticTree;
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }
@@ -37,10 +52,7 @@ public class NeuronWithoutMemory extends Neuron {
 
     @Override
     public void receiveInput(int synapticIndex) {
-        if (!isSynapseConnected(synapticIndex)) {
-            throw new RuntimeException("Bug: Tried to receive input on disconnected synapse");
-        }
-
+        dendriticTree.validateConnection(true, synapticIndex);
         this.accumulator += defaultInputSignalStrength;
     }
 }

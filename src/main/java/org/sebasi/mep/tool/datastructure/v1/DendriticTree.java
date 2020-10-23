@@ -1,5 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
+
 public abstract class DendriticTree {
 
     protected int numBytesNeededToHoldSynapticStates;
@@ -41,5 +43,26 @@ public abstract class DendriticTree {
 
     boolean doSynapticStateBitsIndicateConnected(int synapticStateBits) {
         return synapticStateBits != 0x0;
+    }
+
+    protected void validateConnection(
+            boolean expectationIsAlreadyConnected,
+            int synapticIndex) {
+
+        if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
+
+            int naxNumSynapses = dendriticTreeSize.getNumSynapses();
+            if (synapticIndex < 0 || synapticIndex >= naxNumSynapses) {
+                throw new NeuronConnectionException(
+                        neuron.getLabel(),
+                        "Specifed synaptic index of " + synapticIndex + " but max is " + naxNumSynapses + ".");
+            }
+
+            if (isSynapseAttached(synapticIndex) != expectationIsAlreadyConnected) {
+                throw new NeuronConnectionException(
+                        neuron.getLabel(),
+                        "Unexpected synaptic connection status. Expected = " + expectationIsAlreadyConnected);
+            }
+        }
     }
 }

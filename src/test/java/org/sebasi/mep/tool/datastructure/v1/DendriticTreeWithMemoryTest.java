@@ -5,11 +5,14 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 import static org.junit.Assert.*;
 
-public class DendriticTreeWithMemory2E16Test {
+public class DendriticTreeWithMemoryTest {
 
     @Test
     public void testInfoBitsDirectly() {
-        DendriticTreeWithMemory2E16 den = new DendriticTreeWithMemory2E16(new NeuronWithMemory(new Helper()));
+        NeuronWithMemory neuron = new NeuronWithMemory(
+                DendriticTreeSize.TwoE16,
+                new Helper());
+        DendriticTreeWithMemory den = neuron.dendriticTreeWithMemory;
         assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.
@@ -30,7 +33,10 @@ public class DendriticTreeWithMemory2E16Test {
 
     @Test
     public void testAttachDetachSynapses() {
-        DendriticTreeWithMemory2E16 den = new DendriticTreeWithMemory2E16(new NeuronWithMemory(new Helper()));
+        NeuronWithMemory neuron = new NeuronWithMemory(
+                DendriticTreeSize.TwoE16,
+                new Helper());
+        DendriticTreeWithMemory den = neuron.dendriticTreeWithMemory;
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000, -7);

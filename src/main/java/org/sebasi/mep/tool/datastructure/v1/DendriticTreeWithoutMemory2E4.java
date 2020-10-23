@@ -1,10 +1,10 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-public class DendriticTreeWithoutMemory2E16 extends DendriticTreeWithoutMemory {
+public class DendriticTreeWithoutMemory2E4 extends DendriticTreeWithoutMemory {
 
-    static final DendriticTreeSize DENDRITIC_TREE_SIZE = DendriticTreeSize.TwoE16;
+    static final DendriticTreeSize DENDRITIC_TREE_SIZE = DendriticTreeSize.TwoE4;
 
-    public DendriticTreeWithoutMemory2E16(Neuron neuron) {
+    public DendriticTreeWithoutMemory2E4(Neuron neuron) {
         super(
                 DENDRITIC_TREE_SIZE,
 

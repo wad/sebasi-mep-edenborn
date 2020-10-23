@@ -11,11 +11,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DendriticTreeWithoutMemory2E16Test {
+public class DendriticTreeWithoutMemoryTest {
 
     @Test
     public void testSynapticStateBitsDirectly() {
-        DendriticTreeWithoutMemory2E16 den = new DendriticTreeWithoutMemory2E16(new NeuronWithoutMemory(new Helper()));
+        NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                DendriticTreeSize.TwoE16,
+                new Helper());
+        DendriticTreeWithoutMemory den = neuron.dendriticTreeWithoutMemory;
         assertEquals(0, den.computeFiringThreshold());
         assertFalse(den.doSynapticStateBitsIndicateConnected((byte) 0));
         assertTrue(den.doSynapticStateBitsIndicateConnected((byte) 1));
@@ -48,7 +51,10 @@ public class DendriticTreeWithoutMemory2E16Test {
 
     @Test
     public void testAttachAndDetachSynapses() {
-        DendriticTreeWithoutMemory2E16 den = new DendriticTreeWithoutMemory2E16(new NeuronWithoutMemory(new Helper()));
+        NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                DendriticTreeSize.TwoE16,
+                new Helper());
+        DendriticTreeWithoutMemory den = neuron.dendriticTreeWithoutMemory;
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000);

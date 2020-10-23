@@ -3,7 +3,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 // todo: Strengthen synapses when they receive input (might depend on a probability)
 // todo: Reduce strength of synapse when they don't receive input (definitely depending on a probability)
 
-public class DendriticTreeWithMemory2E16 extends DendriticTreeWithMemory {
+public class DendriticTreeWithMemory2E4 extends DendriticTreeWithMemory {
 
     // Memory is achieved through a neuron persisting how sensitive its synapses are.
     // Four bits indicate the strength, which is between -7 through +7.
@@ -28,9 +28,9 @@ public class DendriticTreeWithMemory2E16 extends DendriticTreeWithMemory {
     static final int SYNAPSE_STRENGTH_DEFAULT_VALUE = 2;
     static final int SYNAPSE_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL = 0x8;
 
-    static final DendriticTreeSize DENDRITIC_TREE_SIZE = DendriticTreeSize.TwoE16;
+    static final DendriticTreeSize DENDRITIC_TREE_SIZE = DendriticTreeSize.TwoE4;
 
-    public DendriticTreeWithMemory2E16(Neuron neuron) {
+    public DendriticTreeWithMemory2E4(Neuron neuron) {
         super(
                 DENDRITIC_TREE_SIZE,
 

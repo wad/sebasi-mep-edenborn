@@ -4,28 +4,43 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 public class NeuronWithMemory extends Neuron {
 
-    DendriticTreeWithMemory2E16 dendriticTreeWithMemory2E16;
+    DendriticTreeWithMemory dendriticTreeWithMemory;
 
-    public NeuronWithMemory(Helper helper) {
-        this(helper, null);
+    public NeuronWithMemory(
+            DendriticTreeSize dendriticTreeSize,
+            Helper helper) {
+        this(
+                dendriticTreeSize,
+                helper,
+                null);
     }
 
     public NeuronWithMemory(
+            DendriticTreeSize dendriticTreeSize,
             Helper helper,
             String label) {
         super(helper, label);
-        dendriticTree = new DendriticTreeWithMemory2E16(this);
-        dendriticTreeWithMemory2E16 = (DendriticTreeWithMemory2E16) dendriticTree;
+
+        switch (dendriticTreeSize) {
+            case TwoE4:
+                dendriticTree = new DendriticTreeWithMemory2E4(this);
+                break;
+            case TwoE16:
+                dendriticTree = new DendriticTreeWithMemory2E16(this);
+                break;
+        }
+
+        dendriticTreeWithMemory = (DendriticTreeWithMemory) dendriticTree;
     }
 
     @Override
     public void receiveInput(int synapticIndex) {
-        this.accumulator += dendriticTreeWithMemory2E16.lookupSynapseStrength(synapticIndex);
+        this.accumulator += dendriticTreeWithMemory.lookupSynapseStrength(synapticIndex);
     }
 
     public void attachSynapse(
             int synapticIndex,
             int strength) {
-        dendriticTreeWithMemory2E16.attachSynapse(synapticIndex, strength);
+        dendriticTreeWithMemory.attachSynapse(synapticIndex, strength);
     }
 }
