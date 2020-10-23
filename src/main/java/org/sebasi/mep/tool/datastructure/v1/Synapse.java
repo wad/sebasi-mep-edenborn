@@ -2,16 +2,16 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public class Synapse {
     Neuron receivingNeuron;
-    int port;
+    int synapticIndex;
 
     public Synapse(
             Neuron receivingNeuron,
-            int port) {
+            int synapticIndex) {
         this.receivingNeuron = receivingNeuron;
-        this.port = port;
+        this.synapticIndex = synapticIndex;
     }
 
     public void trigger() {
-        receivingNeuron.receiveInput(port);
+        receivingNeuron.receiveInput(synapticIndex);
     }
 }

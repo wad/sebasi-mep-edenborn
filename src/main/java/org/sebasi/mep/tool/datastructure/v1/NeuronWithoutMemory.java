@@ -8,7 +8,7 @@ public class NeuronWithoutMemory extends Neuron {
 
     static final int DEFAULT_INPUT_SIGNAL_STRENGTH = 1;
 
-    Dendrites16kWithoutMemory dendrites16kWithoutMemory;
+    DendriticTree2E16WithoutMemory dendriticTree2E16WithoutMemory;
 
     // On this neuron, if any input gets triggered, the accumulator accumulates this value. Every dendritic synapse
     // yields the same strength input.
@@ -22,8 +22,8 @@ public class NeuronWithoutMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-        dendrites = new Dendrites16kWithoutMemory(this);
-        dendrites16kWithoutMemory = (Dendrites16kWithoutMemory) dendrites;
+        dendriticTree = new DendriticTree2E16WithoutMemory(this);
+        dendriticTree2E16WithoutMemory = (DendriticTree2E16WithoutMemory) dendriticTree;
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }
 
@@ -36,9 +36,9 @@ public class NeuronWithoutMemory extends Neuron {
     }
 
     @Override
-    public void receiveInput(int port) {
-        if (!isPortConnected(port)) {
-            throw new RuntimeException("Bug: Tried to receive input on disconnected port");
+    public void receiveInput(int synapticIndex) {
+        if (!isSynapseConnected(synapticIndex)) {
+            throw new RuntimeException("Bug: Tried to receive input on disconnected synapse");
         }
 
         this.accumulator += defaultInputSignalStrength;

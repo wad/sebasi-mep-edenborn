@@ -31,7 +31,7 @@ public class NeuronCluster extends Cluster {
 
     private Map<String, Neuron> getNeuronsByLabel() {
         if (neuronsByLabel == null) {
-            neuronsByLabel = new HashMap<String, Neuron>();
+            neuronsByLabel = new HashMap<>();
         }
         return  neuronsByLabel;
     }
