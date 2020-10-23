@@ -5,19 +5,11 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 import static org.junit.Assert.*;
 
-public class DendriticTree2E16WithMemoryTest {
-
-    @Test
-    public void testNumBytesToHoldSynapticStates() {
-        assertEquals(65536, DendriticTree2E16WithMemory.NUM_SYNAPSES);
-
-        // Can fit information on two synapses into one byte.
-        assertEquals(32768, DendriticTree2E16WithMemory.NUM_BYTES_NEEDED_TO_HOLD_SYNAPTIC_STATES);
-    }
+public class DendriticTreeWithMemory2E16Test {
 
     @Test
     public void testInfoBitsDirectly() {
-        DendriticTree2E16WithMemory den = new DendriticTree2E16WithMemory(new NeuronWithMemory(new Helper()));
+        DendriticTreeWithMemory2E16 den = new DendriticTreeWithMemory2E16(new NeuronWithMemory(new Helper()));
         assertEquals(0, den.computeFiringThreshold());
 
         // If all four bits are 0, it means it's disconnected.
@@ -38,7 +30,7 @@ public class DendriticTree2E16WithMemoryTest {
 
     @Test
     public void testAttachDetachSynapses() {
-        DendriticTree2E16WithMemory den = new DendriticTree2E16WithMemory(new NeuronWithMemory(new Helper()));
+        DendriticTreeWithMemory2E16 den = new DendriticTreeWithMemory2E16(new NeuronWithMemory(new Helper()));
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000, -7);

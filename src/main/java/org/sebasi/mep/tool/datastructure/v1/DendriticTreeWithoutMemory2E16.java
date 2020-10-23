@@ -2,21 +2,23 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
 
-public class DendriticTree2E16WithoutMemory extends DendriticTree {
+public class DendriticTreeWithoutMemory2E16 extends DendriticTreeWithoutMemory {
 
-    // 2 ^ 16
-    static final int NUM_SYNAPSES = 65536;
+    static final DendriticTreeSize DENDRITIC_TREE_SIZE = DendriticTreeSize.TwoE16;
 
-    // One bit per port, so divide the number of ports by 8.
-    static final int NUM_BYTES_NEEDED_TO_HOLD_SYNAPTIC_STATES = NUM_SYNAPSES >>> 3;
+    public DendriticTreeWithoutMemory2E16(Neuron neuron) {
+        super(
+                DENDRITIC_TREE_SIZE,
 
-    public DendriticTree2E16WithoutMemory(Neuron neuron) {
-        super(neuron);
+                // One bit per synapse, so divide the number of synapses by 8.
+                DENDRITIC_TREE_SIZE.getNumSynapses() >>> 3,
+
+                neuron);
     }
 
     @Override
     public long computeFiringThreshold() {
-        // trigger when the total number of triggered inputs is the same as the number of connected ports
+        // trigger when the total number of triggered inputs is the same as the number of connected synapses
         return numConnectedSynapses;
     }
 
@@ -55,8 +57,8 @@ public class DendriticTree2E16WithoutMemory extends DendriticTree {
 
     @Override
     protected void initializeSynapticStates() {
-        // initialized to zeroes, which means none of the synaptses are connected.
-        synapticStates = new byte[NUM_BYTES_NEEDED_TO_HOLD_SYNAPTIC_STATES];
+        // initialized to zeroes, which means none of the synapses are connected.
+        synapticStates = new byte[numBytesNeededToHoldSynapticStates];
         numConnectedSynapses = 0;
     }
 

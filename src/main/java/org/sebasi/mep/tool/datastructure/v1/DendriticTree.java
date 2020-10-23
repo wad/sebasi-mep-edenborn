@@ -2,12 +2,19 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public abstract class DendriticTree {
 
+    protected int numBytesNeededToHoldSynapticStates;
+    protected DendriticTreeSize dendriticTreeSize;
     protected byte[] synapticStates;
     protected int numConnectedSynapses;
 
     protected Neuron neuron;
 
-    public DendriticTree(Neuron neuron) {
+    public DendriticTree(
+            DendriticTreeSize dendriticTreeSize,
+            int numBytesNeededToHoldSynapticStates,
+            Neuron neuron) {
+        this.dendriticTreeSize = dendriticTreeSize;
+        this.numBytesNeededToHoldSynapticStates = numBytesNeededToHoldSynapticStates;
         this.neuron = neuron;
         initializeSynapticStates();
     }

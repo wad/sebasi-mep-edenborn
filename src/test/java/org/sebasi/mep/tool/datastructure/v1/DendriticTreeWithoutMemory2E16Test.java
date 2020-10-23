@@ -11,19 +11,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DendriticTree2E16WithoutMemoryTest {
-
-    @Test
-    public void testNumBytesToHoldSynapticStates() {
-        assertEquals(65536, DendriticTree2E16WithoutMemory.NUM_SYNAPSES);
-
-        // Eight ports fit into a single byte, so this is 1/8 of the number of ports.
-        assertEquals(8192, DendriticTree2E16WithoutMemory.NUM_BYTES_NEEDED_TO_HOLD_SYNAPTIC_STATES);
-    }
+public class DendriticTreeWithoutMemory2E16Test {
 
     @Test
     public void testSynapticStateBitsDirectly() {
-        DendriticTree2E16WithoutMemory den = new DendriticTree2E16WithoutMemory(new NeuronWithoutMemory(new Helper()));
+        DendriticTreeWithoutMemory2E16 den = new DendriticTreeWithoutMemory2E16(new NeuronWithoutMemory(new Helper()));
         assertEquals(0, den.computeFiringThreshold());
         assertFalse(den.doSynapticStateBitsIndicateConnected((byte) 0));
         assertTrue(den.doSynapticStateBitsIndicateConnected((byte) 1));
@@ -56,7 +48,7 @@ public class DendriticTree2E16WithoutMemoryTest {
 
     @Test
     public void testAttachAndDetachSynapses() {
-        DendriticTree2E16WithoutMemory den = new DendriticTree2E16WithoutMemory(new NeuronWithoutMemory(new Helper()));
+        DendriticTreeWithoutMemory2E16 den = new DendriticTreeWithoutMemory2E16(new NeuronWithoutMemory(new Helper()));
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000);

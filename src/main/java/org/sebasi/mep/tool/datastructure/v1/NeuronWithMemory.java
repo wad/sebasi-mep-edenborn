@@ -4,7 +4,7 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 public class NeuronWithMemory extends Neuron {
 
-    DendriticTree2E16WithMemory dendriticTree2E16WithMemory;
+    DendriticTreeWithMemory2E16 dendriticTreeWithMemory2E16;
 
     public NeuronWithMemory(Helper helper) {
         this(helper, null);
@@ -14,18 +14,18 @@ public class NeuronWithMemory extends Neuron {
             Helper helper,
             String label) {
         super(helper, label);
-        dendriticTree = new DendriticTree2E16WithMemory(this);
-        dendriticTree2E16WithMemory = (DendriticTree2E16WithMemory) dendriticTree;
+        dendriticTree = new DendriticTreeWithMemory2E16(this);
+        dendriticTreeWithMemory2E16 = (DendriticTreeWithMemory2E16) dendriticTree;
     }
 
     @Override
     public void receiveInput(int synapticIndex) {
-        this.accumulator += dendriticTree2E16WithMemory.lookupSynapseStrength(synapticIndex);
+        this.accumulator += dendriticTreeWithMemory2E16.lookupSynapseStrength(synapticIndex);
     }
 
     public void attachSynapse(
             int synapticIndex,
             int strength) {
-        dendriticTree2E16WithMemory.attachSynapse(synapticIndex, strength);
+        dendriticTreeWithMemory2E16.attachSynapse(synapticIndex, strength);
     }
 }
