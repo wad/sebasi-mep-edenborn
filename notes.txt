@@ -40,22 +40,22 @@ Example script:
 
 # A brain object holds some overall parameters for the entire structure.
 # It can contain multiple clusterCluster objects.
-# Specify neuronGroupLevels. 1 means each top-level cluster can only hold neuronCluster objects, not other clusterCluster objects.
+# Specify neuronGroupLevels. 1 means each top-level cluster can only hold clusterOfNeurons objects, not other clusterCluster objects.
 # Names can optionally be contained in "", so they can use whitespace.
 create brain name=nemo neuronGroupLevels=1;
 
-# This way, we don't need to specify which brain newly created structures are assigned to, and how many neurons are in neuronCluster objects.
+# This way, we don't need to specify which brain newly created structures are assigned to, and how many neurons are in clusterOfNeurons objects.
 set default brain=nemo numNeurons=3
 
 # Create two neuron clusters, each with 3 neurons (indexed 0,1,2 in each cluster) each, and put them into a clusterCluster.
-create neuronCluster name=nc1.1
-create neuronCluster name=nc1.2
+create clusterOfNeurons name=nc1.1
+create clusterOfNeurons name=nc1.2
 create clusterCluster name=cc1
 assign holder=cc1 members=nc1.1,nc1.2
 
 # Create two neuron clusters, each with 3 neurons (indexed 0,1,2 in each cluster) each, and put them into a clusterCluster.
-create neuronCluster name=nc2.1
-create neuronCluster name=nc2.2
+create clusterOfNeurons name=nc2.1
+create clusterOfNeurons name=nc2.2
 create clusterCluster name=cc2
 assign holder=cc2 members=nc2.1,nc2.2
 

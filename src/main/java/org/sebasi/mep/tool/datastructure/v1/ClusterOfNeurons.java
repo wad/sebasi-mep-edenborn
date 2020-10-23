@@ -7,16 +7,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NeuronCluster extends Cluster {
+public class ClusterOfNeurons extends Cluster {
 
     List<Neuron> neurons = null;
     Map<String, Neuron> neuronsByLabel;
 
-    public NeuronCluster(Helper helper) {
+    public ClusterOfNeurons(Helper helper) {
         this(helper, null);
     }
 
-    public NeuronCluster(
+    public ClusterOfNeurons(
             Helper helper,
             String label) {
         super(helper, label);

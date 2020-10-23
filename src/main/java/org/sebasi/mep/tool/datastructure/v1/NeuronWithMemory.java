@@ -2,7 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
-public class NeuronWithMemory extends Neuron {
+public class NeuronWithMemory extends NeuronWithDendriticTree {
 
     DendriticTreeWithMemory dendriticTreeWithMemory;
 
