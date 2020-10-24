@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 public class NeuronWithMemory extends NeuronWithDendriticTree {
 
@@ -8,10 +9,12 @@ public class NeuronWithMemory extends NeuronWithDendriticTree {
 
     public NeuronWithMemory(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
             Helper helper) {
         this(
                 firingComputer,
+                tickPriority,
                 dendriticTreeSize,
                 helper,
                 null);
@@ -19,11 +22,13 @@ public class NeuronWithMemory extends NeuronWithDendriticTree {
 
     public NeuronWithMemory(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
             Helper helper,
             String label) {
         super(
                 firingComputer,
+                tickPriority,
                 helper,
                 label);
         dendriticTreeWithMemory = new DendriticTreeWithMemoryType1(dendriticTreeSize, this);

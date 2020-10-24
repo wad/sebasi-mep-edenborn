@@ -2,6 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 public abstract class Neuron extends HelperHolder implements Ticker {
 
@@ -12,15 +13,18 @@ public abstract class Neuron extends HelperHolder implements Ticker {
 
     public Neuron(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             Helper helper) {
         this(
                 firingComputer,
+                tickPriority,
                 helper,
                 null);
     }
 
     public Neuron(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             Helper helper,
             String label) {
         super(helper);
@@ -28,7 +32,7 @@ public abstract class Neuron extends HelperHolder implements Ticker {
         this.label = label;
         resetAccumulator();
         initializeAxon();
-        registerTicker();
+        registerTicker(tickPriority);
     }
 
     public String getLabel() {
@@ -71,8 +75,8 @@ public abstract class Neuron extends HelperHolder implements Ticker {
     }
 
     @Override
-    public void registerTicker() {
-        getHelper().getTickers().registerTicker(this);
+    public void registerTicker(TickPriority tickPriority) {
+        getHelper().getTickers().registerTicker(tickPriority, this);
     }
 
     @Override

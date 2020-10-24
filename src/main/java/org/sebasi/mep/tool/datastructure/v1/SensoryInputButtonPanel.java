@@ -5,6 +5,7 @@ import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
 
 // This is a primitive construct to input signals to a brain.
 // The idea is that it's a panel of little light buttons, each with a number.
+// (Note that these buttons don't stay pressed, they spring right back out. One press is one signal pulse.)
 public class SensoryInputButtonPanel extends ClusterOfNeurons {
 
     public SensoryInputButtonPanel(Helper helper) {

@@ -18,12 +18,6 @@ public class DendriticTreeWithoutMemoryType2 extends DendriticTreeWithoutMemory 
     }
 
     @Override
-    public long computeFiringThreshold() {
-        // trigger when the total number of triggered inputs is the same as the number of connected synapses
-        return numConnectedSynapses;
-    }
-
-    @Override
     public void attachSynapse(int synapticIndex) {
 
         validateConnection(false, synapticIndex);

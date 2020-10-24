@@ -46,12 +46,6 @@ public class DendriticTreeWithMemoryType1 extends DendriticTreeWithMemory {
     }
 
     @Override
-    public long computeFiringThreshold() {
-        // todo: Just a starting formula. There are probably better ones.
-        return numConnectedSynapses * getSynapseStrengthDefaultValue();
-    }
-
-    @Override
     public void attachSynapse(
             int synapticIndex,
             int strength) {

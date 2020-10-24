@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 // The dendrites (and their synapses) in this type of neuron don't have strengths, which
 // means that they can't "learn".
@@ -16,10 +17,12 @@ public class NeuronWithoutMemory extends NeuronWithDendriticTree {
 
     public NeuronWithoutMemory(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
             Helper helper) {
         this(
                 firingComputer,
+                tickPriority,
                 dendriticTreeSize,
                 helper,
                 null);
@@ -27,11 +30,13 @@ public class NeuronWithoutMemory extends NeuronWithDendriticTree {
 
     public NeuronWithoutMemory(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
             Helper helper,
             String label) {
         super(
                 firingComputer,
+                tickPriority,
                 helper,
                 label);
         dendriticTreeWithoutMemory = new DendriticTreeWithoutMemoryType2(dendriticTreeSize, this);

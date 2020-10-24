@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 public abstract class DendriticTree implements Ticker {
 
@@ -29,10 +30,6 @@ public abstract class DendriticTree implements Ticker {
         return numConnectedSynapses;
     }
 
-    // If the accumulator firing threshold is reached or exceeded, the neuron fires, sending a signal
-    // to the synapses of all the other neurons that it is connected to.
-    public abstract long computeFiringThreshold();
-
     public abstract void attachSynapse(int synapticIndex);
 
     public abstract void detachSynapse(int synapticIndex);
@@ -50,8 +47,8 @@ public abstract class DendriticTree implements Ticker {
     }
 
     @Override
-    public void registerTicker() {
-        neuron.getHelper().getTickers().registerTicker(this);
+    public void registerTicker(TickPriority tickPriority) {
+        neuron.getHelper().getTickers().registerTicker(tickPriority, this);
     }
 
     protected void validateConnection(

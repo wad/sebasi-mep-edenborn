@@ -2,6 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +12,7 @@ public class DendriticTreeWithMemoryTest {
     public void testInfoBitsDirectly() {
         NeuronWithMemory neuron = new NeuronWithMemory(
                 FiringComputer.FireAlways,
+                TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();
@@ -35,6 +37,7 @@ public class DendriticTreeWithMemoryTest {
     public void testAttachDetachSynapses() {
         NeuronWithMemory neuron = new NeuronWithMemory(
                 FiringComputer.FireAlways,
+                TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();

@@ -2,6 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ public class DendriticTreeWithoutMemoryTest {
     public void testSynapticStateBitsDirectly() {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                 FiringComputer.FireAlways,
+                TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();
@@ -51,6 +53,7 @@ public class DendriticTreeWithoutMemoryTest {
     public void testAttachAndDetachSynapses() {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                 FiringComputer.FireAlways,
+                TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
         DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();

@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 // This type of neuron has no dendrites, just a trigger button that fires the axon.
 public class NeuronForSensoryInput extends Neuron {
@@ -22,7 +23,11 @@ public class NeuronForSensoryInput extends Neuron {
             FiringComputer firingComputer,
             Helper helper,
             String label) {
-        super(firingComputer, helper, label);
+        super(
+                firingComputer,
+                TickPriority.first,
+                helper,
+                label);
     }
 
     @Override

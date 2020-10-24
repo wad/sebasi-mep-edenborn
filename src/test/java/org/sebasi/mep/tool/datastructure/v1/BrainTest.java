@@ -2,6 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 import static org.junit.Assert.*;
 
@@ -33,10 +34,23 @@ public class BrainTest {
         inputPanel.pressButton("in1");
 
         helper.getTickers().tick();
-        helper.getTickers().tick();
 
         assertTrue(outputPanel.isLampOn("out1"));
         assertFalse(outputPanel.isLampOn("out2"));
+
+        outputPanel.resetLamp("out1");
+
+        helper.getTickers().tick();
+
+        assertFalse(outputPanel.isLampOn("out1"));
+        assertFalse(outputPanel.isLampOn("out2"));
+
+        inputPanel.pressButton("in2");
+
+        helper.getTickers().tick();
+
+        assertFalse(outputPanel.isLampOn("out1"));
+        assertTrue(outputPanel.isLampOn("out2"));
     }
 
     @Test
@@ -55,7 +69,11 @@ public class BrainTest {
         DendriticTreeSize neuronSize = DendriticTreeSize.TwoE16;
         ClusterOfNeurons clusterOfNeurons = new ClusterOfNeurons(helper, "nc1");
         for (int i = 0; i < numNeuronsInCluster; i++) {
-            Neuron neuron = new NeuronWithoutMemory(FiringComputer.FireOnAnyInput, neuronSize, helper);
+            Neuron neuron = new NeuronWithoutMemory(
+                    FiringComputer.FireOnAnyInput,
+                    TickPriority.second,
+                    neuronSize,
+                    helper);
             clusterOfNeurons.addNeuron(neuron);
         }
         return clusterOfNeurons;

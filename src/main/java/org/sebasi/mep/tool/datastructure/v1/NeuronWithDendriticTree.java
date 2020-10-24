@@ -1,24 +1,29 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 public abstract class NeuronWithDendriticTree extends Neuron {
 
     public NeuronWithDendriticTree(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             Helper helper) {
         this(
                 firingComputer,
+                tickPriority,
                 helper,
                 null);
     }
 
     public NeuronWithDendriticTree(
             FiringComputer firingComputer,
+            TickPriority tickPriority,
             Helper helper,
             String label) {
         super(
                 firingComputer,
+                tickPriority,
                 helper,
                 label);
     }
