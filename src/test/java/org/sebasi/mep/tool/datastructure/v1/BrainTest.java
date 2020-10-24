@@ -1,6 +1,8 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
+import org.sebasi.mep.tool.datastructure.v1.util.Chance;
+import org.sebasi.mep.tool.datastructure.v1.util.Electrician;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
@@ -14,14 +16,14 @@ public class BrainTest {
         Helper helper = new Helper();
 
         SensoryInputButtonPanel inputPanel = new SensoryInputButtonPanel(helper, "input");
-        NeuronForSensoryInput in1 = new NeuronForSensoryInput(FiringComputer.FireOnAnyInput, helper, "in1");
-        NeuronForSensoryInput in2 = new NeuronForSensoryInput(FiringComputer.FireOnAnyInput, helper, "in2");
+        NeuronForSensoryInput in1 = new NeuronForSensoryInput(FiringComputer.ON_ANY_INPUT, helper, "in1");
+        NeuronForSensoryInput in2 = new NeuronForSensoryInput(FiringComputer.ON_ANY_INPUT, helper, "in2");
         inputPanel.addNeuron(in1);
         inputPanel.addNeuron(in2);
 
         MotorOutputLampPanel outputPanel = new MotorOutputLampPanel(helper, "output");
-        NeuronForMotorOutput out1 = new NeuronForMotorOutput(FiringComputer.FireOnAnyInput, DendriticTreeSize.TwoE4, helper, "out1");
-        NeuronForMotorOutput out2 = new NeuronForMotorOutput(FiringComputer.FireOnAnyInput, DendriticTreeSize.TwoE4, helper, "out2");
+        NeuronForMotorOutput out1 = new NeuronForMotorOutput(FiringComputer.ON_ANY_INPUT, DendriticTreeSize.TwoE4, helper, "out1");
+        NeuronForMotorOutput out2 = new NeuronForMotorOutput(FiringComputer.ON_ANY_INPUT, DendriticTreeSize.TwoE4, helper, "out2");
         outputPanel.addNeuron(out1);
         outputPanel.addNeuron(out2);
 
@@ -54,28 +56,96 @@ public class BrainTest {
     }
 
     @Test
-    public void testBrain() {
+    public void testInputOutput_withMiddleLayer() {
+
+        int numInputs = 256;
+        int numMiddleNeurons1 = 256;
+        int numMiddleNeurons2 = 256;
+        int numMiddleNeurons3 = 256;
+        int numOutputs = 256;
 
         Helper helper = new Helper();
-        ClusterOfNeurons clusterOfNeurons = makeNeuronCluster(helper);
+        helper.setShouldShowLogMessages(false);
 
-        assertEquals(1000, clusterOfNeurons.neurons.size());
-
-        // todo: more good stuff
-    }
-
-    ClusterOfNeurons makeNeuronCluster(Helper helper) {
-        int numNeuronsInCluster = 1000;
-        DendriticTreeSize neuronSize = DendriticTreeSize.TwoE16;
-        ClusterOfNeurons clusterOfNeurons = new ClusterOfNeurons(helper, "nc1");
-        for (int i = 0; i < numNeuronsInCluster; i++) {
-            Neuron neuron = new NeuronWithoutMemory(
-                    FiringComputer.FireOnAnyInput,
-                    TickPriority.second,
-                    neuronSize,
+        SensoryInputButtonPanel inputPanel = new SensoryInputButtonPanel(helper, "input");
+        for (int i = 0; i < numInputs; i++) {
+            NeuronForSensoryInput inputNeuron = new NeuronForSensoryInput(
+                    FiringComputer.ALWAYS,
                     helper);
-            clusterOfNeurons.addNeuron(neuron);
+            inputPanel.addNeuron(inputNeuron);
         }
-        return clusterOfNeurons;
+
+        ClusterOfNeurons middleCluster1 = new ClusterOfNeurons(helper);
+        for (int i = 0; i < numMiddleNeurons1; i++) {
+            NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                    FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
+                    TickPriority.second,
+                    DendriticTreeSize.TwoE8,
+                    helper);
+            middleCluster1.addNeuron(neuron);
+        }
+
+        ClusterOfNeurons middleCluster2 = new ClusterOfNeurons(helper);
+        for (int i = 0; i < numMiddleNeurons2; i++) {
+            NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                    FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
+                    TickPriority.second,
+                    DendriticTreeSize.TwoE8,
+                    helper);
+            middleCluster2.addNeuron(neuron);
+        }
+
+        ClusterOfNeurons middleCluster3 = new ClusterOfNeurons(helper);
+        for (int i = 0; i < numMiddleNeurons3; i++) {
+            NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+                    FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
+                    TickPriority.second,
+                    DendriticTreeSize.TwoE8,
+                    helper);
+            middleCluster3.addNeuron(neuron);
+        }
+
+        MotorOutputLampPanel outputPanel = new MotorOutputLampPanel(helper, "output");
+        for (int i = 0; i < numOutputs; i++) {
+            NeuronForMotorOutput outputNeuron = new NeuronForMotorOutput(
+                    FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
+                    DendriticTreeSize.TwoE8,
+                    helper);
+            outputPanel.addNeuron(outputNeuron);
+        }
+
+        Electrician electrician = new Electrician(helper);
+
+        electrician.wireRandomly(
+                middleCluster3,
+                Chance.percent(100),
+                Chance.percent(100),
+                outputPanel);
+
+        electrician.wireRandomly(
+                middleCluster2,
+                Chance.percent(100),
+                Chance.percent(100),
+                middleCluster3);
+
+        electrician.wireRandomly(
+                middleCluster1,
+                Chance.percent(100),
+                Chance.percent(100),
+                middleCluster2);
+
+        electrician.wireRandomly(
+                inputPanel,
+                Chance.percent(100),
+                Chance.percent(100),
+                middleCluster1);
+
+        Chance chanceEachButtonIsPressed = new Chance(1, 2);
+        for (int i = 0; i < 20; i++) {
+            System.out.println(outputPanel.showLampsHex());
+            outputPanel.resetAllLamps();
+            helper.getTickers().tick();
+            inputPanel.pushRandomButtons(chanceEachButtonIsPressed);
+        }
     }
 }

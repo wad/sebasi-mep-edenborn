@@ -2,10 +2,12 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public enum FiringComputer {
 
-    FireAlways,
-    FireNever,
-    FireOnAnyInput,
-    FireWhenNumTriggeredInputsMoreThanNumConnectedSynapses;
+    ALWAYS,
+    NEVER,
+    ON_ANY_INPUT,
+    WHEN_NUM_TRIGGERED_INPUTS_MORE_THAN_NUM_CONNECTED_SYNAPSES,
+    WHEN_TEN_TIMES_NUM_CONNECTED_SYNAPSES,
+    WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES;
 
     public static boolean shouldFire(
             FiringComputer firingComputer,
@@ -14,14 +16,18 @@ public enum FiringComputer {
             int numSynapticConnections) {
 
         switch (firingComputer) {
-            case FireAlways:
+            case ALWAYS:
                 return true;
-            case FireNever:
+            case NEVER:
                 return false;
-            case FireOnAnyInput:
+            case ON_ANY_INPUT:
                 return accumulatorValue > 0;
-            case FireWhenNumTriggeredInputsMoreThanNumConnectedSynapses:
+            case WHEN_NUM_TRIGGERED_INPUTS_MORE_THAN_NUM_CONNECTED_SYNAPSES:
                 return accumulatorValue > numSynapticConnections;
+            case WHEN_TEN_TIMES_NUM_CONNECTED_SYNAPSES:
+                return accumulatorValue > (numSynapticConnections * 10);
+            case WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES:
+                return accumulatorValue > (numSynapticConnections * 2);
             default:
                 throw new IllegalStateException("Unexpected value: " + firingComputer);
         }

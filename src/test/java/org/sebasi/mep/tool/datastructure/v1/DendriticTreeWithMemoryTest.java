@@ -11,7 +11,7 @@ public class DendriticTreeWithMemoryTest {
     @Test
     public void testInfoBitsDirectly() {
         NeuronWithMemory neuron = new NeuronWithMemory(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
@@ -36,7 +36,7 @@ public class DendriticTreeWithMemoryTest {
     @Test
     public void testAttachDetachSynapses() {
         NeuronWithMemory neuron = new NeuronWithMemory(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());

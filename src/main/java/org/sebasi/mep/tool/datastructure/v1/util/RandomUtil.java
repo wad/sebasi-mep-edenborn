@@ -10,6 +10,12 @@ public class RandomUtil {
         random = new Random();
     }
 
+    public boolean shouldEventTrigger(Chance chance) {
+        return shouldEventTrigger(
+                chance.numerator,
+                chance.denominator);
+    }
+
     public boolean shouldEventTrigger(
             int numerator,
             int denominator) {
@@ -23,5 +29,10 @@ public class RandomUtil {
         }
 
         return numerator <= random.nextInt(denominator);
+    }
+
+    // returns a value between 0 and one less than max
+    public int getRandomNumber(int max) {
+        return random.nextInt(max);
     }
 }

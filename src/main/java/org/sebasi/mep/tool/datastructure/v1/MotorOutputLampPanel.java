@@ -35,6 +35,15 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
         neuron.resetLamp();
     }
 
+    public void resetAllLamps() {
+        for (int neuronIndex = 0; neuronIndex <= getGreatestNeuronIndex(); neuronIndex++) {
+            NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            if (neuron != null) {
+                neuron.resetLamp();
+            }
+        }
+    }
+
     public String showAllOutputAsBinary() {
         int numNeurons = getGreatestNeuronIndex() + 1;
         char[] binaryDigits = new char[numNeurons];

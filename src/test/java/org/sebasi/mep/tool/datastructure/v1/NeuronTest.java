@@ -11,7 +11,7 @@ public class NeuronTest {
     @Test
     public void testLabel() {
         Neuron neuron = new NeuronWithoutMemory(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE4,
                 new Helper(),

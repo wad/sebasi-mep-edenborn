@@ -30,6 +30,10 @@ public abstract class NeuronWithDendriticTree extends Neuron {
 
     protected abstract DendriticTree getDendriticTree();
 
+    public DendriticTreeSize getDendriticTreeSize() {
+        return getDendriticTree().getDendriticTreeSize();
+    }
+
     @Override
     protected int getMaxNumSynapticConnections() {
         return getDendriticTree().dendriticTreeSize.getNumSynapses();
@@ -55,7 +59,7 @@ public abstract class NeuronWithDendriticTree extends Neuron {
 
     abstract public void receiveInput(int synapticIndex);
 
-    protected boolean isSynapseConnected(int synapticIndex) {
+    public boolean isSynapseConnected(int synapticIndex) {
         return getDendriticTree().doSynapticStateBitsIndicateConnected(
                 getDendriticTree().getSynapticStateBits(synapticIndex));
     }

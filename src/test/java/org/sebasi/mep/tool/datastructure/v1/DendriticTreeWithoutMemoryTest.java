@@ -15,7 +15,7 @@ public class DendriticTreeWithoutMemoryTest {
     @Test
     public void testSynapticStateBitsDirectly() {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
@@ -52,7 +52,7 @@ public class DendriticTreeWithoutMemoryTest {
     @Test
     public void testAttachAndDetachSynapses() {
         NeuronWithoutMemory neuron = new NeuronWithoutMemory(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());

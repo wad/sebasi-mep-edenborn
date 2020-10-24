@@ -30,6 +30,10 @@ public abstract class DendriticTree implements Ticker {
         return numConnectedSynapses;
     }
 
+    public DendriticTreeSize getDendriticTreeSize() {
+        return dendriticTreeSize;
+    }
+
     public abstract void attachSynapse(int synapticIndex);
 
     public abstract void detachSynapse(int synapticIndex);

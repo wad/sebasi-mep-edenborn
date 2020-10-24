@@ -14,17 +14,17 @@ public class MotorOutputLampPanelTest {
         MotorOutputLampPanel lampPanel = new MotorOutputLampPanel(helper);
 
         NeuronForMotorOutput neuron0 = new NeuronForMotorOutput(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper,
                 "n0");
         NeuronForMotorOutput neuron1 = new NeuronForMotorOutput(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper,
                 "n1");
         NeuronForMotorOutput neuron2 = new NeuronForMotorOutput(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper,
                 "n2");
@@ -50,7 +50,7 @@ public class MotorOutputLampPanelTest {
         int numNeuronsToMake = 3;
         for (int i = 0; i < numNeuronsToMake; i++) {
             NeuronForMotorOutput neuron = new NeuronForMotorOutput(
-                    FiringComputer.FireAlways,
+                    FiringComputer.ALWAYS,
                     DendriticTreeSize.TwoE4,
                     helper,
                     "n" + i);
@@ -72,7 +72,7 @@ public class MotorOutputLampPanelTest {
         int numNeuronsToMake = 3;
         for (int i = 0; i < numNeuronsToMake; i++) {
             NeuronForMotorOutput neuron = new NeuronForMotorOutput(
-                    FiringComputer.FireAlways,
+                    FiringComputer.ALWAYS,
                     DendriticTreeSize.TwoE4,
                     helper,
                     "n" + i);
@@ -99,7 +99,7 @@ public class MotorOutputLampPanelTest {
         int numNeuronsToMake = 12;
         for (int i = 0; i < numNeuronsToMake; i++) {
             NeuronForMotorOutput neuron = new NeuronForMotorOutput(
-                    FiringComputer.FireAlways,
+                    FiringComputer.ALWAYS,
                     DendriticTreeSize.TwoE4,
                     helper);
             lampPanel.addNeuron(neuron);
@@ -114,7 +114,7 @@ public class MotorOutputLampPanelTest {
 
         // add one more neuron, the 13th, that didn't fire.
         NeuronForMotorOutput neuron = new NeuronForMotorOutput(
-                FiringComputer.FireAlways,
+                FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper);
         lampPanel.addNeuron(neuron);
