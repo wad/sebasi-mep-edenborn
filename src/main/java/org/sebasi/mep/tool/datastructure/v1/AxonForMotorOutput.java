@@ -10,6 +10,7 @@ public class AxonForMotorOutput extends Axon {
 
     @Override
     public void fire() {
+        hasFired = true;
     }
 
     public boolean getHasFired() {

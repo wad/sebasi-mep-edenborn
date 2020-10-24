@@ -2,7 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
 
-public abstract class DendriticTree {
+public abstract class DendriticTree implements Ticker {
 
     protected int numBytesNeededToHoldSynapticStates;
     protected DendriticTreeSize dendriticTreeSize;
@@ -43,6 +43,15 @@ public abstract class DendriticTree {
 
     boolean doSynapticStateBitsIndicateConnected(int synapticStateBits) {
         return synapticStateBits != 0x0;
+    }
+
+    @Override
+    public void tick() {
+    }
+
+    @Override
+    public void registerTicker() {
+        neuron.getHelper().getTickers().registerTicker(this);
     }
 
     protected void validateConnection(

@@ -27,16 +27,16 @@ public class BrainTest {
         in1.createOutgoingAxonConnection(out1, 0);
         in2.createOutgoingAxonConnection(out2, 0);
 
-        // todo: tick();
-
         assertFalse(outputPanel.isLampOn("out1"));
         assertFalse(outputPanel.isLampOn("out2"));
 
         inputPanel.pressButton("in1");
 
+        helper.getTickers().tick();
+        helper.getTickers().tick();
+
         assertTrue(outputPanel.isLampOn("out1"));
         assertFalse(outputPanel.isLampOn("out2"));
-
     }
 
     @Test

@@ -1,5 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+// todo: Strengthen synapses when they receive input (might depend on a probability)
+
 public abstract class DendriticTreeWithMemory extends DendriticTree {
 
     public DendriticTreeWithMemory(
@@ -40,5 +42,10 @@ public abstract class DendriticTreeWithMemory extends DendriticTree {
         validateConnection(true, synapticIndex);
         int synapticStateBits = getSynapticStateBits(synapticIndex);
         return convertSynapticStateBitsToStrength(synapticStateBits);
+    }
+
+    @Override
+    public void tick() {
+        // todo: Reduce strength of synapse when they don't receive input (definitely depending on a probability)
     }
 }

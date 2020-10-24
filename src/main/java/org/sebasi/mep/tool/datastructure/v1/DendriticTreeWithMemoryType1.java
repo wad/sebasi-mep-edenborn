@@ -1,8 +1,5 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-// todo: Strengthen synapses when they receive input (might depend on a probability)
-// todo: Reduce strength of synapse when they don't receive input (definitely depending on a probability)
-
 // Q: What is this "Type1" about?
 // A: Nothing yet, there will eventually be multiple types of neurons, most likely,
 // this is just a placeholder for the first one to be implemented.

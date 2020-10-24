@@ -46,4 +46,9 @@ public class ClusterOfNeurons extends Cluster {
     public Neuron getNeuron(String label) {
         return getNeuronsByLabel().get(label);
     }
+
+    @Override
+    public void tick() {
+        neurons.forEach(Neuron::tick);
+    }
 }

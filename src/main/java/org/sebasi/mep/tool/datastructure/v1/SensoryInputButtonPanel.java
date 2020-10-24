@@ -23,6 +23,6 @@ public class SensoryInputButtonPanel extends ClusterOfNeurons {
             throw new NeuronConnectionException("Failed to press button with label " + inputNeuronLabel + ".", label);
         }
 
-        neuron.fireIfReady();
+        neuron.receiveInputStimulus();
     }
 }

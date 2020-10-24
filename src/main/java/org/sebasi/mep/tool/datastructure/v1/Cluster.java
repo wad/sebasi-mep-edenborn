@@ -56,4 +56,8 @@ public class Cluster extends HelperHolder {
         }
         return clustersByLabel.get(label);
     }
+
+    public void tick() {
+        clusters.forEach(Cluster::tick);
+    }
 }

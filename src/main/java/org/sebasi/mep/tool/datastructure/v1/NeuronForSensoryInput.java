@@ -5,6 +5,10 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 // This type of neuron has no dendrites, just a trigger button that fires the axon.
 public class NeuronForSensoryInput extends Neuron {
 
+    static final int STARTING_STIMULUS_STRENGTH = 1;
+
+    int stimulusStrength = STARTING_STIMULUS_STRENGTH;
+
     public NeuronForSensoryInput(
             FiringComputer firingComputer,
             Helper helper) {
@@ -41,5 +45,13 @@ public class NeuronForSensoryInput extends Neuron {
             NeuronWithDendriticTree destinationNeuron,
             int synapticIndex) {
         ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
+    }
+
+    public void setStimulusStrength(int stimulusStrength) {
+        this.stimulusStrength = stimulusStrength;
+    }
+
+    public void receiveInputStimulus() {
+        accumulator += stimulusStrength;
     }
 }
