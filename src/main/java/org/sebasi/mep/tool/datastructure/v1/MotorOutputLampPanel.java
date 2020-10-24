@@ -36,35 +36,95 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
     }
 
     public String showAllOutputAsBinary() {
-        StringBuilder builder = new StringBuilder();
-        int highestNeuronIndex = getGreatestNeuronIndex();
-        for (int neuronIndex = 0; neuronIndex < highestNeuronIndex; neuronIndex++) {
+        int numNeurons = getGreatestNeuronIndex() + 1;
+        char[] binaryDigits = new char[numNeurons];
+        for (int neuronIndex = 0; neuronIndex < numNeurons; neuronIndex++) {
             NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
             if (neuron != null) {
-                builder.append(neuron.isLampOn() ? "1" : "0");
+                binaryDigits[neuronIndex] = neuron.isLampOn() ? '1' : '0';
             }
         }
-        return builder.toString();
+        return new String(binaryDigits);
     }
 
-    public String showAllOutputAsHex() {
-        StringBuilder builder = new StringBuilder();
-        int highestNeuronIndex = getGreatestNeuronIndex();
-        int hexDigit = 0;
-        int numNeuronsFoundForThisHexDigit = 0;
-        for (int neuronIndex = 0; neuronIndex < highestNeuronIndex; neuronIndex++) {
-            NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
-            if (neuron != null) {
-                hexDigit <<= 1;
-                if (neuron.isLampOn()) {
-                    hexDigit |= 1;
-                }
-                numNeuronsFoundForThisHexDigit++;
-                if (numNeuronsFoundForThisHexDigit >= 5) {
-                    // todo: remaining leftover bits?
-                }
-            }
+    public String showLampsHex() {
+        int numNeurons = getGreatestNeuronIndex() + 1;
+
+        // four bits per hex digit.
+        // if the number of neurons isn't evenly divisible by four, just ignore those last 1, 2 or 3 for now.
+        int numHexDigits = numNeurons >> 2;
+
+        // put the hex digits into this buffer
+        char[] hexDigits = new char[numHexDigits];
+
+        int neuronIndex = 0;
+        for (int i = 0; i < numHexDigits; i++) {
+            NeuronForMotorOutput neuron0 = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            NeuronForMotorOutput neuron1 = (NeuronForMotorOutput) getNeuron(neuronIndex + 1);
+            NeuronForMotorOutput neuron2 = (NeuronForMotorOutput) getNeuron(neuronIndex + 2);
+            NeuronForMotorOutput neuron3 = (NeuronForMotorOutput) getNeuron(neuronIndex + 3);
+            hexDigits[i] = convertBitsToHexDigit(
+                    neuron0 != null && neuron0.isLampOn(),
+                    neuron1 != null && neuron1.isLampOn(),
+                    neuron2 != null && neuron2.isLampOn(),
+                    neuron3 != null && neuron3.isLampOn());
+            neuronIndex += 4;
         }
-        return builder.toString();
+
+        String output = new String(hexDigits);
+
+        // we need another hex digit if there's not a quantity divisible by 4
+        int numRemainingNeuronsToCheck = numNeurons & 3;
+        if (numRemainingNeuronsToCheck > 0) {
+            char lastHexDigit;
+            NeuronForMotorOutput neuron0 = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            boolean bit0 = neuron0 != null && neuron0.isLampOn();
+            switch (numRemainingNeuronsToCheck) {
+                case 1: {
+                    lastHexDigit = convertBitsToHexDigit(
+                            bit0,
+                            false,
+                            false,
+                            false);
+                    break;
+                }
+                case 2: {
+                    NeuronForMotorOutput neuron1 = (NeuronForMotorOutput) getNeuron(neuronIndex + 1);
+                    lastHexDigit = convertBitsToHexDigit(
+                            bit0,
+                            neuron1 != null && neuron1.isLampOn(),
+                            false,
+                            false);
+                    break;
+                }
+                case 3: {
+                    NeuronForMotorOutput neuron1 = (NeuronForMotorOutput) getNeuron(neuronIndex + 1);
+                    NeuronForMotorOutput neuron2 = (NeuronForMotorOutput) getNeuron(neuronIndex + 2);
+                    lastHexDigit = convertBitsToHexDigit(
+                            bit0,
+                            neuron1 != null && neuron1.isLampOn(),
+                            neuron2 != null && neuron2.isLampOn(),
+                            false);
+                    break;
+                }
+                default:
+                    throw new RuntimeException("bug");
+            }
+            output += lastHexDigit;
+        }
+
+        return output;
+    }
+
+    private char convertBitsToHexDigit(
+            boolean bit0,
+            boolean bit1,
+            boolean bit2,
+            boolean bit3) {
+        int v = (bit0 ? 8 : 0) | (bit1 ? 4 : 0) | (bit2 ? 2 : 0) | (bit3 ? 1 : 0);
+        if (v < 10) {
+            return (char) ('0' + v);
+        }
+        return (char) ('A' + (v - 10));
     }
 }
