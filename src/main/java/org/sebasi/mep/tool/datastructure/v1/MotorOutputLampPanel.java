@@ -34,4 +34,37 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
 
         neuron.resetLamp();
     }
+
+    public String showAllOutputAsBinary() {
+        StringBuilder builder = new StringBuilder();
+        int highestNeuronIndex = getGreatestNeuronIndex();
+        for (int neuronIndex = 0; neuronIndex < highestNeuronIndex; neuronIndex++) {
+            NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            if (neuron != null) {
+                builder.append(neuron.isLampOn() ? "1" : "0");
+            }
+        }
+        return builder.toString();
+    }
+
+    public String showAllOutputAsHex() {
+        StringBuilder builder = new StringBuilder();
+        int highestNeuronIndex = getGreatestNeuronIndex();
+        int hexDigit = 0;
+        int numNeuronsFoundForThisHexDigit = 0;
+        for (int neuronIndex = 0; neuronIndex < highestNeuronIndex; neuronIndex++) {
+            NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            if (neuron != null) {
+                hexDigit <<= 1;
+                if (neuron.isLampOn()) {
+                    hexDigit |= 1;
+                }
+                numNeuronsFoundForThisHexDigit++;
+                if (numNeuronsFoundForThisHexDigit >= 5) {
+                    // todo: remaining leftover bits?
+                }
+            }
+        }
+        return builder.toString();
+    }
 }

@@ -11,6 +11,8 @@ public class ClusterOfNeurons extends Cluster {
 
     List<Neuron> neurons = null;
     Map<String, Neuron> neuronsByLabel;
+    Map<Integer, Neuron> neuronsByNeuronIndex;
+    int nextNeuronIndexNumber = 0;
 
     public ClusterOfNeurons(Helper helper) {
         this(helper, null);
@@ -20,6 +22,7 @@ public class ClusterOfNeurons extends Cluster {
             Helper helper,
             String label) {
         super(helper, label);
+        neuronsByNeuronIndex = new HashMap<>();
     }
 
     private List<Neuron> getNeurons() {
@@ -33,7 +36,7 @@ public class ClusterOfNeurons extends Cluster {
         if (neuronsByLabel == null) {
             neuronsByLabel = new HashMap<>();
         }
-        return  neuronsByLabel;
+        return neuronsByLabel;
     }
 
     public void addNeuron(Neuron neuronToAdd) {
@@ -41,10 +44,22 @@ public class ClusterOfNeurons extends Cluster {
         if (neuronToAdd.getLabel() != null) {
             getNeuronsByLabel().put(neuronToAdd.getLabel(), neuronToAdd);
         }
+
+        neuronToAdd.setNeuronIndex(nextNeuronIndexNumber);
+        neuronsByNeuronIndex.put(nextNeuronIndexNumber, neuronToAdd);
+        nextNeuronIndexNumber++;
     }
 
     public Neuron getNeuron(String label) {
         return getNeuronsByLabel().get(label);
+    }
+
+    public Neuron getNeuron(int neuronIndex) {
+        return neuronsByNeuronIndex.get(neuronIndex);
+    }
+
+    public int getGreatestNeuronIndex() {
+        return nextNeuronIndexNumber - 1;
     }
 
     @Override

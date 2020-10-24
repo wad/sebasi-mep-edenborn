@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class BrainTest {
 
     @Test
-    public void testInputOutput() {
+    public void testInputOutput_directlyConnected() {
 
         Helper helper = new Helper();
 

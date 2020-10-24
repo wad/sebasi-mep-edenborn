@@ -6,7 +6,14 @@ import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 public abstract class Neuron extends HelperHolder implements Ticker {
 
+    public static final int NEURON_INDEX_IF_NOT_SET = -1;
+
+    // Neurons can have an optional label, and can be looked-up in a cluster by this label.
     String label;
+
+    // Neurons have an index number if they are in a cluster, specific to that cluster.
+    int neuronIndex = NEURON_INDEX_IF_NOT_SET;
+
     Axon axon;
     long accumulator;
     FiringComputer firingComputer;
@@ -86,5 +93,13 @@ public abstract class Neuron extends HelperHolder implements Ticker {
         } else {
             return getClass().getSimpleName() + " " + label;
         }
+    }
+
+    public int getNeuronIndex() {
+        return neuronIndex;
+    }
+
+    public void setNeuronIndex(int neuronIndex) {
+        this.neuronIndex = neuronIndex;
     }
 }
