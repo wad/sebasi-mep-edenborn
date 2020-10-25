@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 public abstract class NeuronWithDendriticTree extends Neuron {
@@ -69,5 +70,17 @@ public abstract class NeuronWithDendriticTree extends Neuron {
             NeuronWithDendriticTree destinationNeuron,
             int synapticIndex) {
         ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
+    }
+
+    @Override
+    public int getNumConnectionsOnDendriticTree() {
+        return getDendriticTree().getNumConnectedSynapses();
+    }
+
+    @Override
+    public NeuronReport getInfoForReport() {
+        NeuronReport neuronReport = new NeuronReport(this);
+        neuronReport.setNumSynapsesOnDendriticTree(getNumConnectionsOnDendriticTree());
+        return neuronReport;
     }
 }

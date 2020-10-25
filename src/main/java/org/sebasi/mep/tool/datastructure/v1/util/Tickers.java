@@ -32,10 +32,6 @@ public class Tickers extends HelperHolder {
 
     public void tick() {
 
-        if (getHelper().shouldShowLogMessages()) {
-            getHelper().getMessageDisplay().show("Tick " + tickCounter);
-        }
-
         for (TickPriority tickPriority : TickPriority.values()) {
             Set<Ticker> tickers = tickersByPriority.get(tickPriority);
             for (Ticker ticker : tickers) {
@@ -43,6 +39,21 @@ public class Tickers extends HelperHolder {
             }
         }
 
+        if (getHelper().shouldShowLogMessages()) {
+            getHelper().getMessageDisplay().show("Tick " + tickCounter + " [" + showTickCounts() + "]");
+        }
+
         tickCounter++;
+    }
+
+    String showTickCounts() {
+        StringBuilder builder = new StringBuilder();
+        for (TickPriority tickPriority : TickPriority.values()) {
+            builder.append(tickPriority.name());
+            builder.append(": ");
+            builder.append(tickersByPriority.get(tickPriority).size());
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 }

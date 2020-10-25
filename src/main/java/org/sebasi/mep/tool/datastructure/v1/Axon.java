@@ -4,4 +4,5 @@ public abstract class Axon {
 
     public abstract void fire();
 
+    public abstract int getNumConnections();
 }

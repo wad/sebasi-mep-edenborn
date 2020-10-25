@@ -1,6 +1,7 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
+import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 // This type of neuron has no dendrites, just a trigger button that fires the axon.
@@ -58,5 +59,17 @@ public class NeuronForSensoryInput extends Neuron {
 
     public void receiveInputStimulus() {
         accumulator += stimulusStrength;
+    }
+
+    @Override
+    public int getNumConnectionsOnDendriticTree() {
+        return 0;
+    }
+
+    @Override
+    public NeuronReport getInfoForReport() {
+        NeuronReport neuronReport = new NeuronReport(this);
+        neuronReport.setNumSynapsesOnDendriticTree(0);
+        return neuronReport;
     }
 }

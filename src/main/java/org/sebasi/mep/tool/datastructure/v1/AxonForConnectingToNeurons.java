@@ -24,4 +24,9 @@ public class AxonForConnectingToNeurons extends Axon {
         axonConnections.add(new Synapse(destinationNeuron, synapticIndex));
         destinationNeuron.attachSynapse(synapticIndex);
     }
+
+    @Override
+    public int getNumConnections() {
+        return axonConnections.size();
+    }
 }

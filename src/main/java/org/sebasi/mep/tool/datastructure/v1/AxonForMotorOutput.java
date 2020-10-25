@@ -20,4 +20,9 @@ public class AxonForMotorOutput extends Axon {
     public void reset() {
         hasFired = false;
     }
+
+    @Override
+    public int getNumConnections() {
+        return 0;
+    }
 }

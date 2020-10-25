@@ -1,12 +1,10 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
-import org.sebasi.mep.tool.datastructure.v1.util.Chance;
-import org.sebasi.mep.tool.datastructure.v1.util.Electrician;
-import org.sebasi.mep.tool.datastructure.v1.util.Helper;
-import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
+import org.sebasi.mep.tool.datastructure.v1.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BrainTest {
 
@@ -56,7 +54,7 @@ public class BrainTest {
     }
 
     @Test
-    public void testInputOutput_withMiddleLayer() {
+    public void testInputOutput_with3MiddleLayers() {
 
         int numInputs = 256;
         int numMiddleNeurons1 = 256;
@@ -75,7 +73,7 @@ public class BrainTest {
             inputPanel.addNeuron(inputNeuron);
         }
 
-        ClusterOfNeurons middleCluster1 = new ClusterOfNeurons(helper);
+        ClusterOfNeurons middleCluster1 = new ClusterOfNeurons(helper, "middle1");
         for (int i = 0; i < numMiddleNeurons1; i++) {
             NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
@@ -85,7 +83,7 @@ public class BrainTest {
             middleCluster1.addNeuron(neuron);
         }
 
-        ClusterOfNeurons middleCluster2 = new ClusterOfNeurons(helper);
+        ClusterOfNeurons middleCluster2 = new ClusterOfNeurons(helper, "middle2");
         for (int i = 0; i < numMiddleNeurons2; i++) {
             NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
@@ -95,7 +93,7 @@ public class BrainTest {
             middleCluster2.addNeuron(neuron);
         }
 
-        ClusterOfNeurons middleCluster3 = new ClusterOfNeurons(helper);
+        ClusterOfNeurons middleCluster3 = new ClusterOfNeurons(helper, "middle3");
         for (int i = 0; i < numMiddleNeurons3; i++) {
             NeuronWithoutMemory neuron = new NeuronWithoutMemory(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
@@ -140,7 +138,17 @@ public class BrainTest {
                 Chance.percent(100),
                 middleCluster1);
 
+        StringBuilder builder = new StringBuilder();
+        new ClusterReport(inputPanel).appendReport(builder);
+        new ClusterReport(middleCluster1).appendReport(builder);
+        new ClusterReport(middleCluster2).appendReport(builder);
+        new ClusterReport(middleCluster3).appendReport(builder);
+        new ClusterReport(outputPanel).appendReport(builder);
+
+        System.out.println(builder.toString());
+
         Chance chanceEachButtonIsPressed = new Chance(1, 2);
+        System.out.println("Output lamps:");
         for (int i = 0; i < 20; i++) {
             System.out.println(outputPanel.showLampsHex());
             outputPanel.resetAllLamps();

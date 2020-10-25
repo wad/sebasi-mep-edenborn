@@ -6,8 +6,8 @@ import java.util.Map;
 // Just a hacky little histogram viewer.
 public class Histogram {
 
-    static final int DESIRED_NUM_BUCKETS = 10;
-    static final int DESIRED_BAR_LENGTH = 20;
+    static final int DESIRED_NUM_BUCKETS = 20;
+    static final int DESIRED_BAR_LENGTH = 40;
 
     private final Map<Integer, Integer> countsByX = new HashMap<>();
 
@@ -16,6 +16,14 @@ public class Histogram {
     }
 
     public String show() {
+        StringBuilder builder = new StringBuilder();
+        makeReport(builder, "");
+        return builder.toString();
+    }
+
+    public void makeReport(
+            StringBuilder builder,
+            String linePrefix) {
         int minX = 0;
         int maxX = 0;
         int maxCount = 0;
@@ -40,16 +48,23 @@ public class Histogram {
 
         int range = maxX - minX;
         if (range < DESIRED_NUM_BUCKETS) {
-            return show(range, minX, maxX, maxCount);
+            makeReport(builder, linePrefix, range, minX, maxX);
+        } else {
+            makeReport(builder, linePrefix, DESIRED_NUM_BUCKETS, minX, maxX);
         }
-        return show(DESIRED_NUM_BUCKETS, minX, maxX, maxCount);
     }
 
-    String show(
+    void makeReport(
+            StringBuilder builder,
+            String linePrefix,
             int numBuckets,
             int minX,
-            int maxX,
-            int maxCount) {
+            int maxX) {
+
+        if (numBuckets <= 0) {
+            builder.append(linePrefix).append("[no data for histogram]").append("\n");
+            return;
+        }
 
         int[] countsByBucket = new int[numBuckets];
         for (int i = 0; i < numBuckets; i++) {
@@ -63,8 +78,6 @@ public class Histogram {
             countsByBucket[bucketIndex] += count;
         }
 
-        StringBuilder builder = new StringBuilder();
-
         int maxCountInBucket = 0;
         for (int i = 0; i < numBuckets; i++) {
             if (countsByBucket[i] > maxCountInBucket) {
@@ -74,6 +87,7 @@ public class Histogram {
 
         for (int i = 0; i < numBuckets; i++) {
             int count = countsByBucket[i];
+            builder.append(linePrefix);
             builder.append(getBucketLinePrefix(i, minX, maxX, numBuckets, maxCountInBucket, count));
             int numCharsInBar = determineNumCharsInBar(count, maxCountInBucket);
             for (int j = 0; j < numCharsInBar; j++) {
@@ -81,8 +95,6 @@ public class Histogram {
             }
             builder.append("\n");
         }
-
-        return builder.toString();
     }
 
     static int determineWhichBucket(
@@ -90,6 +102,10 @@ public class Histogram {
             int minX,
             int maxX,
             int numBuckets) {
+        if (numBuckets <= 0) {
+            return 0;
+        }
+
         double range = maxX - minX;
         double bucketSize = range / numBuckets;
         double bucketIndexAsDouble = (double) (x - minX) / bucketSize;
