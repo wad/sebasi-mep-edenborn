@@ -1,5 +1,6 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.highperf;
 
+import org.sebasi.mep.tool.datastructure.v1.FiringComputer;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
@@ -35,13 +36,13 @@ public class NeuronWithMemoryWithHighPerf extends NeuronWithDendriticTreeWithHig
     }
 
     @Override
-    protected DendriticTreeWithHighPerf getDendriticTree() {
+    public DendriticTreeWithHighPerf getDendriticTree() {
         return this.dendriticTreeWithHighPerfWithMemory;
     }
 
     @Override
     public void receiveInput(int synapticIndex) {
-        this.accumulator += dendriticTreeWithHighPerfWithMemory.lookupSynapseStrength(synapticIndex);
+        accumulate(dendriticTreeWithHighPerfWithMemory.lookupSynapseStrength(synapticIndex));
     }
 
     public void attachSynapse(

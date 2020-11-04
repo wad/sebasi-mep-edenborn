@@ -1,6 +1,8 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
+import org.sebasi.mep.tool.datastructure.v1.highperf.DendriticTreeSize;
+import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronForMotorOutputWithHighPerf;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 import static org.junit.Assert.assertEquals;

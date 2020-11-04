@@ -1,4 +1,6 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.highperf;
+
+import org.sebasi.mep.tool.datastructure.v1.Neuron;
 
 public abstract class DendriticTreeWithHighPerfWithoutMemory extends DendriticTreeWithHighPerf {
 

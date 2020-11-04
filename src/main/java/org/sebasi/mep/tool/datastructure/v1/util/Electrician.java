@@ -2,7 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1.util;
 
 import org.sebasi.mep.tool.datastructure.v1.ClusterOfNeurons;
 import org.sebasi.mep.tool.datastructure.v1.Neuron;
-import org.sebasi.mep.tool.datastructure.v1.NeuronWithDendriticTreeWithHighPerf;
+import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronWithDendriticTreeWithHighPerf;
 
 // He wires stuff up!
 public class Electrician extends HelperHolder {

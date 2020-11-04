@@ -1,6 +1,8 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.highperf;
 
 // todo: Strengthen synapses when they receive input (might depend on a probability)
+
+import org.sebasi.mep.tool.datastructure.v1.Neuron;
 
 public abstract class DendriticTreeWithHighPerfWithMemory extends DendriticTreeWithHighPerf {
 

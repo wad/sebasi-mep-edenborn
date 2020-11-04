@@ -1,5 +1,6 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.highperf;
 
+import org.sebasi.mep.tool.datastructure.v1.FiringComputer;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
@@ -59,6 +60,6 @@ public class NeuronWithoutMemoryWithHighPerf extends NeuronWithDendriticTreeWith
     @Override
     public void receiveInput(int synapticIndex) {
         getDendriticTree().validateConnection(true, synapticIndex);
-        this.accumulator += defaultInputSignalStrength;
+        accumulate(defaultInputSignalStrength);
     }
 }

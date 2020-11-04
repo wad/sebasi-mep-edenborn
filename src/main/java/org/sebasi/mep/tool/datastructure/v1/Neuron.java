@@ -1,5 +1,6 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
+import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronWithDendriticTreeWithHighPerf;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
@@ -15,7 +16,8 @@ public abstract class Neuron extends HelperHolder implements Ticker {
     // Neurons have an index number if they are in a cluster, specific to that cluster.
     int neuronIndex = NEURON_INDEX_IF_NOT_SET;
 
-    Axon axon;
+    protected Axon axon;
+
     long accumulator;
     FiringComputer firingComputer;
 
@@ -111,4 +113,8 @@ public abstract class Neuron extends HelperHolder implements Ticker {
     public abstract int getNumConnectionsOnDendriticTree();
 
     public abstract NeuronReport getInfoForReport();
+
+    protected void accumulate(int value) {
+        this.accumulator += value;
+    }
 }

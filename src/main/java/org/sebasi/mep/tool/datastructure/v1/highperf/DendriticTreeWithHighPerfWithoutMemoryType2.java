@@ -1,4 +1,6 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.highperf;
+
+import org.sebasi.mep.tool.datastructure.v1.Neuron;
 
 // Q: What is this "Type2" about?
 // A: Nothing yet, there will eventually be multiple types of neurons, most likely,

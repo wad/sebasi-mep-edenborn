@@ -1,5 +1,8 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.highperf;
 
+import org.sebasi.mep.tool.datastructure.v1.AxonForConnectingToNeurons;
+import org.sebasi.mep.tool.datastructure.v1.FiringComputer;
+import org.sebasi.mep.tool.datastructure.v1.Neuron;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
