@@ -3,7 +3,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 // Q: What is this "Type1" about?
 // A: Nothing yet, there will eventually be multiple types of neurons, most likely,
 // this is just a placeholder for the first one to be implemented.
-public class DendriticTreeWithMemoryType1 extends DendriticTreeWithMemory {
+public class DendriticTreeWithHighPerfWithMemoryType1 extends DendriticTreeWithHighPerfWithMemory {
 
     // Memory is achieved through a neuron persisting how sensitive its synapses are.
     // Four bits indicate the strength, which is between -7 through +7.
@@ -28,7 +28,7 @@ public class DendriticTreeWithMemoryType1 extends DendriticTreeWithMemory {
     static final int SYNAPSE_STRENGTH_DEFAULT_VALUE = 2;
     static final int SYNAPSE_STRENGTH_BITS_CORRESPONDING_TO_NEUTRAL = 0x8;
 
-    public DendriticTreeWithMemoryType1(
+    public DendriticTreeWithHighPerfWithMemoryType1(
             DendriticTreeSize dendriticTreeSize,
             Neuron neuron) {
         super(

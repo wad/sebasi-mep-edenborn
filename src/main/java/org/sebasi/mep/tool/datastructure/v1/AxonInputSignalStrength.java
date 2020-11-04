@@ -1,16 +1,14 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-public enum AxonInputSignalStrength {
-    Unspecified(0),
-    S1(20),
-    S2(15),
-    S3(10),
-    S4(5),
-    S5(0);
+public class AxonInputSignalStrength {
 
-    final int numExtraTicksBetweenFirings;
+    int numExtraTicksBetweenFirings;
 
-    AxonInputSignalStrength(int numExtraTicksBetweenFirings) {
+    public AxonInputSignalStrength(int numExtraTicksBetweenFirings) {
+        this.numExtraTicksBetweenFirings = numExtraTicksBetweenFirings;
+    }
+
+    public void setNumExtraTicksBetweenFirings(int numExtraTicksBetweenFirings) {
         this.numExtraTicksBetweenFirings = numExtraTicksBetweenFirings;
     }
 

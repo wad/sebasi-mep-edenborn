@@ -14,7 +14,7 @@ public enum AxonFiringProfile {
     }
 
     public int getNumTicksBetweenFirings(AxonInputSignalStrength signalStrength) {
-        if (signalStrength == AxonInputSignalStrength.Unspecified) {
+        if (signalStrength == null) {
             return defaultNumExtraTicksBetweenFirings;
         }
         return signalStrength.getNumExtraTicksBetweenFirings();

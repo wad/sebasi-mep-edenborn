@@ -18,7 +18,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
     }
 
     public boolean isLampOn(String outputNeuronLabel) {
-        NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(outputNeuronLabel);
+        NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) getNeuron(outputNeuronLabel);
         if (neuron == null) {
             throw new NeuronConnectionException("Failed to check lamp with label " + outputNeuronLabel + ".", label);
         }
@@ -27,7 +27,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
     }
 
     public void resetLamp(String outputNeuronLabel) {
-        NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(outputNeuronLabel);
+        NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) getNeuron(outputNeuronLabel);
         if (neuron == null) {
             throw new NeuronConnectionException("Failed to reset lamp with label " + outputNeuronLabel + ".", label);
         }
@@ -37,7 +37,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
 
     public void resetAllLamps() {
         for (int neuronIndex = 0; neuronIndex <= getGreatestNeuronIndex(); neuronIndex++) {
-            NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex);
             if (neuron != null) {
                 neuron.resetLamp();
             }
@@ -48,7 +48,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
         int numNeurons = getGreatestNeuronIndex() + 1;
         char[] binaryDigits = new char[numNeurons];
         for (int neuronIndex = 0; neuronIndex < numNeurons; neuronIndex++) {
-            NeuronForMotorOutput neuron = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex);
             if (neuron != null) {
                 binaryDigits[neuronIndex] = neuron.isLampOn() ? '1' : '0';
             }
@@ -68,10 +68,10 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
 
         int neuronIndex = 0;
         for (int i = 0; i < numHexDigits; i++) {
-            NeuronForMotorOutput neuron0 = (NeuronForMotorOutput) getNeuron(neuronIndex);
-            NeuronForMotorOutput neuron1 = (NeuronForMotorOutput) getNeuron(neuronIndex + 1);
-            NeuronForMotorOutput neuron2 = (NeuronForMotorOutput) getNeuron(neuronIndex + 2);
-            NeuronForMotorOutput neuron3 = (NeuronForMotorOutput) getNeuron(neuronIndex + 3);
+            NeuronForMotorOutputWithHighPerf neuron0 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex);
+            NeuronForMotorOutputWithHighPerf neuron1 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex + 1);
+            NeuronForMotorOutputWithHighPerf neuron2 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex + 2);
+            NeuronForMotorOutputWithHighPerf neuron3 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex + 3);
             hexDigits[i] = convertBitsToHexDigit(
                     neuron0 != null && neuron0.isLampOn(),
                     neuron1 != null && neuron1.isLampOn(),
@@ -86,7 +86,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
         int numRemainingNeuronsToCheck = numNeurons & 3;
         if (numRemainingNeuronsToCheck > 0) {
             char lastHexDigit;
-            NeuronForMotorOutput neuron0 = (NeuronForMotorOutput) getNeuron(neuronIndex);
+            NeuronForMotorOutputWithHighPerf neuron0 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex);
             boolean bit0 = neuron0 != null && neuron0.isLampOn();
             switch (numRemainingNeuronsToCheck) {
                 case 1: {
@@ -98,7 +98,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
                     break;
                 }
                 case 2: {
-                    NeuronForMotorOutput neuron1 = (NeuronForMotorOutput) getNeuron(neuronIndex + 1);
+                    NeuronForMotorOutputWithHighPerf neuron1 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex + 1);
                     lastHexDigit = convertBitsToHexDigit(
                             bit0,
                             neuron1 != null && neuron1.isLampOn(),
@@ -107,8 +107,8 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
                     break;
                 }
                 case 3: {
-                    NeuronForMotorOutput neuron1 = (NeuronForMotorOutput) getNeuron(neuronIndex + 1);
-                    NeuronForMotorOutput neuron2 = (NeuronForMotorOutput) getNeuron(neuronIndex + 2);
+                    NeuronForMotorOutputWithHighPerf neuron1 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex + 1);
+                    NeuronForMotorOutputWithHighPerf neuron2 = (NeuronForMotorOutputWithHighPerf) getNeuron(neuronIndex + 2);
                     lastHexDigit = convertBitsToHexDigit(
                             bit0,
                             neuron1 != null && neuron1.isLampOn(),

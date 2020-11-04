@@ -5,8 +5,6 @@ import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
-// todo: In biology, there is a delay after a neuron fires. We could emulate this but a tick countdown, if needed.
-
 public abstract class Neuron extends HelperHolder implements Ticker {
 
     public static final int NEURON_INDEX_IF_NOT_SET = -1;
@@ -76,7 +74,7 @@ public abstract class Neuron extends HelperHolder implements Ticker {
     }
 
     public abstract void createOutgoingAxonConnection(
-            NeuronWithDendriticTree destinationNeuron,
+            NeuronWithDendriticTreeWithHighPerf destinationNeuron,
             int synapticIndex);
 
     @Override

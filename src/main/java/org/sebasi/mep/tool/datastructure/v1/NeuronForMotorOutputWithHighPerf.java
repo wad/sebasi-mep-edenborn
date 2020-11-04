@@ -3,9 +3,9 @@ package org.sebasi.mep.tool.datastructure.v1;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
-public class NeuronForMotorOutput extends NeuronWithoutMemory {
+public class NeuronForMotorOutputWithHighPerf extends NeuronWithoutMemoryWithHighPerf {
 
-    public NeuronForMotorOutput(
+    public NeuronForMotorOutputWithHighPerf(
             FiringComputer firingComputer,
             DendriticTreeSize dendriticTreeSize,
             Helper helper) {
@@ -16,7 +16,7 @@ public class NeuronForMotorOutput extends NeuronWithoutMemory {
                 null);
     }
 
-    public NeuronForMotorOutput(
+    public NeuronForMotorOutputWithHighPerf(
             FiringComputer firingComputer,
             DendriticTreeSize dendriticTreeSize,
             Helper helper,

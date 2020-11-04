@@ -20,8 +20,8 @@ public class BrainTest {
         inputPanel.addNeuron(in2);
 
         MotorOutputLampPanel outputPanel = new MotorOutputLampPanel(helper, "output");
-        NeuronForMotorOutput out1 = new NeuronForMotorOutput(FiringComputer.ON_ANY_INPUT, DendriticTreeSize.TwoE4, helper, "out1");
-        NeuronForMotorOutput out2 = new NeuronForMotorOutput(FiringComputer.ON_ANY_INPUT, DendriticTreeSize.TwoE4, helper, "out2");
+        NeuronForMotorOutputWithHighPerf out1 = new NeuronForMotorOutputWithHighPerf(FiringComputer.ON_ANY_INPUT, DendriticTreeSize.TwoE4, helper, "out1");
+        NeuronForMotorOutputWithHighPerf out2 = new NeuronForMotorOutputWithHighPerf(FiringComputer.ON_ANY_INPUT, DendriticTreeSize.TwoE4, helper, "out2");
         outputPanel.addNeuron(out1);
         outputPanel.addNeuron(out2);
 
@@ -75,7 +75,7 @@ public class BrainTest {
 
         ClusterOfNeurons middleCluster1 = new ClusterOfNeurons(helper, "middle1");
         for (int i = 0; i < numMiddleNeurons1; i++) {
-            NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+            NeuronWithoutMemoryWithHighPerf neuron = new NeuronWithoutMemoryWithHighPerf(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
                     TickPriority.second,
                     DendriticTreeSize.TwoE8,
@@ -85,7 +85,7 @@ public class BrainTest {
 
         ClusterOfNeurons middleCluster2 = new ClusterOfNeurons(helper, "middle2");
         for (int i = 0; i < numMiddleNeurons2; i++) {
-            NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+            NeuronWithoutMemoryWithHighPerf neuron = new NeuronWithoutMemoryWithHighPerf(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
                     TickPriority.second,
                     DendriticTreeSize.TwoE8,
@@ -95,7 +95,7 @@ public class BrainTest {
 
         ClusterOfNeurons middleCluster3 = new ClusterOfNeurons(helper, "middle3");
         for (int i = 0; i < numMiddleNeurons3; i++) {
-            NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+            NeuronWithoutMemoryWithHighPerf neuron = new NeuronWithoutMemoryWithHighPerf(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
                     TickPriority.second,
                     DendriticTreeSize.TwoE8,
@@ -105,7 +105,7 @@ public class BrainTest {
 
         MotorOutputLampPanel outputPanel = new MotorOutputLampPanel(helper, "output");
         for (int i = 0; i < numOutputs; i++) {
-            NeuronForMotorOutput outputNeuron = new NeuronForMotorOutput(
+            NeuronForMotorOutputWithHighPerf outputNeuron = new NeuronForMotorOutputWithHighPerf(
                     FiringComputer.WHEN_TWO_TIMES_NUM_CONNECTED_SYNAPSES,
                     DendriticTreeSize.TwoE8,
                     helper);

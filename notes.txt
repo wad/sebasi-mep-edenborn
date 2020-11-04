@@ -139,8 +139,29 @@ When a synapse with memory receives input, there is a chance that it will streng
 
 ----------------------
 
+TODO:
 
+Clusters need to be able to hold multiple types of neurons.
 
+For better performance, consider minimizing allocation of memory. Try using enums. Make a method on an enum to pre-generate code for a long list of values, then run it from a test, and paste it into the code if it needs to change.
+
+For optimum performance, see if all the dynamic values of a neuron can be packaged tightly in an object, and maybe even referenced via pointers. First, get the functionality easy and clear, and tested, then swap the implementation for the high-performance one, and make sure all the tests still pass.
+
+-----------------------
+
+Update: Initial wiring up should be mostly random at the low level. Plasticity is the KEY. As the system runs, it need to update the connections dynamically, and also adjust synapse strengths (those two things are related somehow).
+
+Updated plan:
+
+Going to throw performance out of the window for now, in favor of a dynamically plastic system. Once I can dial-in the types of configurations that actually work, and have tests that verify this, then I can tweak the system, identifying options that are not pertinent to functionality, and discarding them. The remaining state can then be compressed into as small and as fast an implementation as we can get, so as to pack more neurons into the hardware.
+
+---------------
+
+Good grief, how many more things can attach to my ears? Glasses, headphones, facemask...
+
+----------------------
+
+TODO: make this multi-threaded, of course!
 
 
 

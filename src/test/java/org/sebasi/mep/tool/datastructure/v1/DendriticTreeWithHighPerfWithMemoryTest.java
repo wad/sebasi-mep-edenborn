@@ -6,16 +6,16 @@ import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 import static org.junit.Assert.*;
 
-public class DendriticTreeWithMemoryTest {
+public class DendriticTreeWithHighPerfWithMemoryTest {
 
     @Test
     public void testInfoBitsDirectly() {
-        NeuronWithMemory neuron = new NeuronWithMemory(
+        NeuronWithMemoryWithHighPerf neuron = new NeuronWithMemoryWithHighPerf(
                 FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();
+        DendriticTreeWithHighPerfWithMemory den = (DendriticTreeWithHighPerfWithMemory) neuron.getDendriticTree();
 
         // If all four bits are 0, it means it's disconnected.
         assertFalse(den.doSynapticStateBitsIndicateConnected(0x0));
@@ -35,12 +35,12 @@ public class DendriticTreeWithMemoryTest {
 
     @Test
     public void testAttachDetachSynapses() {
-        NeuronWithMemory neuron = new NeuronWithMemory(
+        NeuronWithMemoryWithHighPerf neuron = new NeuronWithMemoryWithHighPerf(
                 FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithMemory den = (DendriticTreeWithMemory) neuron.getDendriticTree();
+        DendriticTreeWithHighPerfWithMemory den = (DendriticTreeWithHighPerfWithMemory) neuron.getDendriticTree();
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000, -7);

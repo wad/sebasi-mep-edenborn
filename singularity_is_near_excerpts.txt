@@ -1,0 +1,129 @@
+A few possibly-useful items from "The Singularity is Near"
+
+The massive parallelism of the human brain is the key to its pattern-recognition ability, which is one of the pillars of our species' thinking. Mammalian neurons engage in a chaotic dance (that is, with many apparently random interactions), and if the neural network has learned its lessons well, a stable pattern will emerge, reflecting the network's decision. At the present, parallel designs for computers are somewhat limited. But there is no reason why functionally equivalent nonbiological re-creations of biological neural networks cannot be built using these principles.
+
+... judgments that do not require resolving ambiguities appear to be made in a single neuron-firing cycle (less than twenty milliseconds), involving essentially no iterative (repeated) processes.
+
+Dendrites are continually exploring new spines and synapses. The topology and conductance of dendrites and synapses are also continually adapting. The nervous system is self-organizing at all levels of its organization.
+
+Most of the details in the brain are random. While there is a great deal of stochastic (random within carefully controlled constraints) process in every aspect of the brain, it is not necessary to model every "dimple" on the surface of every dendrite, any more than it is necessary to model every tiny variation in the surface of every transistor in understanding the principles of operation of a computer. But certain details are critical in decoding the principles of operation of the brain, which compels us to distinguish between them and those that comprise stochastic "noise" or chaos. The chaotic (random and unpredictable) aspects of neural function can be modeled using the mathematical techniques of complexity theory and chaos theory.
+
+It is the nature of complex adaptive systems that the emergent intelligence of its decisions is suboptimal. (That is, it reflects a lower level of intelligence than would be represented by an optimal arrangement of its elements.) It needs only to be good enough, which in the case of our species meant a level of intelligence sufficient to enable us to outwit the competitors in our ecological niche (for example, primates who also combine a cognitive function with an opposable appendage but whose brains are not as developed as humans and whose hands do not work as well).
+
+A newborn's brain contains mostly randomly linked interneuronal connections, and only a portion of those survive in the two-year-old brain.
+
+Certain details of these chaotic self-organizing methods, expressed as model constraints (rules defining the initial conditions and the means for self-organization), are crucial, whereas many details within the constraints are initially set randomly. The system then self-organizes and gradually represents the invariant features of the information that has been presented to the system. The resulting information is not found in specific nodes or connections but rather is a distributed pattern.
+
+The brain gets its resilience from being a deeply connected network in which information has many ways of navigating from one point to another. Consider the analogy to the Internet, which has become increasingly stable as the number of its constituent nodes has increased. Nodes, even entire hubs of the Internet, can become inoperative without ever bringing down the entire network. Similarly, we continually lose neurons without affecting the integrity of the entire brain.
+
+The brain does have an architecture of regions. Although the details of connections within a region are initially random within constraints and self-organizing, there is an architecture of several hundred regions that perform specific functions, with specific patterns of connections between regions.
+
+The design of a brain region is simpler than the design of a neuron. Models often get simpler at a higher level, not more complex. Consider an analogy with a computer. We do need to understand the detailed physics of semiconductors to model a transistor, and the equations underlying a single real transistor are complex. However, a digital circuit that multiplies two numbers, although involving hundreds of transistors, can be modeled far more simply, with only a few formulas. An entire computer with billions of transistors can be modeled through its instruction set and register description, which can be described on a handful of written pages of text and mathematical transformations.
+
+This basic neural-net model has a neural "weight" (representing the "strength" of the connection) for each synapse and a nonlinearity (firing threshold) in the neuron soma (cell body). As the sum of the weighted inputs to the neuron soma increases, there is relatively little response from the neuron until a critical threshold is reached, as which point the neuron rapidly increased the output of its axon and fires. Different neurons have different thresholds. Although recent research shows that the actual response is more complex than this, the McCulloch-Pitts and Hodgkin-Huxley models remain essentially valid.
+
+We now know that actual biological neurons have many other nonlinearities resulting from the electrochemical action of the synapses and the morphology (shape) of the dendrites. Different arrangements of biological neurons can perform computations, including subtracting, multiplying, averaging, filtering, normalizing, and thresholding signals, among other types of transformations.
+
+The ability of neurons to perform multiplication is important because it allowed the behavior of one network of neurons in the brain to be modulated (influenced) by the results of computations of another network.
+
+Less well know is Hebb's second form of learning: a hypothesized loop in which he excitation of the neuron would feed back on itself (possibly through other layers), causing a reverberation (a continued reexcitation could be the source of short-term learning). He also suggested that this short-term reverberation could lead to long-term memories: "Let us assume then that the persistence or repetition of a reverberatory activity (or 'trace') tends to induce lasting cellular changes that add to its stability. The assumption can be precisely stated as follows: When an axon of cell A is near enough to excite a cell B and repeatedly or persistently take part in firing it, some growth process or metabolic change takes place in one or both cells such that A's efficiency, as one of the cell's firing B, is increased."
+
+Although Hebbian reverberatory memory is not as well established as Hebb's synaptic learning, instances have been recently discovered. For example, sets of excitatory neurons (ones that stimulate a synapse) and inhibitory neurons (ones that block a stimulus) begin an oscillation when certain visual patterns are presented.
+
+Indeed, an actual brain synapse is far more complex than is described in the classic McCulloch-Pitts neural-net model. The synaptic response is influenced by a range of factors, including the action of multiple channels controlled by a variety of ionic potentials (voltages) and multiple neurotransmitters and neuromodulators. Considerable progress has been made in the past twenty years, however, in developing the mathematical formulas underlying the behavior of neurons, dendrites, synapses, and the representation of information in the spike trains (pulses by neurons that have been activated). Peter Dayan and Larry Abbott have recently written a summary of the existing nonlinear differential equations that describe a wide range of knowledge derived from thousands of experimental studies. Well-substantiated models exist for the biophysics of neuron bodies, synapses, and the action of feedforward networks of neurons, such as those found in the retina and optic nerves, and many other classes of neurons.
+
+Most of Hebb's work focused on changes in the state of synapses to strengthen or inhibit received signals and on the more controversial reverberatory circuit in which neurons fire in a continuous loop. Another theory is a change in state of a neuron itself—that is, a memory function in the cell soma (body). The experimental evidence supports the possibility of all of these models. Classical Hebbian synaptic memory and reverberatory memory require a time delay before the recorded information can be used. In vivo experiments show that in at least some regions of the brain there is a neural response that is too fast to be accounted for by such standard learning models, and therefore could only be accomplished by learning-induced changes in the soma.
+
+Another possibility not directly anticipated by Hebb is real-time changes in the neuron connections themselves. Recent scanning results show rapid growth of dendrite spikes and new synapses, so this must be considered an important mechanism. Experiments have also demonstrated a rich array of learning behaviors on the synaptic level that go beyond simple Hebbian models. Synapses can change their state rapidly, but they then begin to decay slowly with continued stimulation, or in some a lack of stimulation, or many other variations.
+
+Although contemporary models are far more complex than the simple synapse models devised by Hebb, his intuitions have largely proved correct. In addition to Hebbian synaptic plasticity, current models include global processes that provide a regulatory function. For example, synaptic scaling keeps synaptic potentials from becoming zero (and thus being unable to be increased through multiplicative approaches) or becoming excessively high and thereby dominating a network. In vitro experiments have found synaptic scaling in cultured networks of neocortical, hippocampal, and spinal-cord neurons. Other mechanisms are sensitive to overall spike timing and the distribution of potential across many synapses. Simulations have demonstrated the ability of these recently discovered mechanisms to improve learning and network stability.
+
+Neurobiologist Karel Svoboda and his colleagues at Cold Spring Harbor Laboratory on Long Island used the scanning system on mice to investigate networks of neurons that analyze information from the whiskers, a study that provided a fascinating look at neural learning. The dendrites continually grew new spines. Most of these lasted only a day or two, but on occasion a spine would remain stable. "We believe that the high turnover that we see might play an important role in neural plasticity, in that the sprouting spines reach out to probe different presynaptic partners on neighboring neurons,” said Svoboda. "If a given connection is favorable, that is, reflecting a desirable kind of brain rewiring, then these synapses are stabilized and become more permanent. But most of these synapses are not going in the right direction, and they are retracted."
+
+Another consistent phenomenon that has been observed is that neural responses decrease over time, if a particular stimulus is repeated. This adaptation gives greatest priority to new patterns of stimuli. Similar work by neurobiologist Wen-Biao Gan at New York University's School of Medicine on neuronal spines in the visual cortex of adult mice shows that this spine mechanism can hold long-term memories: "Say a 10-year-old kid uses 1,000 connections to store a piece of information. When he is 80, one-quarter of the connections will still be there, no matter how things change. That's why you can still remember your childhood experiences." Gan also explains, "Our idea was that you actually don't need to make many new synapses and get rid of old ones when you learn, memorize. You just need to modify the strength of the preexisting synapses for short-term learning and memory. However, it's likely that a few synapses are made or eliminated to achieve long-term memory."
+
+The reason memories can remain intact even if three quarters of the connections have disappeared is that the coding method used appears to have properties similar to those of a hologram. In a hologram, information is stored in a diffuse pattern throughout an extensive region. If you destroy three quarters of the hologram, the entire image remains intact, although with only one quarter of the resolution. Research by Pentti Kanerva, a neuroscientist at Redwood Neuroscience Institute, supports the idea that memories are dynamically distributed throughout a region of neurons. This explains why older memories persist but nonetheless appear to "fade," because their resolution has diminished.
+
+page 146
+
+Researchers are also discovering that specific neurons perform special recognition tasks. An experiment with chickens identified brain-stem neurons that detect particular delays as sounds arrive at the two ears. Different neurons respond to different amounts of delay. Although there are many complex irregularities in how these neurons (and the networks they rely on) work, what they are actually accomplishing is easy to describe and would be simple to replicate. According to University of California at San Diego neuroscientist Scott Makeig, "Recent neurobiological results suggest an important role of precisely synchronized neural inputs in learning and memory."
+
+A recent experiment at the University of California at San Diego's Institute for Nonlinear Science demonstrates the potential for electronic neurons to precisely emulate biological ones. Neurons (biological or otherwise) are a prime example of what is often called chaotic computing. Each neuron acts in an essentially unpredictable fashion. When an entire network of neurons receives input (from the outside world or from other networks of neurons), the signaling among them appears at first to be frenzied and random. Over time, typically a fraction of a second or so, the chaotic interplay of the neurons dies down and a stable pattern of firing emerges. This pattern represents the "decision" of the neural network. If the neural network is performing a pattern-recognition task (and such tasks constitute the bulk of the activity in the human brain), the emergent pattern represents the appropriate recognition.
+
+Moreover, the detailed arrangement of connections and synapses in a given region is a direct product of how extensively that region is used. As brain scanning has attained sufficiently high resolution to detect dendritic-spine growth and the formation of new synapses, we can see our brain grow and adapt to literally follow our thoughts.
+
+In one experiment conducted by Michael Merzenich and his colleagues at the University of California at San Francisco, monkeys' food was placed in such a position that the animals had to dexterously manipulate one finger to obtain it. Brain scans before and after revealed dramatic growth in the interneuronal connections and synapses in the region of the brain responsible for controlling that finger.
+
+Edward Taub at the University of Alabama studied the region of the cortex responsible for evaluating the tactile input from the fingers. Comparing nonmusicians to experienced players of stringed instruments, he found no difference in the brain regions devoted to the fingers of the right hand but a huge difference for the fingers of the left hand. If we drew a picture of the hands based on the amount of brain tissue devoted to analyzing touch, the musicians' fingers on their left hand (which are used to control the strings) would be huge. Although the difference was greater for those musicians who began musical training with a stringed instrument as children, "even if you take up the violin at 40," Taub commented, "you still get brain reorganization."
+
+Researchers at the University of California at San Diego reported a key insight into the difference in the formation of short-term and long-term memories. Using a high-resoution scanning method, the scientists were able to see chemical changes within synapses in the hippocampus, the brain region associated with the formation of long-term memories. They discovered that when a cell was first stimulated, actin, a neurochemical, moved towards the neurons to which the synapse was connected. This also stimulated the actin in neighboring cells to move away from the activated cell. These changes lasted only a few minutes, however. If the stimulations were sufficiently repeated, then a more significant and permanent change took place.
+
+"The short-term changes are just part of the normal way the nerve cells talk to each other," lead author Michael A. Colicos said. The long-term changes in the neurons occur only after the neurons are stimulated four times over the course of an hour. The synapse will actually split and new synapses will form, producing a permanent change that will presumably last for the rest of your life. The analogy to human memory is that when you see or hear something once, it might stick in your mind for a few minutes. If it's not important, it fades away and you forget it 10 minutes later. But if you see or hear it again and this keeps happening over the next hour, you are going to remember it for a much longer time. And things that are repeated many times can be remembered for an entire lifetime. Once you take an axon and form two new connections, those connections are very stable and there's no reason to believe that they'll go away. That’s the kind of change one would envision lasting a whole lifetime.
+
+"It's like a piano lesson," says coauthor and professor of biology Yukiko Goda. "If you playa musical score over and over again, it becomes ingrained in your memory." Similarly, in an article in Science neuroscientists S. Lowel and W. Singer report having found evidence for rapid dynamic formation of new interneuronal connections in the visual cortex, which they described with Donald Hebb's phrase "What fires together wires together."68
+
+Another insight into memory formation is reported in a study published in Cell. Researchers found that the CPEB equally pronounced change in the motor-cortex network. Recent fMRI studies of learning visual-spatial relationships found that interneuronal connections are able to proportional to the rate of learning. Researchers at the University of California at San Diego reported a key insight into the difference in the formation memories. to which the synapse was connected. This also stimulated the actin in neighboring cells to move away from the activated cell. These changes lasted only a few minutes, however. If the stimulations were sufficiently repeated, then a more significant and permanent change took place. They discovered that when a cell was first stimulated, actin, a neurochemical, moved toward the neurons protein actually changes its shape in synapses to record mernories. memory function while in a prion state.
+
+The surprise was that CPEB performs this "For a while we've known quite a bit about how memory works, but we've had no clear concept of what the key storage device is," said coauthor and Whitehead Institute for Biomedical Research director Susan Lindquist. "This study suggests what the storage device might be—but it's such a surprising suggestion to find that a prion-like activity may be involved....It ... indicates that prions aren't just oddballs of nature but might participate in fundamental processes." As I reported in chapter 3, human engineers are also finding prions to be a powerful means of building electronic memories.
+
+149
+
+In addition to generating new connections between neurons, the brain also makes new neurons from neural stem
+cells, which replicate to maintain a reservoir of themselves. In the course of reproducing, some of the neural stem cells
+become "neural precursor" cells, which in turn mature into two types of support cells called astrocytes and
+oligodendrocytes, as well as neurons. The cells further evolve into specific types of neurons. However, this
+differentiation cannot take place unless the neural stem cells move away from their original source in the brain's
+ventricles. Only about half of the neural cells successfully make the journey, which is similar to the process during
+gestation and early childhood in which only a portion of the early brain's developing neurons survive. Scientists hope
+to bypass this neural migration process by injecting neural stem cells directly into target regions, as well as to create
+drugs that promote this process of neurogenesis (creating new neurons) to repair brain damage from injury or disease.
+
+Most probably the human brain is, in the main, composed of large numbers of relatively small distributed systems, arranged by embryology into a complex society that is controlled in part (but only in part) by serial, symbolic systems that are added later. But the subsymbolic systems that do most of the work from underneath must, by their very character, block all the other parts of the brain from knowing much about how they work.
+
+Modeling human-brain functionality on a nonlinearity-by-nonlinearity and synapse-by-synapse basis is generally not necessary. Simulations of regions that store memories and skills in individual neurons and connections (for example, the cerebellum) do make use of detailed cellular models. Even for these regions, however, simulations require far less computation than is implied by all of the neural components. This is true of the cerebellum simulation described below.
+
+Although there is a great deal of detailed complexity and nonlinearity in the subneural parts of each neuron, as well as a chaotic, semirandom wiring pattern underlying the trillions of connections in the brain, significant progress has been made over the past twenty years in the mathematics of modeling such adaptive nonlinear systems. Preserving the exact shape of every dendrite and the precise "squiggle" of every interneuronal connection is generally not necessary. We can understand the principles of operation of extensive regions of the brain by examining their dynamics at the appropriate level of analysis.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

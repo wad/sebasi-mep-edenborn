@@ -1,11 +1,11 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 public class Synapse {
-    NeuronWithDendriticTree receivingNeuron;
+    NeuronWithDendriticTreeWithHighPerf receivingNeuron;
     int synapticIndex;
 
     public Synapse(
-            NeuronWithDendriticTree receivingNeuron,
+            NeuronWithDendriticTreeWithHighPerf receivingNeuron,
             int synapticIndex) {
         this.receivingNeuron = receivingNeuron;
         this.synapticIndex = synapticIndex;

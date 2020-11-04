@@ -1,8 +1,8 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-public abstract class DendriticTreeWithoutMemory extends DendriticTree {
+public abstract class DendriticTreeWithHighPerfWithoutMemory extends DendriticTreeWithHighPerf {
 
-    public DendriticTreeWithoutMemory(
+    public DendriticTreeWithHighPerfWithoutMemory(
             DendriticTreeSize dendriticTreeSize,
             int numBytesNeededToHoldSynapticStates,
             Neuron neuron) {

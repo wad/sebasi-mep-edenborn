@@ -4,9 +4,9 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
-public abstract class NeuronWithDendriticTree extends Neuron {
+public abstract class NeuronWithDendriticTreeWithHighPerf extends Neuron {
 
-    public NeuronWithDendriticTree(
+    public NeuronWithDendriticTreeWithHighPerf(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             Helper helper) {
@@ -17,7 +17,7 @@ public abstract class NeuronWithDendriticTree extends Neuron {
                 null);
     }
 
-    public NeuronWithDendriticTree(
+    public NeuronWithDendriticTreeWithHighPerf(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             Helper helper,
@@ -29,7 +29,7 @@ public abstract class NeuronWithDendriticTree extends Neuron {
                 label);
     }
 
-    protected abstract DendriticTree getDendriticTree();
+    protected abstract DendriticTreeWithHighPerf getDendriticTree();
 
     public DendriticTreeSize getDendriticTreeSize() {
         return getDendriticTree().getDendriticTreeSize();
@@ -67,7 +67,7 @@ public abstract class NeuronWithDendriticTree extends Neuron {
 
     @Override
     public void createOutgoingAxonConnection(
-            NeuronWithDendriticTree destinationNeuron,
+            NeuronWithDendriticTreeWithHighPerf destinationNeuron,
             int synapticIndex) {
         ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
     }

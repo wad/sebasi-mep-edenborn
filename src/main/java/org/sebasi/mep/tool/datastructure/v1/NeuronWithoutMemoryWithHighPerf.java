@@ -5,17 +5,17 @@ import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
 // The dendrites (and their synapses) in this type of neuron don't have strengths, which
 // means that they can't "learn".
-public class NeuronWithoutMemory extends NeuronWithDendriticTree {
+public class NeuronWithoutMemoryWithHighPerf extends NeuronWithDendriticTreeWithHighPerf {
 
     static final int DEFAULT_INPUT_SIGNAL_STRENGTH = 1;
 
-    DendriticTreeWithoutMemory dendriticTreeWithoutMemory;
+    DendriticTreeWithHighPerfWithoutMemory dendriticTreeWithHighPerfWithoutMemory;
 
     // On this neuron, if any input gets triggered, the accumulator accumulates this value.
     // Every dendritic synapse yields the same strength input.
     int defaultInputSignalStrength;
 
-    public NeuronWithoutMemory(
+    public NeuronWithoutMemoryWithHighPerf(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
@@ -28,7 +28,7 @@ public class NeuronWithoutMemory extends NeuronWithDendriticTree {
                 null);
     }
 
-    public NeuronWithoutMemory(
+    public NeuronWithoutMemoryWithHighPerf(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
@@ -39,7 +39,7 @@ public class NeuronWithoutMemory extends NeuronWithDendriticTree {
                 tickPriority,
                 helper,
                 label);
-        dendriticTreeWithoutMemory = new DendriticTreeWithoutMemoryType2(dendriticTreeSize, this);
+        dendriticTreeWithHighPerfWithoutMemory = new DendriticTreeWithHighPerfWithoutMemoryType2(dendriticTreeSize, this);
         defaultInputSignalStrength = DEFAULT_INPUT_SIGNAL_STRENGTH;
     }
 
@@ -52,8 +52,8 @@ public class NeuronWithoutMemory extends NeuronWithDendriticTree {
     }
 
     @Override
-    protected DendriticTree getDendriticTree() {
-        return this.dendriticTreeWithoutMemory;
+    protected DendriticTreeWithHighPerf getDendriticTree() {
+        return this.dendriticTreeWithHighPerfWithoutMemory;
     }
 
     @Override

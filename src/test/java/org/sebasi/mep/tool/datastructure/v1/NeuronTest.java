@@ -10,7 +10,7 @@ public class NeuronTest {
 
     @Test
     public void testLabel() {
-        Neuron neuron = new NeuronWithoutMemory(
+        Neuron neuron = new NeuronWithoutMemoryWithHighPerf(
                 FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE4,

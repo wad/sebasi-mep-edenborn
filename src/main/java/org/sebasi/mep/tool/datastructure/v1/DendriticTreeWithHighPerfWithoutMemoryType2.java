@@ -3,9 +3,9 @@ package org.sebasi.mep.tool.datastructure.v1;
 // Q: What is this "Type2" about?
 // A: Nothing yet, there will eventually be multiple types of neurons, most likely,
 // this is just a placeholder for one of the eventual types.
-public class DendriticTreeWithoutMemoryType2 extends DendriticTreeWithoutMemory {
+public class DendriticTreeWithHighPerfWithoutMemoryType2 extends DendriticTreeWithHighPerfWithoutMemory {
 
-    public DendriticTreeWithoutMemoryType2(
+    public DendriticTreeWithHighPerfWithoutMemoryType2(
             DendriticTreeSize dendriticTreeSize,
             Neuron neuron) {
         super(

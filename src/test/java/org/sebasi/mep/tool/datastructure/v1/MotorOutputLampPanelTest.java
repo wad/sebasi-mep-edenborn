@@ -13,17 +13,17 @@ public class MotorOutputLampPanelTest {
         Helper helper = new Helper();
         MotorOutputLampPanel lampPanel = new MotorOutputLampPanel(helper);
 
-        NeuronForMotorOutput neuron0 = new NeuronForMotorOutput(
+        NeuronForMotorOutputWithHighPerf neuron0 = new NeuronForMotorOutputWithHighPerf(
                 FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper,
                 "n0");
-        NeuronForMotorOutput neuron1 = new NeuronForMotorOutput(
+        NeuronForMotorOutputWithHighPerf neuron1 = new NeuronForMotorOutputWithHighPerf(
                 FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper,
                 "n1");
-        NeuronForMotorOutput neuron2 = new NeuronForMotorOutput(
+        NeuronForMotorOutputWithHighPerf neuron2 = new NeuronForMotorOutputWithHighPerf(
                 FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper,
@@ -49,7 +49,7 @@ public class MotorOutputLampPanelTest {
 
         int numNeuronsToMake = 3;
         for (int i = 0; i < numNeuronsToMake; i++) {
-            NeuronForMotorOutput neuron = new NeuronForMotorOutput(
+            NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
                     FiringComputer.ALWAYS,
                     DendriticTreeSize.TwoE4,
                     helper,
@@ -71,7 +71,7 @@ public class MotorOutputLampPanelTest {
 
         int numNeuronsToMake = 3;
         for (int i = 0; i < numNeuronsToMake; i++) {
-            NeuronForMotorOutput neuron = new NeuronForMotorOutput(
+            NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
                     FiringComputer.ALWAYS,
                     DendriticTreeSize.TwoE4,
                     helper,
@@ -98,7 +98,7 @@ public class MotorOutputLampPanelTest {
 
         int numNeuronsToMake = 12;
         for (int i = 0; i < numNeuronsToMake; i++) {
-            NeuronForMotorOutput neuron = new NeuronForMotorOutput(
+            NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
                     FiringComputer.ALWAYS,
                     DendriticTreeSize.TwoE4,
                     helper);
@@ -113,7 +113,7 @@ public class MotorOutputLampPanelTest {
         assertEquals("5F4", lampPanel.showLampsHex());
 
         // add one more neuron, the 13th, that didn't fire.
-        NeuronForMotorOutput neuron = new NeuronForMotorOutput(
+        NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
                 FiringComputer.ALWAYS,
                 DendriticTreeSize.TwoE4,
                 helper);
@@ -134,7 +134,7 @@ public class MotorOutputLampPanelTest {
             MotorOutputLampPanel lampPanel,
             int... neuronIndexes) {
         for (int neuronIndex : neuronIndexes) {
-            NeuronForMotorOutput neuron = (NeuronForMotorOutput) lampPanel.getNeuron(neuronIndex);
+            NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) lampPanel.getNeuron(neuronIndex);
             AxonForMotorOutput axon = (AxonForMotorOutput) neuron.axon;
             axon.hasFired = true;
         }

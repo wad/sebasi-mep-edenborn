@@ -3,11 +3,11 @@ package org.sebasi.mep.tool.datastructure.v1;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
-public class NeuronWithMemory extends NeuronWithDendriticTree {
+public class NeuronWithMemoryWithHighPerf extends NeuronWithDendriticTreeWithHighPerf {
 
-    DendriticTreeWithMemory dendriticTreeWithMemory;
+    DendriticTreeWithHighPerfWithMemory dendriticTreeWithHighPerfWithMemory;
 
-    public NeuronWithMemory(
+    public NeuronWithMemoryWithHighPerf(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
@@ -20,7 +20,7 @@ public class NeuronWithMemory extends NeuronWithDendriticTree {
                 null);
     }
 
-    public NeuronWithMemory(
+    public NeuronWithMemoryWithHighPerf(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             DendriticTreeSize dendriticTreeSize,
@@ -31,22 +31,22 @@ public class NeuronWithMemory extends NeuronWithDendriticTree {
                 tickPriority,
                 helper,
                 label);
-        dendriticTreeWithMemory = new DendriticTreeWithMemoryType1(dendriticTreeSize, this);
+        dendriticTreeWithHighPerfWithMemory = new DendriticTreeWithHighPerfWithMemoryType1(dendriticTreeSize, this);
     }
 
     @Override
-    protected DendriticTree getDendriticTree() {
-        return this.dendriticTreeWithMemory;
+    protected DendriticTreeWithHighPerf getDendriticTree() {
+        return this.dendriticTreeWithHighPerfWithMemory;
     }
 
     @Override
     public void receiveInput(int synapticIndex) {
-        this.accumulator += dendriticTreeWithMemory.lookupSynapseStrength(synapticIndex);
+        this.accumulator += dendriticTreeWithHighPerfWithMemory.lookupSynapseStrength(synapticIndex);
     }
 
     public void attachSynapse(
             int synapticIndex,
             int strength) {
-        dendriticTreeWithMemory.attachSynapse(synapticIndex, strength);
+        dendriticTreeWithHighPerfWithMemory.attachSynapse(synapticIndex, strength);
     }
 }

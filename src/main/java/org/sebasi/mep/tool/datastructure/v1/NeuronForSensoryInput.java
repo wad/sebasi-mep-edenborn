@@ -48,7 +48,7 @@ public class NeuronForSensoryInput extends Neuron {
 
     @Override
     public void createOutgoingAxonConnection(
-            NeuronWithDendriticTree destinationNeuron,
+            NeuronWithDendriticTreeWithHighPerf destinationNeuron,
             int synapticIndex) {
         ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
     }

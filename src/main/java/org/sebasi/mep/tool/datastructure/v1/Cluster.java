@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// todo: Add a reporting feature, for visibility into the characteristics and connectivity of the cluster.
-
 public class Cluster extends HelperHolder {
 
     String label;

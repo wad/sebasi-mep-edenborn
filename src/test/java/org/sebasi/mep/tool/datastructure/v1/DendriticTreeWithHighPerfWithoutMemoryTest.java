@@ -10,16 +10,16 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class DendriticTreeWithoutMemoryTest {
+public class DendriticTreeWithHighPerfWithoutMemoryTest {
 
     @Test
     public void testSynapticStateBitsDirectly() {
-        NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+        NeuronWithoutMemoryWithHighPerf neuron = new NeuronWithoutMemoryWithHighPerf(
                 FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();
+        DendriticTreeWithHighPerfWithoutMemory den = (DendriticTreeWithHighPerfWithoutMemory) neuron.getDendriticTree();
         assertFalse(den.doSynapticStateBitsIndicateConnected((byte) 0));
         assertTrue(den.doSynapticStateBitsIndicateConnected((byte) 1));
 
@@ -51,12 +51,12 @@ public class DendriticTreeWithoutMemoryTest {
 
     @Test
     public void testAttachAndDetachSynapses() {
-        NeuronWithoutMemory neuron = new NeuronWithoutMemory(
+        NeuronWithoutMemoryWithHighPerf neuron = new NeuronWithoutMemoryWithHighPerf(
                 FiringComputer.ALWAYS,
                 TickPriority.second,
                 DendriticTreeSize.TwoE16,
                 new Helper());
-        DendriticTreeWithoutMemory den = (DendriticTreeWithoutMemory) neuron.getDendriticTree();
+        DendriticTreeWithHighPerfWithoutMemory den = (DendriticTreeWithHighPerfWithoutMemory) neuron.getDendriticTree();
         assertEquals(0, den.getNumConnectedSynapses());
 
         den.attachSynapse(1000);
