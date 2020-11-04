@@ -1,15 +1,12 @@
-package org.sebasi.mep.tool.datastructure.v1.highperf;
+package org.sebasi.mep.tool.datastructure.v1;
 
-import org.sebasi.mep.tool.datastructure.v1.AxonForConnectingToNeurons;
-import org.sebasi.mep.tool.datastructure.v1.FiringComputer;
-import org.sebasi.mep.tool.datastructure.v1.NeuronWithDendriticTree;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
-public abstract class NeuronWithDendriticTreeWithHighPerf extends NeuronWithDendriticTree {
+public abstract class NeuronWithDendriticTree extends Neuron {
 
-    public NeuronWithDendriticTreeWithHighPerf(
+    public NeuronWithDendriticTree(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             Helper helper) {
@@ -20,7 +17,7 @@ public abstract class NeuronWithDendriticTreeWithHighPerf extends NeuronWithDend
                 null);
     }
 
-    public NeuronWithDendriticTreeWithHighPerf(
+    public NeuronWithDendriticTree(
             FiringComputer firingComputer,
             TickPriority tickPriority,
             Helper helper,
@@ -32,16 +29,7 @@ public abstract class NeuronWithDendriticTreeWithHighPerf extends NeuronWithDend
                 label);
     }
 
-    protected abstract DendriticTreeWithHighPerf getDendriticTree();
-
-    public DendriticTreeSize getDendriticTreeSize() {
-        return getDendriticTree().getDendriticTreeSize();
-    }
-
-    @Override
-    protected int getMaxNumSynapticConnections() {
-        return getDendriticTree().dendriticTreeSize.getNumSynapses();
-    }
+    protected abstract DendriticTree getDendriticTree();
 
     @Override
     protected int getNumSynapticConnections() {
@@ -63,17 +51,11 @@ public abstract class NeuronWithDendriticTreeWithHighPerf extends NeuronWithDend
 
     abstract public void receiveInput(int synapticIndex);
 
-    public boolean isSynapseConnected(int synapticIndex) {
-        return getDendriticTree().doSynapticStateBitsIndicateConnected(
-                getDendriticTree().getSynapticStateBits(synapticIndex));
-    }
+    public abstract boolean isSynapseConnected(int synapticIndex);
 
-    @Override
-    public void createOutgoingAxonConnection(
+    public abstract void createOutgoingAxonConnection(
             NeuronWithDendriticTree destinationNeuron,
-            int synapticIndex) {
-        ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
-    }
+            int synapticIndex);
 
     @Override
     public int getNumConnectionsOnDendriticTree() {

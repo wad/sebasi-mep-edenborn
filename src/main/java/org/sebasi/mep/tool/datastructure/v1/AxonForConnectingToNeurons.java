@@ -1,7 +1,5 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronWithDendriticTreeWithHighPerf;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public class AxonForConnectingToNeurons extends Axon {
     }
 
     public void createOutgoingConnection(
-            NeuronWithDendriticTreeWithHighPerf destinationNeuron,
+            NeuronWithDendriticTree destinationNeuron,
             int synapticIndex) {
         axonConnections.add(new Synapse(destinationNeuron, synapticIndex));
         destinationNeuron.attachSynapse(synapticIndex);

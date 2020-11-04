@@ -1,6 +1,5 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronWithDendriticTreeWithHighPerf;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
@@ -49,7 +48,7 @@ public class NeuronForSensoryInput extends Neuron {
 
     @Override
     public void createOutgoingAxonConnection(
-            NeuronWithDendriticTreeWithHighPerf destinationNeuron,
+            NeuronWithDendriticTree destinationNeuron,
             int synapticIndex) {
         ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
     }

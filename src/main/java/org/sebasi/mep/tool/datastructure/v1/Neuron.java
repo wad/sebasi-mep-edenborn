@@ -1,6 +1,5 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
-import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronWithDendriticTreeWithHighPerf;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
@@ -76,7 +75,7 @@ public abstract class Neuron extends HelperHolder implements Ticker {
     }
 
     public abstract void createOutgoingAxonConnection(
-            NeuronWithDendriticTreeWithHighPerf destinationNeuron,
+            NeuronWithDendriticTree destinationNeuron,
             int synapticIndex);
 
     @Override
