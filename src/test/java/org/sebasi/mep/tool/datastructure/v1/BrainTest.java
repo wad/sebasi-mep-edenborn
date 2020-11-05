@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.sebasi.mep.tool.datastructure.v1.highperf.DendriticTreeSize;
 import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronForMotorOutputWithHighPerf;
 import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronWithoutMemoryWithHighPerf;
+import org.sebasi.mep.tool.datastructure.v1.input.NeuronForSensoryInput;
+import org.sebasi.mep.tool.datastructure.v1.input.SensoryInputButtonPanel;
+import org.sebasi.mep.tool.datastructure.v1.output.MotorOutputLampPanel;
 import org.sebasi.mep.tool.datastructure.v1.util.*;
 
 import static org.junit.Assert.assertFalse;

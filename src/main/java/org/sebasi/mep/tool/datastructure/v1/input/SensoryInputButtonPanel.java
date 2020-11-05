@@ -1,9 +1,9 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.input;
 
+import org.sebasi.mep.tool.datastructure.v1.ClusterOfNeurons;
 import org.sebasi.mep.tool.datastructure.v1.util.Chance;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
-import org.sebasi.mep.tool.datastructure.v1.util.RandomUtil;
 
 // This is a primitive construct to input signals to a brain.
 // The idea is that it's a panel of little light buttons, each with a number.
@@ -20,10 +20,14 @@ public class SensoryInputButtonPanel extends ClusterOfNeurons {
         super(helper, label);
     }
 
+    // todo: add button strengths
+
+    // todo: stronger presses should make firing profile fire multiple times
+
     public void pressButton(int inputNeuronIndex) {
         NeuronForSensoryInput neuron = (NeuronForSensoryInput) getNeuron(inputNeuronIndex);
         if (neuron == null) {
-            throw new NeuronConnectionException("Failed to press button with index " + inputNeuronIndex + ".", label);
+            throw new NeuronConnectionException("Failed to press button with index " + inputNeuronIndex + ".", getLabel());
         }
 
         pressButton(neuron);
@@ -32,7 +36,7 @@ public class SensoryInputButtonPanel extends ClusterOfNeurons {
     public void pressButton(String inputNeuronLabel) {
         NeuronForSensoryInput neuron = (NeuronForSensoryInput) getNeuron(inputNeuronLabel);
         if (neuron == null) {
-            throw new NeuronConnectionException("Failed to press button with label " + inputNeuronLabel + ".", label);
+            throw new NeuronConnectionException("Failed to press button with label " + inputNeuronLabel + ".", getLabel());
         }
 
         pressButton(neuron);

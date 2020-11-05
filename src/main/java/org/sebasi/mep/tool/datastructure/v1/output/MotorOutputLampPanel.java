@@ -1,5 +1,6 @@
-package org.sebasi.mep.tool.datastructure.v1;
+package org.sebasi.mep.tool.datastructure.v1.output;
 
+import org.sebasi.mep.tool.datastructure.v1.ClusterOfNeurons;
 import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronForMotorOutputWithHighPerf;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
@@ -21,7 +22,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
     public boolean isLampOn(String outputNeuronLabel) {
         NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) getNeuron(outputNeuronLabel);
         if (neuron == null) {
-            throw new NeuronConnectionException("Failed to check lamp with label " + outputNeuronLabel + ".", label);
+            throw new NeuronConnectionException("Failed to check lamp with label " + outputNeuronLabel + ".", getLabel());
         }
 
         return neuron.isLampOn();
@@ -30,7 +31,7 @@ public class MotorOutputLampPanel extends ClusterOfNeurons {
     public void resetLamp(String outputNeuronLabel) {
         NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) getNeuron(outputNeuronLabel);
         if (neuron == null) {
-            throw new NeuronConnectionException("Failed to reset lamp with label " + outputNeuronLabel + ".", label);
+            throw new NeuronConnectionException("Failed to reset lamp with label " + outputNeuronLabel + ".", getLabel());
         }
 
         neuron.resetLamp();
