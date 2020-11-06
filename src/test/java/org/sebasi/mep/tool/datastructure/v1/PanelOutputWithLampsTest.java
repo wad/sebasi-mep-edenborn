@@ -1,34 +1,30 @@
 package org.sebasi.mep.tool.datastructure.v1;
 
 import org.junit.Test;
-import org.sebasi.mep.tool.datastructure.v1.highperf.DendriticTreeSize;
-import org.sebasi.mep.tool.datastructure.v1.highperf.NeuronForMotorOutputWithHighPerf;
-import org.sebasi.mep.tool.datastructure.v1.output.MotorOutputLampPanel;
+import org.sebasi.mep.tool.datastructure.v1.output.NeuronForMotorOutput;
+import org.sebasi.mep.tool.datastructure.v1.output.PanelOutputWithLamps;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 
 import static org.junit.Assert.assertEquals;
 import static org.sebasi.mep.tool.datastructure.v1.Neuron.NEURON_INDEX_IF_NOT_SET;
 
-public class MotorOutputLampPanelTest {
+public class PanelOutputWithLampsTest {
 
     @Test
     public void testNeuronIndexes() {
         Helper helper = new Helper();
-        MotorOutputLampPanel lampPanel = new MotorOutputLampPanel(helper);
+        PanelOutputWithLamps lampPanel = new PanelOutputWithLamps(helper);
 
-        NeuronForMotorOutputWithHighPerf neuron0 = new NeuronForMotorOutputWithHighPerf(
+        NeuronForMotorOutput neuron0 = new NeuronForMotorOutput(
                 FiringComputer.ALWAYS,
-                DendriticTreeSize.TwoE4,
                 helper,
                 "n0");
-        NeuronForMotorOutputWithHighPerf neuron1 = new NeuronForMotorOutputWithHighPerf(
+        NeuronForMotorOutput neuron1 = new NeuronForMotorOutput(
                 FiringComputer.ALWAYS,
-                DendriticTreeSize.TwoE4,
                 helper,
                 "n1");
-        NeuronForMotorOutputWithHighPerf neuron2 = new NeuronForMotorOutputWithHighPerf(
+        NeuronForMotorOutput neuron2 = new NeuronForMotorOutput(
                 FiringComputer.ALWAYS,
-                DendriticTreeSize.TwoE4,
                 helper,
                 "n2");
 
@@ -48,13 +44,12 @@ public class MotorOutputLampPanelTest {
     @Test
     public void testHexOutput_justSomeZeroes() {
         Helper helper = new Helper();
-        MotorOutputLampPanel lampPanel = new MotorOutputLampPanel(helper);
+        PanelOutputWithLamps lampPanel = new PanelOutputWithLamps(helper);
 
         int numNeuronsToMake = 3;
         for (int i = 0; i < numNeuronsToMake; i++) {
-            NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
+            NeuronForMotorOutput neuron = new NeuronForMotorOutput(
                     FiringComputer.ALWAYS,
-                    DendriticTreeSize.TwoE4,
                     helper,
                     "n" + i);
             lampPanel.addNeuron(neuron);
@@ -70,13 +65,12 @@ public class MotorOutputLampPanelTest {
     @Test
     public void testHexOutput_A() {
         Helper helper = new Helper();
-        MotorOutputLampPanel lampPanel = new MotorOutputLampPanel(helper);
+        PanelOutputWithLamps lampPanel = new PanelOutputWithLamps(helper);
 
         int numNeuronsToMake = 3;
         for (int i = 0; i < numNeuronsToMake; i++) {
-            NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
+            NeuronForMotorOutput neuron = new NeuronForMotorOutput(
                     FiringComputer.ALWAYS,
-                    DendriticTreeSize.TwoE4,
                     helper,
                     "n" + i);
             lampPanel.addNeuron(neuron);
@@ -97,13 +91,12 @@ public class MotorOutputLampPanelTest {
     @Test
     public void testHexOutput_multiDigit() {
         Helper helper = new Helper();
-        MotorOutputLampPanel lampPanel = new MotorOutputLampPanel(helper);
+        PanelOutputWithLamps lampPanel = new PanelOutputWithLamps(helper);
 
         int numNeuronsToMake = 12;
         for (int i = 0; i < numNeuronsToMake; i++) {
-            NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
+            NeuronForMotorOutput neuron = new NeuronForMotorOutput(
                     FiringComputer.ALWAYS,
-                    DendriticTreeSize.TwoE4,
                     helper);
             lampPanel.addNeuron(neuron);
         }
@@ -116,9 +109,8 @@ public class MotorOutputLampPanelTest {
         assertEquals("5F4", lampPanel.showLampsHex());
 
         // add one more neuron, the 13th, that didn't fire.
-        NeuronForMotorOutputWithHighPerf neuron = new NeuronForMotorOutputWithHighPerf(
+        NeuronForMotorOutput neuron = new NeuronForMotorOutput(
                 FiringComputer.ALWAYS,
-                DendriticTreeSize.TwoE4,
                 helper);
         lampPanel.addNeuron(neuron);
 
@@ -134,10 +126,10 @@ public class MotorOutputLampPanelTest {
     }
 
     void setHasFired(
-            MotorOutputLampPanel lampPanel,
+            PanelOutputWithLamps lampPanel,
             int... neuronIndexes) {
         for (int neuronIndex : neuronIndexes) {
-            NeuronForMotorOutputWithHighPerf neuron = (NeuronForMotorOutputWithHighPerf) lampPanel.getNeuron(neuronIndex);
+            NeuronForMotorOutput neuron = (NeuronForMotorOutput) lampPanel.getNeuron(neuronIndex);
             AxonForMotorOutput axon = (AxonForMotorOutput) neuron.axon;
             axon.hasFired = true;
         }

@@ -2,16 +2,14 @@ package org.sebasi.mep.tool.datastructure.v1.output;
 
 import org.sebasi.mep.tool.datastructure.v1.AxonForMotorOutput;
 import org.sebasi.mep.tool.datastructure.v1.FiringComputer;
-import org.sebasi.mep.tool.datastructure.v1.Neuron;
-import org.sebasi.mep.tool.datastructure.v1.highperf.DendriticTreeSize;
+import org.sebasi.mep.tool.datastructure.v1.NeuronWithDendriticTreeStandard;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
-public abstract class NeuronForMotorOutput extends Neuron {
+public class NeuronForMotorOutput extends NeuronWithDendriticTreeStandard {
 
     public NeuronForMotorOutput(
             FiringComputer firingComputer,
-            DendriticTreeSize dendriticTreeSize,
             Helper helper) {
         this(
                 firingComputer,

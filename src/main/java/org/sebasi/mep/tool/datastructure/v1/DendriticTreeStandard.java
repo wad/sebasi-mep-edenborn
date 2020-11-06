@@ -1,7 +1,5 @@
-package org.sebasi.mep.tool.datastructure.v1.standardperf;
+package org.sebasi.mep.tool.datastructure.v1;
 
-import org.sebasi.mep.tool.datastructure.v1.DendriticTree;
-import org.sebasi.mep.tool.datastructure.v1.Neuron;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
 
 import java.util.HashMap;
@@ -9,14 +7,17 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class DendriticTreeWithStandardPerf extends DendriticTree {
+public class DendriticTreeStandard extends DendriticTree {
+
+    // todo: Can dramatically improve performance by removing the whole synaptic index idea from this class.
+    //  Keeping it now, just for visibility reasons.
 
     // synapses by synaptic index
     Map<Integer, SynapseOnDendrite> connectedSynapses;
     Set<Integer> availableSynapticIndexes;
     int greatestSynapticIndexEverMade;
 
-    public DendriticTreeWithStandardPerf(Neuron neuron) {
+    public DendriticTreeStandard(Neuron neuron) {
         super(neuron);
         connectedSynapses = new HashMap<>();
         availableSynapticIndexes = new HashSet<>();
@@ -54,14 +55,16 @@ public class DendriticTreeWithStandardPerf extends DendriticTree {
 
         SynapseOnDendrite synapseOnDendrite = new SynapseOnDendrite();
         connectedSynapses.put(synapticIndex, synapseOnDendrite);
+        numConnectedSynapses++;
     }
 
     @Override
     public void detachSynapse(int synapticIndex) {
-        validateConnection(false, synapticIndex);
+        validateConnection(true, synapticIndex);
 
         connectedSynapses.remove(synapticIndex);
         availableSynapticIndexes.add(synapticIndex);
+        numConnectedSynapses--;
     }
 
     @Override
@@ -70,8 +73,16 @@ public class DendriticTreeWithStandardPerf extends DendriticTree {
             int synapticIndex) {
         if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
             if (expectationIsAlreadyConnected != connectedSynapses.containsKey(synapticIndex)) {
-                throw new NeuronConnectionException("Failed to validate synaptic connected. Expected connected = " + expectationIsAlreadyConnected);
+                throw new NeuronConnectionException(
+                        "Failed to validate synapse connected. Expected connected = " + expectationIsAlreadyConnected,
+                        neuron.getLabel());
             }
         }
+    }
+
+    public int lookupSynapseStrength(int synapticIndex) {
+        validateConnection(true, synapticIndex);
+
+        return connectedSynapses.get(synapticIndex).getSynapticStrength();
     }
 }

@@ -6,13 +6,13 @@ import org.sebasi.mep.tool.datastructure.v1.util.NeuronConnectionException;
 
 // This is a primitive construct to read the output.
 // The idea is that it's a panel of little light bulbs, each with a number and a reset button by it.
-public class MotorOutputLampPanel extends ClusterOfNeurons {
+public class PanelOutputWithLamps extends ClusterOfNeurons {
 
-    public MotorOutputLampPanel(Helper helper) {
+    public PanelOutputWithLamps(Helper helper) {
         this(helper, null);
     }
 
-    public MotorOutputLampPanel(
+    public PanelOutputWithLamps(
             Helper helper,
             String label) {
         super(helper, label);
