@@ -31,8 +31,11 @@ public class RandomUtil {
         return numerator <= random.nextInt(denominator);
     }
 
-    // returns a value between 0 and one less than max
+    // returns a value between 0 and max, inclusive
     public int getRandomNumber(int max) {
-        return random.nextInt(max);
+        if (max < 1) {
+            return 0;
+        }
+        return random.nextInt(max + 1);
     }
 }

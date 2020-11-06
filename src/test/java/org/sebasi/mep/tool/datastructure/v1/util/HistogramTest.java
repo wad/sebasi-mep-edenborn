@@ -19,7 +19,7 @@ public class HistogramTest {
         RandomUtil randomUtil = new RandomUtil();
         Histogram histogram = new Histogram();
         for (int i = 0; i < 50; i++) {
-            histogram.addDataPoint(randomUtil.getRandomNumber(100));
+            histogram.addDataPoint(randomUtil.getRandomNumber(99));
         }
         System.out.println(histogram.show());
     }

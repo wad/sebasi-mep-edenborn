@@ -45,6 +45,9 @@ public abstract class NeuronWithDendriticTree extends Neuron {
         getDendriticTree().attachSynapse(synapticIndex);
     }
 
+    // return the synaptic index that it was attached to.
+    public abstract int attachSynapse();
+
     public void detachSynapse(int synapticIndex) {
         getDendriticTree().detachSynapse(synapticIndex);
     }

@@ -49,8 +49,6 @@ public class DendriticTreeStandard extends DendriticTree {
 
     @Override
     public void attachSynapse(int synapticIndex) {
-        // This line can probably be omitted for better performance, as this
-        // is called from another method that identifies the index to use.
         validateConnection(false, synapticIndex);
 
         SynapseOnDendrite synapseOnDendrite = new SynapseOnDendrite();

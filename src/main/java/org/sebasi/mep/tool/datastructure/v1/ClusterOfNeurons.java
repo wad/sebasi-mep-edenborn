@@ -25,7 +25,7 @@ public class ClusterOfNeurons extends Cluster {
         neuronsByNeuronIndex = new HashMap<>();
     }
 
-    private List<Neuron> getNeurons() {
+    public List<Neuron> getNeurons() {
         if (neurons == null) {
             neurons = new ArrayList<>();
         }
@@ -60,6 +60,10 @@ public class ClusterOfNeurons extends Cluster {
 
     public int getGreatestNeuronIndex() {
         return nextNeuronIndexNumber - 1;
+    }
+
+    public Neuron getRandomNeuron() {
+        return neurons.get(getHelper().getRandomUtil().getRandomNumber(neurons.size() - 1));
     }
 
     @Override
