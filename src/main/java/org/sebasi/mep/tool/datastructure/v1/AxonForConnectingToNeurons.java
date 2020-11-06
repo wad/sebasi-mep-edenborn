@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AxonForConnectingToNeurons extends Axon {
 
-    List<Synapse> axonConnections;
+    List<SynapseOnAxon> axonConnections;
 
     public AxonForConnectingToNeurons() {
         axonConnections = new ArrayList<>();
@@ -13,7 +13,7 @@ public class AxonForConnectingToNeurons extends Axon {
 
     @Override
     public void fire() {
-        for (Synapse outputConnection : axonConnections) {
+        for (SynapseOnAxon outputConnection : axonConnections) {
             outputConnection.trigger();
         }
     }
@@ -21,7 +21,7 @@ public class AxonForConnectingToNeurons extends Axon {
     public void createOutgoingConnection(
             NeuronWithDendriticTree destinationNeuron,
             int synapticIndex) {
-        axonConnections.add(new Synapse(destinationNeuron, synapticIndex));
+        axonConnections.add(new SynapseOnAxon(destinationNeuron, synapticIndex));
         destinationNeuron.attachSynapse(synapticIndex);
     }
 
