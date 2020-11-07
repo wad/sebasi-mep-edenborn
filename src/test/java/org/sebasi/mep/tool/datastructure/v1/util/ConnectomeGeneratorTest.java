@@ -23,6 +23,11 @@ public class ConnectomeGeneratorTest {
                 cluster,
                 Chance.hundredPercent(),
                 Chance.percent(50));
+
+        ClusterReport clusterReport = new ClusterReport(cluster);
+        StringBuilder builder =new StringBuilder();
+        clusterReport.appendReport(builder);
+        System.out.println(builder.toString());
     }
 
     @Test

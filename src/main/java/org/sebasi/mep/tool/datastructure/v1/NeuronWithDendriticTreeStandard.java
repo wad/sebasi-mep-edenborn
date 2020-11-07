@@ -47,6 +47,9 @@ public class NeuronWithDendriticTreeStandard extends NeuronWithDendriticTree {
     public void createOutgoingAxonConnection(
             NeuronWithDendriticTree destinationNeuron,
             int synapticIndex) {
+        if (axon instanceof AxonForConnectingToNeurons) {
+            ((AxonForConnectingToNeurons) axon).createOutgoingConnection(destinationNeuron, synapticIndex);
+        }
         destinationNeuron.attachSynapse(synapticIndex);
     }
 
