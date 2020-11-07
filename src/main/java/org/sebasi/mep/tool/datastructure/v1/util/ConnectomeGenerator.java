@@ -15,6 +15,8 @@ public class ConnectomeGenerator {
             ClusterOfNeurons cluster,
             Chance chanceEachNeuronHasOfConnectingItsAxon,
             Chance axonConnectivityDistribution) {
+
+
         List<Neuron> neurons = cluster.getNeurons();
         int numAxonConnectionsPerNeuron = axonConnectivityDistribution.multipliedBy(neurons.size());
         for (Neuron sourceNeuron : neurons) {
@@ -23,6 +25,9 @@ public class ConnectomeGenerator {
                     Neuron destNeuron = cluster.getRandomNeuron();
                     int synapticIndex = ((NeuronWithDendriticTree) destNeuron).attachSynapse();
                     sourceNeuron.createOutgoingAxonConnection((NeuronWithDendriticTree) destNeuron, synapticIndex);
+//                    System.out.println("Connected neuron " + sourceNeuron.getLabel()
+//                            + " to synaptic index " + synapticIndex
+//                            + " of neuron " + destNeuron.getLabel());
                 }
             }
         }

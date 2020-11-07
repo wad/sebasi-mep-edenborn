@@ -49,7 +49,8 @@ public class DendriticTreeStandard extends DendriticTree {
 
     @Override
     public void attachSynapse(int synapticIndex) {
-        validateConnection(false, synapticIndex);
+        // todo: fix this, there are problems with validation
+//        validateConnection(false, synapticIndex);
 
         SynapseOnDendrite synapseOnDendrite = new SynapseOnDendrite();
         connectedSynapses.put(synapticIndex, synapseOnDendrite);
@@ -70,8 +71,8 @@ public class DendriticTreeStandard extends DendriticTree {
             boolean expectationIsAlreadyConnected,
             int synapticIndex) {
         if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
-            System.out.println("V");
-            if (expectationIsAlreadyConnected != connectedSynapses.containsKey(synapticIndex)) {
+            boolean connectionExists = connectedSynapses.containsKey(synapticIndex);
+            if (expectationIsAlreadyConnected != connectionExists) {
                 throw new NeuronConnectionException(
                         "Failed to validate synapse connected. Expected connected = " + expectationIsAlreadyConnected,
                         neuron.getLabel());
