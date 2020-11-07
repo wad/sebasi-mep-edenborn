@@ -70,6 +70,7 @@ public class DendriticTreeStandard extends DendriticTree {
             boolean expectationIsAlreadyConnected,
             int synapticIndex) {
         if (neuron.getHelper().getOperationMode().shouldValidateDendriteAttachments()) {
+            System.out.println("V");
             if (expectationIsAlreadyConnected != connectedSynapses.containsKey(synapticIndex)) {
                 throw new NeuronConnectionException(
                         "Failed to validate synapse connected. Expected connected = " + expectationIsAlreadyConnected,
