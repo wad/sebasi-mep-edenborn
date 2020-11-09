@@ -8,36 +8,42 @@ import static org.sebasi.mep.tool.datastructure.v1.util.Histogram.DESIRED_BAR_LE
 public class HistogramTest {
 
     @Test
-    public void testSimple() {
+    public void testWithSingleDataPoint() {
         Histogram histogram = new Histogram();
         histogram.addDataPoint(10);
-        System.out.println(histogram.show());
+        String output = histogram.show();
+        assertEquals(
+                "10-10 (1)  | ########################################\n", output);
+    }
+
+    @Test
+    public void testWithTwoDataPoints() {
+        Histogram histogram = new Histogram();
+        histogram.addDataPoint(1);
+        histogram.addDataPoint(10);
+        String output = histogram.show();
+        System.out.println(output);
+        assertEquals(
+                "1-1 (1)    | ########################################\n" +
+                        "2-2 (0)    | \n" +
+                        "3-3 (0)    | \n" +
+                        "4-4 (0)    | \n" +
+                        "5-5 (0)    | \n" +
+                        "6-6 (0)    | \n" +
+                        "7-7 (0)    | \n" +
+                        "8-8 (0)    | \n" +
+                        "9-9 (0)    | \n" +
+                        "10-10 (1)  | ########################################\n", output);
     }
 
     @Test
     public void testRandom() {
         RandomUtil randomUtil = new RandomUtil();
         Histogram histogram = new Histogram();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 500; i++) {
             histogram.addDataPoint(randomUtil.getRandomNumber(99));
         }
         System.out.println(histogram.show());
-    }
-
-    @Test
-    public void testBucketing() {
-        assertEquals(0, Histogram.determineWhichBucket(11, 11, 60, 5));
-        assertEquals(2, Histogram.determineWhichBucket(39, 11, 60, 5));
-        assertEquals(2, Histogram.determineWhichBucket(40, 11, 60, 5));
-        assertEquals(3, Histogram.determineWhichBucket(41, 11, 60, 5));
-        assertEquals(3, Histogram.determineWhichBucket(42, 11, 60, 5));
-        assertEquals(4, Histogram.determineWhichBucket(59, 11, 60, 5));
-        assertEquals(4, Histogram.determineWhichBucket(60, 11, 60, 5));
-
-        assertEquals(0, Histogram.determineWhichBucket(0, 0, 99, 10));
-        assertEquals(0, Histogram.determineWhichBucket(1000, 1000, 1099, 10));
-        assertEquals(5, Histogram.determineWhichBucket(50, 0, 99, 10));
-        assertEquals(9, Histogram.determineWhichBucket(99, 0, 99, 10));
     }
 
     @Test

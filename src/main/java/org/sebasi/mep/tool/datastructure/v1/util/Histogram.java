@@ -28,43 +28,48 @@ public class Histogram {
         int maxX = 0;
         int maxCount = 0;
 
+        boolean isFirstDataPoint = true;
+
         for (Map.Entry<Integer, Integer> entry : countsByX.entrySet()) {
 
             int x = entry.getKey();
 
-            if (x < minX) {
+            if (isFirstDataPoint) {
+                isFirstDataPoint = false;
                 minX = x;
-            }
-
-            if (x > maxX) {
                 maxX = x;
+            } else {
+                if (x < minX) {
+                    minX = x;
+                }
+                if (x > maxX) {
+                    maxX = x;
+                }
             }
-
             int count = entry.getValue();
             if (count > maxCount) {
                 maxCount = count;
             }
         }
 
-        int range = maxX - minX;
-        if (range < DESIRED_NUM_BUCKETS) {
-            makeReport(builder, linePrefix, range, minX, maxX);
-        } else {
-            makeReport(builder, linePrefix, DESIRED_NUM_BUCKETS, minX, maxX);
-        }
-    }
-
-    void makeReport(
-            StringBuilder builder,
-            String linePrefix,
-            int numBuckets,
-            int minX,
-            int maxX) {
-
-        if (numBuckets <= 0) {
+        if (isFirstDataPoint) {
             builder.append(linePrefix).append("[no data for histogram]").append("\n");
             return;
         }
+
+        int bucketRange = maxX - minX;
+        int numBuckets = bucketRange + 1;
+        if (numBuckets > DESIRED_NUM_BUCKETS) {
+            numBuckets = DESIRED_NUM_BUCKETS;
+        }
+
+        int[] lowestValuesForBuckets = new int[numBuckets];
+        int[] highestValuesForBuckets = new int[numBuckets];
+        setBucketRanges(
+                lowestValuesForBuckets,
+                highestValuesForBuckets,
+                minX,
+                maxX);
 
         int[] countsByBucket = new int[numBuckets];
         for (int i = 0; i < numBuckets; i++) {
@@ -74,7 +79,7 @@ public class Histogram {
         for (Map.Entry<Integer, Integer> entry : countsByX.entrySet()) {
             int x = entry.getKey();
             int count = entry.getValue();
-            int bucketIndex = determineWhichBucket(x, minX, maxX, numBuckets);
+            int bucketIndex = determineWhichBucket(x, lowestValuesForBuckets, highestValuesForBuckets);
             countsByBucket[bucketIndex] += count;
         }
 
@@ -88,7 +93,12 @@ public class Histogram {
         for (int i = 0; i < numBuckets; i++) {
             int count = countsByBucket[i];
             builder.append(linePrefix);
-            builder.append(getBucketLinePrefix(i, minX, maxX, numBuckets, maxCountInBucket, count));
+            builder.append(getBucketLinePrefix(
+                    lowestValuesForBuckets[i],
+                    highestValuesForBuckets[i],
+                    maxX,
+                    maxCountInBucket,
+                    count));
             int numCharsInBar = determineNumCharsInBar(count, maxCountInBucket);
             for (int j = 0; j < numCharsInBar; j++) {
                 builder.append("#");
@@ -97,33 +107,55 @@ public class Histogram {
         }
     }
 
+    static void setBucketRanges(
+            int[] lowestValueInBucket,
+            int[] highestValueInBucket,
+            int minX,
+            int maxX) {
+        int numBuckets = lowestValueInBucket.length;
+        double bucketSize = (maxX - minX) / (double) numBuckets;
+
+        lowestValueInBucket[0] = minX;
+        highestValueInBucket[numBuckets - 1] = maxX;
+
+        for (int bucketIndex = 0; bucketIndex < numBuckets; bucketIndex++) {
+
+            if (bucketIndex > 0) {
+                lowestValueInBucket[bucketIndex] = highestValueInBucket[bucketIndex - 1] + 1;
+            }
+
+            double largestValueForBucketDouble = minX + ((bucketIndex + 1) * bucketSize);
+            highestValueInBucket[bucketIndex] = (int) largestValueForBucketDouble;
+        }
+    }
+
     static int determineWhichBucket(
             int x,
-            int minX,
-            int maxX,
-            int numBuckets) {
-        if (numBuckets <= 0) {
-            return 0;
+            int[] lowestValuesForBuckets,
+            int[] highestValuesForBuckets) {
+        for (int i = 0; i < lowestValuesForBuckets.length; i++) {
+            if (x >= lowestValuesForBuckets[i] && x <= highestValuesForBuckets[i]) {
+                return i;
+            }
         }
+        throw new IllegalStateException("Value " + x + " doesn't fit into any bucket. "
+                + showBucketRanges(lowestValuesForBuckets, highestValuesForBuckets));
+    }
 
-        double range = maxX - minX;
-        double bucketSize = range / numBuckets;
-        double bucketIndexAsDouble = (double) (x - minX) / bucketSize;
-        int bucketIndex = (int) bucketIndexAsDouble;
-        if (bucketIndex < 0) {
-            bucketIndex = 0;
+    static String showBucketRanges(
+            int[] lowestValuesForBuckets,
+            int[] highestValuesForBuckets) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < lowestValuesForBuckets.length; i++) {
+            builder.append(lowestValuesForBuckets[i]).append('-').append(highestValuesForBuckets[i]).append(",");
         }
-        if (bucketIndex >= numBuckets) {
-            bucketIndex = numBuckets - 1;
-        }
-        return bucketIndex;
+        return builder.toString();
     }
 
     static String getBucketLinePrefix(
-            int bucketIndex,
-            int minX,
+            int lowerBound,
+            int upperBound,
             int maxX,
-            int numBuckets,
             int maxCount,
             int count) {
 
@@ -132,10 +164,6 @@ public class Histogram {
         maxDigitsOfRangePortion += 2; // the dash character, and the trailing space.
         int maxDigitsOfCountPortion = String.valueOf(maxCount).length();
         maxDigitsOfCountPortion += 3; // the two parenthesis, and the trailing space.
-
-        double bucketSize = (double) (maxX - minX) / numBuckets;
-        int lowerBound = (int) (bucketSize * bucketIndex) + minX;
-        int upperBound = ((int) (bucketSize * (bucketIndex + 1)) + minX);
 
         StringBuilder prefix = new StringBuilder();
         prefix.append(lowerBound);
