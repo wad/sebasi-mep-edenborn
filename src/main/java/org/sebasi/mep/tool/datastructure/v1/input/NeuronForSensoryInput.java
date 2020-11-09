@@ -1,9 +1,6 @@
 package org.sebasi.mep.tool.datastructure.v1.input;
 
-import org.sebasi.mep.tool.datastructure.v1.AxonForConnectingToNeurons;
-import org.sebasi.mep.tool.datastructure.v1.FiringComputer;
-import org.sebasi.mep.tool.datastructure.v1.Neuron;
-import org.sebasi.mep.tool.datastructure.v1.NeuronWithDendriticTree;
+import org.sebasi.mep.tool.datastructure.v1.*;
 import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
@@ -33,6 +30,11 @@ public class NeuronForSensoryInput extends Neuron {
                 TickPriority.first,
                 helper,
                 label);
+    }
+
+    @Override
+    public NeuralType getNeuralType() {
+        return NeuralType.SensoryInput;
     }
 
     @Override

@@ -24,6 +24,11 @@ public class NeuronWithDendriticTreeStandard extends NeuronWithDendriticTree {
     }
 
     @Override
+    public NeuralType getNeuralType() {
+        return NeuralType.Standard;
+    }
+
+    @Override
     public int attachSynapse() {
         return dendriticTreeStandard.attachSynapse();
     }

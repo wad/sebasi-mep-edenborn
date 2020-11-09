@@ -11,7 +11,7 @@ public class ConnectomeGeneratorTest {
     public void testConnectingCluster() {
         Helper helper = new Helper();
         ClusterOfNeurons cluster = new ClusterOfNeurons(helper, "cluster");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             cluster.addNeuron(new NeuronWithDendriticTreeStandard(
                     FiringComputer.ON_ANY_INPUT,
                     TickPriority.second,
@@ -49,7 +49,7 @@ public class ConnectomeGeneratorTest {
         ConnectomeGenerator.makeRandomConnections(
                 src,
                 dest,
-                Chance.hundredPercent(),
+                Chance.percent(20),
                 Chance.percent(50));
     }
 }

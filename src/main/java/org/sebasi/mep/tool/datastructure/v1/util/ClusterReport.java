@@ -1,7 +1,10 @@
 package org.sebasi.mep.tool.datastructure.v1.util;
 
 import org.sebasi.mep.tool.datastructure.v1.ClusterOfNeurons;
+import org.sebasi.mep.tool.datastructure.v1.NeuralType;
 import org.sebasi.mep.tool.datastructure.v1.Neuron;
+
+import java.util.*;
 
 public class ClusterReport {
 
@@ -10,35 +13,26 @@ public class ClusterReport {
     int numActualNeurons = 0;
     Histogram numConnectionsOnAxon = new Histogram();
     Histogram numConnectionsOnDendriticTrees = new Histogram();
-    NeuronReport sampleNeuronReport;
+    Map<NeuralType, Integer> countByNeuralType = new HashMap<>();
 
     public ClusterReport(ClusterOfNeurons clusterOfNeurons) {
-        populateData(clusterOfNeurons);
-    }
-
-    public void populateData(ClusterOfNeurons clusterOfNeurons) {
         clusterLabel = clusterOfNeurons.getLabel();
         numNeuronsThatHaveEverBeenAdded = clusterOfNeurons.getGreatestNeuronIndex() + 1;
 
-        Neuron sampleNeuron = null;
         for (int neuronIndex = 0; neuronIndex <= clusterOfNeurons.getGreatestNeuronIndex(); neuronIndex++) {
             Neuron neuron = clusterOfNeurons.getNeuron(neuronIndex);
             if (neuron != null) {
-
-                // just grab one on the way by
-                if (sampleNeuron == null) {
-                    sampleNeuron = neuron;
-                }
-
                 numActualNeurons++;
                 numConnectionsOnAxon.addDataPoint(neuron.getNumConnectionsOnAxon());
                 numConnectionsOnDendriticTrees.addDataPoint(neuron.getNumConnectionsOnDendriticTree());
+                incrementNeuralTypeCount(neuron.getNeuralType());
             }
         }
+    }
 
-        if (sampleNeuron != null) {
-            sampleNeuronReport = sampleNeuron.getInfoForReport();
-        }
+    void incrementNeuralTypeCount(NeuralType neuralType) {
+        int count = countByNeuralType.getOrDefault(neuralType, 0);
+        countByNeuralType.put(neuralType, count + 1);
     }
 
     public void appendReport(StringBuilder builder) {
@@ -62,6 +56,8 @@ public class ClusterReport {
                 .append(numActualNeurons)
                 .append(newline);
 
+        appendCountsByNeuralType(indentationPrefix, newline, builder);
+
         builder.append(indentationPrefix)
                 .append("Num connections on Axons: ")
                 .append(newline);
@@ -71,5 +67,25 @@ public class ClusterReport {
                 .append("Num connections on dendritic trees: ")
                 .append(newline);
         numConnectionsOnDendriticTrees.makeReport(builder, indentationPrefix + "  ");
+    }
+
+    void appendCountsByNeuralType(
+            String indentationPrefix,
+            String newline,
+            StringBuilder builder) {
+        builder.append(indentationPrefix)
+                .append("Counts by NeuralType: ")
+                .append(newline);
+
+        List<NeuralType> neuralTypes = new ArrayList<>(countByNeuralType.keySet());
+        Collections.sort(neuralTypes);
+        for (NeuralType neuralType : neuralTypes) {
+            builder.append(indentationPrefix)
+                    .append("  ")
+                    .append(neuralType.getNeuralTypeName())
+                    .append(": ")
+                    .append(countByNeuralType.get(neuralType))
+                    .append(newline);
+        }
     }
 }

@@ -48,6 +48,8 @@ public abstract class Neuron extends HelperHolder implements Ticker {
         return label;
     }
 
+    public abstract NeuralType getNeuralType();
+
     protected abstract void initializeAxon();
 
     void resetAccumulator() {
