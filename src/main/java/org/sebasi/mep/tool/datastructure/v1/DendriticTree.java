@@ -24,7 +24,8 @@ public abstract class DendriticTree implements Ticker {
 
     public abstract Collection<SynapseOnDendrite> getSynapses();
 
-    public abstract void attachSynapse(int synapticIndex);
+    // returns the new synaptic index
+    public abstract int attachSynapse();
 
     public abstract void detachSynapse(int synapticIndex);
 

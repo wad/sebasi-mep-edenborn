@@ -32,34 +32,22 @@ public class DendriticTreeStandard extends DendriticTree {
         return connectedSynapsesBySynapticIndex.containsKey(synapticIndex);
     }
 
-    // returns the new synaptic index
-    public int attachSynapse() {
-        int synapticIndex = identifySynapticIndexForNewAttachment();
-        attachSynapse(synapticIndex);
-        return synapticIndex;
-    }
-
-    int identifySynapticIndexForNewAttachment() {
-        if (availableSynapticIndexes.isEmpty()) {
-            return ++greatestSynapticIndexEverMade;
-        } else {
-            // Just get any available index.
-            int synapticIndex = availableSynapticIndexes.iterator().next();
-            availableSynapticIndexes.remove(synapticIndex);
-            return synapticIndex;
-        }
-    }
-
     @Override
-    public void attachSynapse(int synapticIndex) {
-        // todo: fix this, there are problems with validation
-//        validateConnection(false, synapticIndex);
-
+    public int attachSynapse() {
+        int synapticIndex;
+        if (availableSynapticIndexes.isEmpty()) {
+            synapticIndex = ++greatestSynapticIndexEverMade;
+        } else {
+            synapticIndex = availableSynapticIndexes.iterator().next();
+            availableSynapticIndexes.remove(synapticIndex);
+        }
 
         // todo: bug, this is getting called twice
         SynapseOnDendrite synapseOnDendrite = new SynapseOnDendrite(initialSynapticStrengthValue);
         connectedSynapsesBySynapticIndex.put(synapticIndex, synapseOnDendrite);
         numConnectedSynapses++;
+
+        return synapticIndex;
     }
 
     @Override

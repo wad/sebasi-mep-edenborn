@@ -80,7 +80,7 @@ public abstract class Neuron extends HelperHolder implements Ticker {
 
     public abstract void createOutgoingAxonConnection(
             NeuronWithDendriticTree destinationNeuron,
-            int synapticIndex);
+            int destSynapticIndex);
 
     @Override
     public void tick() {

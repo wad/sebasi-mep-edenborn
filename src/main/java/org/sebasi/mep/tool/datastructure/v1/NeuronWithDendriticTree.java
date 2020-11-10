@@ -43,10 +43,6 @@ public abstract class NeuronWithDendriticTree extends Neuron {
         axon = new AxonForConnectingToNeurons();
     }
 
-    public void attachSynapse(int synapticIndex) {
-        getDendriticTree().attachSynapse(synapticIndex);
-    }
-
     // return the synaptic index that it was attached to.
     public abstract int attachSynapse();
 
@@ -57,10 +53,6 @@ public abstract class NeuronWithDendriticTree extends Neuron {
     abstract public void receiveInput(int synapticIndex);
 
     public abstract boolean isSynapseConnected(int synapticIndex);
-
-    public abstract void createOutgoingAxonConnection(
-            NeuronWithDendriticTree destinationNeuron,
-            int synapticIndex);
 
     @Override
     public int getNumConnectionsOnDendriticTree() {

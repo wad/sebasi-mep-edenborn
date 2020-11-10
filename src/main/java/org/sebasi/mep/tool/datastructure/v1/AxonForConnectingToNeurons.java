@@ -20,9 +20,8 @@ public class AxonForConnectingToNeurons extends Axon {
 
     public void createOutgoingConnection(
             NeuronWithDendriticTree destinationNeuron,
-            int synapticIndex) {
-        axonConnections.add(new SynapseOnAxon(destinationNeuron, synapticIndex));
-        destinationNeuron.attachSynapse(synapticIndex);
+            int destSynapticIndex) {
+        axonConnections.add(new SynapseOnAxon(destinationNeuron, destSynapticIndex));
     }
 
     @Override
