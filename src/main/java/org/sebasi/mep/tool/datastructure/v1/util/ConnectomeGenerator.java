@@ -12,12 +12,14 @@ import java.util.List;
 
 public class ConnectomeGenerator {
 
-    public static void makeRandomConnections(
+    // returns the number of connections made
+    public static int makeRandomConnections(
             ClusterOfNeurons cluster,
             Chance chanceEachNeuronHasOfConnectingItsAxon,
             Chance axonConnectivityDistribution,
             int synapticStrengthMean,
             int synapticStrengthStandardDev) {
+        int numConnectionsMade = 0;
         RandomUtil randomUtil = cluster.getHelper().getRandomUtil();
         List<Neuron> neurons = cluster.getNeurons();
         int numAxonConnectionsPerNeuron = axonConnectivityDistribution.multipliedBy(neurons.size());
@@ -32,27 +34,39 @@ public class ConnectomeGenerator {
                             synapticStrengthStandardDev);
                     synapseOnDendrite.setSynapticStrengthValue(newSynapticStrength);
                     sourceNeuron.createOutgoingAxonConnection((NeuronWithDendriticTree) destNeuron, synapticIndex);
+                    numConnectionsMade++;
                 }
             }
         }
+        return numConnectionsMade;
     }
 
-    public static void makeRandomConnections(
+    // returns the number of connections made
+    public static int makeRandomConnections(
             ClusterOfNeurons sourceCluster,
             ClusterOfNeurons destCluster,
             Chance chanceEachNeuronHasOfConnectingItsAxon,
             Chance axonConnectivityDistribution,
             int synapticStrengthMean,
             int synapticStrengthStandardDev) {
+        int numConnectionsMade = 0;
         int numAxonConnectionsPerNeuron = axonConnectivityDistribution.multipliedBy(destCluster.getNeurons().size());
         for (Neuron sourceNeuron : sourceCluster.getNeurons()) {
-            if (sourceCluster.getHelper().getRandomUtil().shouldEventTrigger(chanceEachNeuronHasOfConnectingItsAxon)) {
+            RandomUtil randomUtil = sourceCluster.getHelper().getRandomUtil();
+            if (randomUtil.shouldEventTrigger(chanceEachNeuronHasOfConnectingItsAxon)) {
                 for (int i = 0; i < numAxonConnectionsPerNeuron; i++) {
                     Neuron destNeuron = destCluster.getRandomNeuron();
                     int synapticIndex = ((NeuronWithDendriticTree) destNeuron).attachSynapse();
+                    SynapseOnDendrite synapseOnDendrite = ((NeuronWithDendriticTree) destNeuron).getSynapse(synapticIndex);
+                    int newSynapticStrength = randomUtil.getRandomNumberInNormalDistribution(
+                            synapticStrengthMean,
+                            synapticStrengthStandardDev);
+                    synapseOnDendrite.setSynapticStrengthValue(newSynapticStrength);
                     sourceNeuron.createOutgoingAxonConnection((NeuronWithDendriticTree) destNeuron, synapticIndex);
+                    numConnectionsMade++;
                 }
             }
         }
+        return numConnectionsMade;
     }
 }

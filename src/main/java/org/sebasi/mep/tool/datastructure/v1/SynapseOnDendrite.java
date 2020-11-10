@@ -2,7 +2,7 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public class SynapseOnDendrite {
 
-    static final int MIN_SYNAPTIC_STRENGTH_VALUE = 0;
+    static final int MIN_SYNAPTIC_STRENGTH_VALUE = -100;
     static final int MAX_SYNAPTIC_STRENGTH_VALUE = 10000;
 
     int synapticStrengthValue;
