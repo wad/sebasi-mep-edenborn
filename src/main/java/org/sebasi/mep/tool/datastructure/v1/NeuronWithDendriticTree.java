@@ -78,4 +78,8 @@ public abstract class NeuronWithDendriticTree extends Neuron {
         neuronReport.setNumSynapsesOnDendriticTree(getNumConnectionsOnDendriticTree());
         return neuronReport;
     }
+
+    public SynapseOnDendrite getSynapse(int synapticIndex) {
+        return getDendriticTree().getSynapse(synapticIndex);
+    }
 }

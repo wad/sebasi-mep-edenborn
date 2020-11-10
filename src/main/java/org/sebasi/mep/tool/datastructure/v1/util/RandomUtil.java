@@ -38,4 +38,24 @@ public class RandomUtil {
         }
         return random.nextInt(max + 1);
     }
+
+    public int getRandomNumberInNormalDistribution(
+            int mean,
+            int sd) {
+
+        /*
+        Z = (X - u) / s
+        where:
+        Z = value on the standard normal distribution
+        X = value on the original distribution
+        u = mean of the original distribution
+        s = standard deviation of the original distribution
+
+         Z = (X - u) / s;
+         Zs = X - u
+         Zs+u = X
+         */
+        double Z = random.nextGaussian();
+        return (int) ((Z * (double) sd) + (double) mean);
+    }
 }

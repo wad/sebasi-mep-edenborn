@@ -13,8 +13,8 @@ public class DendriticTreeStandard extends DendriticTree {
     Set<Integer> availableSynapticIndexes;
     int greatestSynapticIndexEverMade;
 
-    static int DEFAULT_INITIAL_SYNAPTIC_STRENGTH = 1;
-    int initialSynapticStrength = DEFAULT_INITIAL_SYNAPTIC_STRENGTH;
+    static int DEFAULT_INITIAL_SYNAPTIC_STRENGTH_VALUE = 100;
+    int initialSynapticStrengthValue = DEFAULT_INITIAL_SYNAPTIC_STRENGTH_VALUE;
 
     public DendriticTreeStandard(Neuron neuron) {
         super(neuron);
@@ -23,8 +23,8 @@ public class DendriticTreeStandard extends DendriticTree {
         greatestSynapticIndexEverMade = -1;
     }
 
-    public void setInitialSynapticStrength(int initialSynapticStrength) {
-        this.initialSynapticStrength = initialSynapticStrength;
+    public void setInitialSynapticStrengthValue(int initialSynapticStrengthValue) {
+        this.initialSynapticStrengthValue = initialSynapticStrengthValue;
     }
 
     @Override
@@ -55,7 +55,9 @@ public class DendriticTreeStandard extends DendriticTree {
         // todo: fix this, there are problems with validation
 //        validateConnection(false, synapticIndex);
 
-        SynapseOnDendrite synapseOnDendrite = new SynapseOnDendrite(initialSynapticStrength);
+
+        // todo: bug, this is getting called twice
+        SynapseOnDendrite synapseOnDendrite = new SynapseOnDendrite(initialSynapticStrengthValue);
         connectedSynapsesBySynapticIndex.put(synapticIndex, synapseOnDendrite);
         numConnectedSynapses++;
     }
@@ -67,6 +69,11 @@ public class DendriticTreeStandard extends DendriticTree {
         connectedSynapsesBySynapticIndex.remove(synapticIndex);
         availableSynapticIndexes.add(synapticIndex);
         numConnectedSynapses--;
+    }
+
+    @Override
+    public SynapseOnDendrite getSynapse(int synapticIndex) {
+        return connectedSynapsesBySynapticIndex.get(synapticIndex);
     }
 
     @Override
@@ -91,6 +98,6 @@ public class DendriticTreeStandard extends DendriticTree {
     public int lookupSynapseStrength(int synapticIndex) {
         validateConnection(true, synapticIndex);
 
-        return connectedSynapsesBySynapticIndex.get(synapticIndex).getSynapticStrength();
+        return connectedSynapsesBySynapticIndex.get(synapticIndex).getSynapticStrengthValue();
     }
 }

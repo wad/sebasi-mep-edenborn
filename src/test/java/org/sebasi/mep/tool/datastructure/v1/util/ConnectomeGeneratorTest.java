@@ -22,7 +22,9 @@ public class ConnectomeGeneratorTest {
         ConnectomeGenerator.makeRandomConnections(
                 cluster,
                 Chance.hundredPercent(),
-                Chance.percent(50));
+                Chance.percent(50),
+                50,
+                25);
 
         ClusterReport clusterReport = new ClusterReport(cluster);
         StringBuilder builder =new StringBuilder();
@@ -50,6 +52,8 @@ public class ConnectomeGeneratorTest {
                 src,
                 dest,
                 Chance.percent(20),
-                Chance.percent(50));
+                Chance.percent(50),
+                50,
+                25);
     }
 }

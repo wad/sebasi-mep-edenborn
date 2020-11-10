@@ -36,7 +36,8 @@ public class ClusterReport {
                 incrementNeuralTypeCount(neuron.getNeuralType());
 
                 for (SynapseOnDendrite synapseOnDendrite : neuron.getSynapsesOnDendriticTree()) {
-                    countsOfSynapticStrengthsAcrossAllNeurons.addDataPoint(synapseOnDendrite.getSynapticStrength());
+                    int synapticStrengthValue = synapseOnDendrite.getSynapticStrengthValue();
+                    countsOfSynapticStrengthsAcrossAllNeurons.addDataPoint(synapticStrengthValue);
                 }
             }
         }

@@ -53,4 +53,15 @@ public class RandomUtilTest {
         assertTrue(randomUtil.shouldEventTrigger(1, 1));
         assertTrue(randomUtil.shouldEventTrigger(100, 100));
     }
+
+    @Test
+    public void testNormalDistributionRandomValues() {
+        Histogram histogram = new Histogram();
+        RandomUtil randomUtil = new RandomUtil();
+        for (int i = 0; i < 10000; i++) {
+            int randomNumberInNormalDistribution = randomUtil.getRandomNumberInNormalDistribution(50, 25);
+            histogram.addDataPoint(randomNumberInNormalDistribution);
+        }
+        System.out.println(histogram.show());
+    }
 }
