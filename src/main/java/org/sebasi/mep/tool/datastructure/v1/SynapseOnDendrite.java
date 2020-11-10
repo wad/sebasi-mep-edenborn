@@ -2,17 +2,21 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 public class SynapseOnDendrite {
 
-    int synapticStrength = 1;
+    int synapticStrength;
 
-    public SynapseOnDendrite() {
+    public SynapseOnDendrite(int initialSynapticStrength) {
+        this.synapticStrength = initialSynapticStrength;
     }
 
     public int getSynapticStrength() {
         return synapticStrength;
     }
 
+    public void setSynapticStrength(int synapticStrength) {
+        this.synapticStrength = synapticStrength;
+    }
+
     public void modifySynapticStrength(int delta) {
-        // todo: this will need to be more sophisticated
         synapticStrength += delta;
     }
 }

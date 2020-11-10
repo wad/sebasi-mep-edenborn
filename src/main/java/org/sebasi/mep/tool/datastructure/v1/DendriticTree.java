@@ -2,6 +2,8 @@ package org.sebasi.mep.tool.datastructure.v1;
 
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
+import java.util.Collection;
+
 public abstract class DendriticTree implements Ticker {
 
     protected int numConnectedSynapses;
@@ -18,6 +20,8 @@ public abstract class DendriticTree implements Ticker {
         return numConnectedSynapses;
     }
 
+    public abstract Collection<SynapseOnDendrite> getSynapses();
+
     public abstract void attachSynapse(int synapticIndex);
 
     public abstract void detachSynapse(int synapticIndex);
@@ -26,7 +30,7 @@ public abstract class DendriticTree implements Ticker {
             boolean expectationIsAlreadyConnected,
             int synapticIndex);
 
-        @Override
+    @Override
     public void tick() {
     }
 

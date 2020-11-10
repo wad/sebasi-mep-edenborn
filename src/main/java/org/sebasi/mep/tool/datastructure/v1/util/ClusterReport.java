@@ -3,19 +3,27 @@ package org.sebasi.mep.tool.datastructure.v1.util;
 import org.sebasi.mep.tool.datastructure.v1.ClusterOfNeurons;
 import org.sebasi.mep.tool.datastructure.v1.NeuralType;
 import org.sebasi.mep.tool.datastructure.v1.Neuron;
+import org.sebasi.mep.tool.datastructure.v1.SynapseOnDendrite;
 
 import java.util.*;
 
 public class ClusterReport {
 
+    ClusterOfNeurons clusterOfNeurons;
     String clusterLabel;
     int numNeuronsThatHaveEverBeenAdded;
     int numActualNeurons = 0;
     Histogram numConnectionsOnAxon = new Histogram();
     Histogram numConnectionsOnDendriticTrees = new Histogram();
     Map<NeuralType, Integer> countByNeuralType = new HashMap<>();
+    Histogram countsOfSynapticStrengthsAcrossAllNeurons = new Histogram();
 
     public ClusterReport(ClusterOfNeurons clusterOfNeurons) {
+        this.clusterOfNeurons = clusterOfNeurons;
+        make();
+    }
+
+    void make() {
         clusterLabel = clusterOfNeurons.getLabel();
         numNeuronsThatHaveEverBeenAdded = clusterOfNeurons.getGreatestNeuronIndex() + 1;
 
@@ -26,6 +34,10 @@ public class ClusterReport {
                 numConnectionsOnAxon.addDataPoint(neuron.getNumConnectionsOnAxon());
                 numConnectionsOnDendriticTrees.addDataPoint(neuron.getNumConnectionsOnDendriticTree());
                 incrementNeuralTypeCount(neuron.getNeuralType());
+
+                for (SynapseOnDendrite synapseOnDendrite : neuron.getSynapsesOnDendriticTree()) {
+                    countsOfSynapticStrengthsAcrossAllNeurons.addDataPoint(synapseOnDendrite.getSynapticStrength());
+                }
             }
         }
     }
@@ -57,6 +69,7 @@ public class ClusterReport {
                 .append(newline);
 
         appendCountsByNeuralType(indentationPrefix, newline, builder);
+        appendCountsOfSynapticStrengthsAcrossAllNeurons(indentationPrefix, newline, builder);
 
         builder.append(indentationPrefix)
                 .append("Num connections on Axons: ")
@@ -87,5 +100,15 @@ public class ClusterReport {
                     .append(countByNeuralType.get(neuralType))
                     .append(newline);
         }
+    }
+
+    void appendCountsOfSynapticStrengthsAcrossAllNeurons(
+            String indentationPrefix,
+            String newline,
+            StringBuilder builder) {
+        builder.append(indentationPrefix)
+                .append("Counts of synaptic strengths across all neurons: ")
+                .append(newline);
+        countsOfSynapticStrengthsAcrossAllNeurons.makeReport(builder, indentationPrefix);
     }
 }

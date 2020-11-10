@@ -5,6 +5,8 @@ import org.sebasi.mep.tool.datastructure.v1.util.HelperHolder;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
+import java.util.Collection;
+
 public abstract class Neuron extends HelperHolder implements Ticker {
 
     public static final int NEURON_INDEX_IF_NOT_SET = -1;
@@ -112,6 +114,8 @@ public abstract class Neuron extends HelperHolder implements Ticker {
     }
 
     public abstract int getNumConnectionsOnDendriticTree();
+
+    public abstract Collection<SynapseOnDendrite> getSynapsesOnDendriticTree();
 
     public abstract NeuronReport getInfoForReport();
 

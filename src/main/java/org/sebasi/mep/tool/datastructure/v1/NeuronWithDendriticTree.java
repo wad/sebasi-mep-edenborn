@@ -4,6 +4,8 @@ import org.sebasi.mep.tool.datastructure.v1.util.Helper;
 import org.sebasi.mep.tool.datastructure.v1.util.NeuronReport;
 import org.sebasi.mep.tool.datastructure.v1.util.TickPriority;
 
+import java.util.Collection;
+
 public abstract class NeuronWithDendriticTree extends Neuron {
 
     public NeuronWithDendriticTree(
@@ -63,6 +65,11 @@ public abstract class NeuronWithDendriticTree extends Neuron {
     @Override
     public int getNumConnectionsOnDendriticTree() {
         return getDendriticTree().getNumConnectedSynapses();
+    }
+
+    @Override
+    public Collection<SynapseOnDendrite> getSynapsesOnDendriticTree() {
+        return getDendriticTree().getSynapses();
     }
 
     @Override
