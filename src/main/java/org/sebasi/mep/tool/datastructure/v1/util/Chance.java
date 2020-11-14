@@ -13,6 +13,12 @@ public class Chance {
         this.denominator = denominator;
     }
 
+    public static Chance fraction(
+            int numerator,
+            int denominator) {
+        return new Chance(numerator, denominator);
+    }
+
     public static Chance percent(int percentage) {
         return new Chance(percentage, 100);
     }
