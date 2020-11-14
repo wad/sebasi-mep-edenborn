@@ -20,36 +20,42 @@ public class PanelInputWithButtons extends ClusterOfNeurons {
         super(helper, label);
     }
 
-    // todo: add button strengths
-
     // todo: stronger presses should make firing profile fire multiple times
 
-    public void pressButton(int inputNeuronIndex) {
+    public void pressButton(
+            int inputNeuronIndex,
+            ButtonPressStrength buttonPressStrength) {
         NeuronForSensoryInput neuron = (NeuronForSensoryInput) getNeuron(inputNeuronIndex);
         if (neuron == null) {
             throw new NeuronConnectionException("Failed to press button with index " + inputNeuronIndex + ".", getLabel());
         }
 
-        pressButton(neuron);
+        pressButton(neuron, buttonPressStrength);
     }
 
-    public void pressButton(String inputNeuronLabel) {
+    public void pressButton(
+            String inputNeuronLabel,
+            ButtonPressStrength buttonPressStrength) {
         NeuronForSensoryInput neuron = (NeuronForSensoryInput) getNeuron(inputNeuronLabel);
         if (neuron == null) {
             throw new NeuronConnectionException("Failed to press button with label " + inputNeuronLabel + ".", getLabel());
         }
 
-        pressButton(neuron);
+        pressButton(neuron, buttonPressStrength);
     }
 
-    void pressButton(NeuronForSensoryInput neuron) {
-        neuron.receiveInputStimulus();
+    void pressButton(
+            NeuronForSensoryInput neuron,
+            ButtonPressStrength buttonPressStrength) {
+        neuron.receiveInputStimulus(buttonPressStrength);
     }
 
-    public void pushRandomButtons(Chance chance) {
+    public void pushRandomButtons(
+            Chance chanceEachButtonIsPressed,
+            ButtonPressStrength buttonPressStrength) {
         for (int neuronIndex = 0; neuronIndex <= getGreatestNeuronIndex(); neuronIndex++) {
-            if (getHelper().getRandomUtil().shouldEventTrigger(chance)) {
-                pressButton(neuronIndex);
+            if (getHelper().getRandomUtil().shouldEventTrigger(chanceEachButtonIsPressed)) {
+                pressButton(neuronIndex, buttonPressStrength);
             }
         }
     }

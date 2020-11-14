@@ -70,6 +70,10 @@ public class NeuronForSensoryInput extends Neuron {
         accumulate(stimulusStrength);
     }
 
+    public void receiveInputStimulus(ButtonPressStrength buttonPressStrength) {
+        accumulate(buttonPressStrength.getStrengthValue());
+    }
+
     @Override
     public int getNumConnectionsOnDendriticTree() {
         return 0;
